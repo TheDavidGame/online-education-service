@@ -1,7 +1,7 @@
 export default {
   gender: 'Пол',
   genders: [
-    { text: 'Мужcкой', value: 'male' },
+    { text: 'Мужской', value: 'male' },
     { text: 'Женский', value: 'female' }
   ],
   name: 'ФИО',
@@ -23,7 +23,7 @@ export default {
   editProfile: 'Редактировать профиль',
   changeAvatar: 'Изменить аватар',
   tabs: [
-    { name: 'Я преподаватель', link: '#tab-1' }
+    { name: 'Я ученик', link: '#tab-1' }
     // { name: 'Бесплатные курсы', link: '#tab-2' },
     // { name: 'Материалы', link: '#tab-3' }
   ],

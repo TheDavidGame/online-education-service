@@ -29,7 +29,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['profileTeacherGet']),
+    ...mapGetters(['profileTeacherGet', 'profileStudentGet']),
     isAuthenticated() {
       return this.$store.getters.isAuthenticated
     }
@@ -43,15 +43,24 @@ export default {
       await this.$store.dispatch('GET_FORM_TEACHER')
     },
     routerValid(link, name) {
-      if (link === '/ru/learningModule/teacher') {
+      if (link === `/${this.$i18n.locale}/learningModule/teacher`) {
         if (this.profileTeacherGet) {
-          // console.log(this.profileTeacherGet)
           this.$router.push({
             name: `learningModule-teacher-teacherProfile___${this.$i18n.locale}`
           })
         } else {
           this.$router.push({
             name: `learningModule-teacher___${this.$i18n.locale}`
+          })
+        }
+      } else if (link === `/${this.$i18n.locale}/learningModule/student`) {
+        if (this.profileStudentGet) {
+          this.$router.push({
+            name: `learningModule-student-studentProfile___${this.$i18n.locale}`
+          })
+        } else {
+          this.$router.push({
+            name: `learningModule-student___${this.$i18n.locale}`
           })
         }
       } else {

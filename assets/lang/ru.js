@@ -3,6 +3,7 @@
  * Written by vlad on 19/11/2020
  */
 
+import studentProfile from './ru/studentProfile'
 import auth from '~/assets/lang/ru/auth.js'
 import barting from '~/assets/lang/ru/barting.js'
 import board from '~/assets/lang/ru/board.js'
@@ -15,6 +16,7 @@ import teacherProfile from '~/assets/lang/ru/teacherProfile'
 import student from '~/assets/lang/ru/student'
 
 export default {
+  studentProfile,
   student,
   auth,
   barting,

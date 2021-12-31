@@ -463,7 +463,7 @@ export default {
     },
     nextPage() {
       this.$router.push({
-        name: `learningModule-teacher___${this.$i18n.locale}` // добавить профиль студента
+        name: `learningModule-student-studentProfile___${this.$i18n.locale}`
       })
     },
     getCountries: lan => {
