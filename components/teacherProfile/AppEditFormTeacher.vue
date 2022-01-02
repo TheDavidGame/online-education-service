@@ -405,8 +405,8 @@ export default {
       city: '',
       birthday: '',
       sexItem: [
-        this.$t('teacherProfile.genders[0].text'),
-        this.$t('teacherProfile.genders[1].text')
+        this.$t('teacherProfile.sexItemWoman'),
+        this.$t('teacherProfile.sexItemMan')
       ],
       cityItems: [],
       cityLessonItems: [],
