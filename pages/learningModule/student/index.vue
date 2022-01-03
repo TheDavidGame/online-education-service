@@ -456,14 +456,14 @@ export default {
         // this.cancelingAdCreationDialog = true
         this.sendFormStudent(formData)
         console.log(formData)
-        // setTimeout(() => this.nextPage(), 3000)
+        setTimeout(() => this.nextPage(), 3000)
       } else {
         alert(this.$t('learningModule.alert'))
       }
     },
     nextPage() {
       this.$router.push({
-        name: `learningModule-student-studentProfile___${this.$i18n.locale}`
+        name: `learningModule-student-studentProfile___ru`
       })
     },
     getCountries: lan => {

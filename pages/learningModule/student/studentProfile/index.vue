@@ -129,16 +129,18 @@ export default {
     // this.fetchUser()
   },
   methods: {
-    async getForm() {
-      await this.$store.dispatch('GET_FORM_STUDENT')
+    validStudent() {
+      console.log(this.profileStudentGet)
       if (!this.profileStudentGet) {
         this.$router.push({
           name: `learningModule___ru`
         })
         // this.$router.push('learningModule___ru')
       }
-      // console.log(this.profileStudentGet.photo[0])
-
+    },
+    async getForm() {
+      await this.$store.dispatch('GET_FORM_STUDENT')
+      this.validStudent()
       this.isLoading = false
     }
     // async getFeedBacks() {

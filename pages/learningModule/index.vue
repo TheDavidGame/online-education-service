@@ -36,11 +36,15 @@ export default {
   },
   mounted() {
     this.getTeacher()
+    this.getStudent()
   },
 
   methods: {
     async getTeacher() {
       await this.$store.dispatch('GET_FORM_TEACHER')
+    },
+    async getStudent() {
+      await this.$store.dispatch('GET_FORM_STUDENT')
     },
     routerValid(link, name) {
       if (link === `/${this.$i18n.locale}/learningModule/teacher`) {

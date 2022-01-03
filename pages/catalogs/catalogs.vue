@@ -17,14 +17,57 @@
         </v-toolbar>
 
         <v-card-text>
-          <h1 v-if="product.discountBool == true" class="card_text">
-            <p class="oldPrice">{{ product.oldPrice }} шек.</p>
-            <p style="display: inline-block">{{ product.price }} шек.</p>
+          <h1
+            v-if="
+              product.discountBool == true &&
+              currentRouteName.substr(-2) === 'ru'
+            "
+            class="card_text"
+          >
+            <!-- <p class="oldPrice">{{ product.oldPrice }} шек.</p> -->
+            <p style="display: inline-block">{{ product.price.ru.value }}</p>
+            <p style="display: inline-block">{{ product.price.ru.currency }}</p>
           </h1>
 
-          <h1 v-else class="price">
-            <p style="margin-left: 50px">{{ product.price }} шек.</p>
+          <h1
+            v-if="
+              product.discountBool == false &&
+              currentRouteName.substr(-2) === 'ru'
+            "
+            class="price"
+          >
+            <!-- <p class="oldPrice">{{ product.oldPrice }} шек.</p> -->
+            <p style="display: inline-block">{{ product.price.ru.value }}</p>
+            <p style="display: inline-block">{{ product.price.ru.currency }}</p>
           </h1>
+
+          <h1
+            v-if="
+              product.discountBool == true &&
+              currentRouteName.substr(-2) === 'he'
+            "
+            class="card_text"
+          >
+            <!-- <p class="oldPrice">{{ product.oldPrice }} шек.</p> -->
+            <p style="display: inline-block">{{ product.price.he.value }}</p>
+            <p style="display: inline-block">{{ product.price.he.currency }}</p>
+          </h1>
+
+          <h1
+            v-if="
+              product.discountBool == false &&
+              currentRouteName.substr(-2) === 'he'
+            "
+            class="price"
+          >
+            <!-- <p class="oldPrice">{{ product.oldPrice }} шек.</p> -->
+            <p style="display: inline-block">{{ product.price.he.value }}</p>
+            <p style="display: inline-block">{{ product.price.he.currency }}</p>
+          </h1>
+
+          <!-- <h1 v-else class="price">
+            <p style="margin-left: 50px">{{ product.price }} шек.</p>
+          </h1> -->
           <h2 style="padding: 1.5rem 4.5rem">{{ product.time }}</h2>
 
           <h4 class="description">
@@ -57,11 +100,19 @@ export default {
     // payPal
   },
   data() {
-    return {}
+    return {
+      second: {}
+    }
   },
 
   computed: {
-    ...mapGetters(['getProducts'])
+    ...mapGetters(['getProducts']),
+    currentRouteName() {
+      return this.$route.name
+    }
+  },
+  mounted() {
+    console.log(this.getProducts)
   },
   methods: {
     // nextPage(product){

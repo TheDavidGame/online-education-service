@@ -25,7 +25,7 @@ export default {
     state.feedbacks = feedbacks
   },
   SET_PRODUCTS: (state, products) => {
-    state.products = products
+    state.productsCatalogs = products
   },
   SET_PROFILE_TEACHER: (state, profile) => {
     state.profileTeacher = profile
