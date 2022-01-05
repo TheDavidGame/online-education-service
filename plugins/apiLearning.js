@@ -11,5 +11,5 @@ export default function ({ $axios }, inject) {
   const api = $axios.create({
     baseURL: `${process.env.LEARNING_API}/api/`
   })
-  inject('apiSecond', api)
+  inject('apiLearning', api)
 }

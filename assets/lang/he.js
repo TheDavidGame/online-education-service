@@ -2,6 +2,7 @@
  *
  * Written by vlad on 19/11/2020
  */
+import studentProfile from '~/assets/lang/he/studentProfile'
 import auth from '~/assets/lang/he/auth.js'
 import barting from '~/assets/lang/he/barting.js'
 import board from '~/assets/lang/he/board.js'
@@ -15,12 +16,15 @@ import teacherProfile from '~/assets/lang/he/teacherProfile'
 export default {
   learningModule,
   teacherProfile,
+  studentProfile,
   auth,
   barting,
   board,
   breadcrumbs,
   profile,
   scream,
+  notFound: 'לא נמצא',
+  pay: 'לקנות',
   notifications: 'התראות',
   noNotifications: 'אין לך התראות חדשות',
   hello: 'שלום',

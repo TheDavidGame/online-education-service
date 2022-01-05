@@ -1,35 +1,41 @@
 <template>
-  <v-row justify="center" style="margin-top: 10px">
-    <v-card v-if="product" class="mx-auto">
+  <v-row v-if="!isLoading" justify="center" style="margin-top: 10px">
+    <v-card v-if="!error" class="mx-auto">
       <v-toolbar v-if="product.discountBool == false" color="#5a88b0" dark
         ><h2>
           {{ product.title }}
         </h2>
       </v-toolbar>
-      <v-toolbar v-else color="#2fde55" dark
-        ><h2>{{ product.title }}</h2>
+      <v-toolbar v-else color="#2fde55" dark>
+        <h2>{{ product.title }}</h2>
+        <p v-if="product.discountBool" class="discount">
+          -{{ product.discount }}%
+        </p>
       </v-toolbar>
 
       <v-card-text>
         <h1 v-if="product.discountBool == true" class="card_text">
           <p class="oldPrice">
-            Старая цена: {{ product.price.value }}
-            {{ product.price.currency }}
+            <!-- Старая цена:  -->
+            {{ product.price }}
+            {{ product.currency }}
           </p>
           <p style="display: inline-block" class="price">
-            Новая цена:
+            <!-- Новая цена: -->
             {{
-              product.price.value -
-              (product.price.value / 100) * product.discount
+              Math.floor(
+                product.price - (product.price / 100) * product.discount
+              )
             }}
-            {{ product.price.currency }}
+            {{ product.currency }}
           </p>
         </h1>
 
         <h1 v-else class="price">
           <p>
-            Цена: {{ product.price ? product.price.value : '' }}
-            {{ product.price ? product.price.currency : '' }}
+            <!-- Цена:  -->
+            {{ product.price }}
+            {{ product.currency }}
           </p>
         </h1>
         <h2 style="padding: 1rem 0">{{ product.time }}</h2>
@@ -40,8 +46,8 @@
       </v-card-text>
       <div ref="paypal" class="btn_pay"></div>
     </v-card>
-    <v-card v-else class="mx-auto">
-      <h1>Error</h1>
+    <v-card v-else class="mx-auto errorMsg">
+      <h2>{{ $t('notFound') }}</h2>
     </v-card>
   </v-row>
 </template>
@@ -53,40 +59,56 @@ export default {
   name: 'HelloWorld',
   data() {
     return {
-      loaded: false,
+      isLoading: true,
+      error: false,
       paidFor: false,
       product: {},
       products: []
     }
   },
   computed: {
-    ...mapGetters(['productsGet'])
+    ...mapGetters(['getProducts']),
+    currentRouteName() {
+      return this.$route.name
+    }
   },
-  mounted() {
+  async mounted() {
+    await this.$store.dispatch('GET_PRODUCTS')
     this.getProduct()
+    this.isLoading = false
   },
   methods: {
-    async getProduct() {
-      await this.$store.dispatch('GET_PRODUCTS')
-      this.products = this.productsGet
+    getProduct() {
+      this.products = this.getProducts
 
+      const ln = this.currentRouteName.substr(-2)
       const id = this.$route.params.id
       if (id) {
-        const product = this.products.find(x => Number(id) === x.id)
-        this.product = product
-        this.product.price = this.product.price.en // указывать текущий язык для валюты
-        console.log(this.product)
+        try {
+          const product = this.products.find(x => Number(id) === x.id)
+          this.product = {
+            title: product.title,
+            time: product.time,
+            description: product.description,
+            id: product.id,
+            discountBool: product.discountBool,
+            discount: product.discount,
+            ...product[ln]
+          }
 
-        const script = document.createElement('script')
-        script.src =
-          'https://www.paypal.com/sdk/js?client-id=ARHn0pYUardbaEFAeo7uia3Jqd6HKsQCDfJUdUKNVbUWhJeItAmM8grqflYl9Xa6MYdWsQlF0bZRCqIQ'
-        script.addEventListener('load', this.setLoaded)
-        document.body.appendChild(script)
+          const script = document.createElement('script')
+          script.src =
+            'https://www.paypal.com/sdk/js?client-id=ARHn0pYUardbaEFAeo7uia3Jqd6HKsQCDfJUdUKNVbUWhJeItAmM8grqflYl9Xa6MYdWsQlF0bZRCqIQ'
+          script.addEventListener('load', this.setLoaded)
+          document.body.appendChild(script)
+        } catch (e) {
+          console.log(e)
+          this.error = true
+        }
       }
     },
 
     setLoaded() {
-      this.loaded = true
       window.paypal
         .Buttons({
           createOrder: (data, actions) => {
@@ -151,5 +173,20 @@ export default {
 }
 .description {
   font-size: 20px;
+}
+.errorMsg {
+  padding: 1rem;
+  background-color: #fff;
+}
+.discount {
+  margin: 0;
+  position: absolute;
+  right: 0%;
+  height: 100%;
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #604ed3;
 }
 </style>

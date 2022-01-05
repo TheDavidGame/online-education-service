@@ -60,7 +60,7 @@ export default {
     this.$store.commit('RESET_SCREAMS')
   },
   async mounted() {
-    this.getProducts()
+    // this.getProducts()
     if (!this.screamList.length) {
       await this.$store.dispatch('GET_LAST_SCREAMS', null)
     }

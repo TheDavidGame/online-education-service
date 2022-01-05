@@ -89,6 +89,7 @@
               v-model="dataTeacher.phone"
               :prepend-inner-icon="svg.phone"
               :rules="phoneRules"
+              placeholder="89999999999"
               clearable
               clear-icon="mdi-close-circle"
               :label="$t('teacherProfile.phone')"

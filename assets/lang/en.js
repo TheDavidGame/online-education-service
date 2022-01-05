@@ -17,6 +17,8 @@ export default {
   breadcrumbs,
   profile,
   scream,
+  notFound: 'Not found',
+  pay: 'To pay',
   notifications: 'Notifications',
   noNotifications: 'You have no new notifications',
   hello: 'Hello',

@@ -178,7 +178,7 @@ export default {
     '@/plugins/day.js',
     '@/plugins/api.js',
     '@/plugins/api_board.js',
-    '@/plugins/apiSecond.js'
+    '@/plugins/apiLearning.js'
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
@@ -189,7 +189,7 @@ export default {
   },
 
   proxy: {
-    '/apiSecond/': {
+    '/apiLearning/': {
       target: `${process.env.LEARNING_API}`,
       changeOrigin: true
     },

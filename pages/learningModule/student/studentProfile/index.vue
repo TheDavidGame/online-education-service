@@ -22,7 +22,7 @@
     </v-row>
     <v-tabs-items v-model="tab">
       <v-tab-item value="tab-1">
-        <v-row style="background: #e3f2fd">
+        <v-row v-if="!isLoading" style="background: #e3f2fd">
           <v-col cols="12" md="8" order="1" order-md="1" class="mt-3">
             <v-card>
               <AppEditFormStudent
@@ -123,10 +123,11 @@ export default {
       'feedbacksGet'
     ])
   },
-  mounted() {
-    this.getForm()
+  async mounted() {
+    await this.getForm()
     // this.getFeedBacks()
     // this.fetchUser()
+    this.isLoading = false
   },
   methods: {
     validStudent() {
@@ -141,7 +142,6 @@ export default {
     async getForm() {
       await this.$store.dispatch('GET_FORM_STUDENT')
       this.validStudent()
-      this.isLoading = false
     }
     // async getFeedBacks() {
     //   await this.$store.dispatch('GET_FEEDBACKS')

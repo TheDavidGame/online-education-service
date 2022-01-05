@@ -3,7 +3,7 @@
  * Written by vlad on 19/11/2020
  */
 
-import studentProfile from './ru/studentProfile'
+import studentProfile from '~/assets/lang/ru/studentProfile'
 import auth from '~/assets/lang/ru/auth.js'
 import barting from '~/assets/lang/ru/barting.js'
 import board from '~/assets/lang/ru/board.js'
@@ -26,6 +26,8 @@ export default {
   breadcrumbs,
   profile,
   scream,
+  notFound: 'Не найдено',
+  pay: 'Купить',
   notifications: 'Уведомления',
   noNotifications: 'У вас нет новых уведомлений',
   hello: 'Привет',

@@ -162,6 +162,7 @@
               <v-text-field
                 v-model="formTeacher.phone"
                 :rules="phoneRules"
+                placeholder="89999999999"
                 :label="$t('learningModule.phone')"
                 required
               ></v-text-field>

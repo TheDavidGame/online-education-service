@@ -6,7 +6,7 @@
         :key="link.routing"
         x-large
         color="primary"
-        @click="routerValid(link.routing, link.name)"
+        @click="routerValid(link.routing, link.key)"
       >
         <!-- @click="$router.push(link.routing)" -->
         <!-- routerValid(link.routing,link.name) -->
@@ -46,8 +46,9 @@ export default {
     async getStudent() {
       await this.$store.dispatch('GET_FORM_STUDENT')
     },
-    routerValid(link, name) {
-      if (link === `/${this.$i18n.locale}/learningModule/teacher`) {
+    routerValid(link, key) {
+      console.log(key)
+      if (key === 'teacher') {
         if (this.profileTeacherGet) {
           this.$router.push({
             name: `learningModule-teacher-teacherProfile___${this.$i18n.locale}`
@@ -57,7 +58,7 @@ export default {
             name: `learningModule-teacher___${this.$i18n.locale}`
           })
         }
-      } else if (link === `/${this.$i18n.locale}/learningModule/student`) {
+      } else if (key === 'student') {
         if (this.profileStudentGet) {
           this.$router.push({
             name: `learningModule-student-studentProfile___${this.$i18n.locale}`

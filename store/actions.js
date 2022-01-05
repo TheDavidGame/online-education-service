@@ -5,14 +5,14 @@ import axios from 'axios'
 
 export default {
   async GET_PRODUCTS({ commit }) {
-    await this.$apiSecond.get(`products`).then(res => {
+    await this.$apiLearning.get(`products`).then(res => {
       commit('SET_PRODUCTS', res.data.data)
     })
   },
   async PAYMENT_SUCCESS({ commit }, formData) {
     const token = localStorage.getItem('auth._token.local')
 
-    await this.$apiSecond
+    await this.$apiLearning
       .post('payment/success', formData, {
         headers: {
           Authorization: `${token}`
@@ -27,7 +27,7 @@ export default {
     const token = localStorage.getItem('auth._token.local')
 
     try {
-      await this.$apiSecond
+      await this.$apiLearning
         .get(`student`, {
           headers: {
             Authorization: `${token}`
@@ -47,7 +47,7 @@ export default {
   async AUTH_FORM_STUDENT({ commit }, formData) {
     const token = localStorage.getItem('auth._token.local')
 
-    await this.$apiSecond
+    await this.$apiLearning
       .post('student', formData, {
         headers: {
           Authorization: `${token}`
@@ -65,7 +65,7 @@ export default {
   async PUT_STUDENT({ commit }, formData) {
     const token = localStorage.getItem('auth._token.local')
     // const data = { data: formData }
-    await this.$apiSecond
+    await this.$apiLearning
       .put(`student`, formData, {
         headers: {
           Authorization: `${token}`
@@ -80,7 +80,7 @@ export default {
   async PUT_TEACHER({ commit }, formData) {
     const token = localStorage.getItem('auth._token.local')
     // const data = { data: formData }
-    await this.$apiSecond
+    await this.$apiLearning
       .put(`teacher`, formData, {
         headers: {
           Authorization: `${token}`
@@ -95,7 +95,7 @@ export default {
   async GET_FEEDBACKS({ commit }) {
     const token = localStorage.getItem('auth._token.local')
 
-    await this.$apiSecond
+    await this.$apiLearning
       .get(`feedbacks`, {
         headers: {
           Authorization: `${token}`
@@ -108,7 +108,7 @@ export default {
   async AUTH_FORM_TEACHER({ commit }, formData) {
     const token = localStorage.getItem('auth._token.local')
 
-    await this.$apiSecond
+    await this.$apiLearning
       .post('teacher', formData, {
         headers: {
           Authorization: `${token}`
@@ -127,7 +127,7 @@ export default {
     const token = localStorage.getItem('auth._token.local')
 
     try {
-      await this.$apiSecond
+      await this.$apiLearning
         .get(`teacher`, {
           headers: {
             Authorization: `${token}`

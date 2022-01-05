@@ -11,7 +11,7 @@
               :rules="fullNameRules"
               :prepend-inner-icon="svg.user"
               clear-icon="mdi-close-circle"
-              :label="$t('teacherProfile.name')"
+              :label="$t('studentProfile.name')"
               :disabled="disabled"
             ></v-text-field>
           </v-col>
@@ -21,7 +21,7 @@
               v-model="dataStudent.sex"
               :prepend-inner-icon="svg.gender"
               :items="sexItem"
-              :label="$t('teacherProfile.gender')"
+              :label="$t('studentProfile.gender')"
               :disabled="disabled"
             ></v-select>
           </v-col>
@@ -37,7 +37,7 @@
                 <v-text-field
                   v-model="birthday"
                   :disabled="disabled"
-                  :label="$t('teacherProfile.birthday')"
+                  :label="$t('studentProfile.birthday')"
                   clearable
                   clear-icon="mdi-close-circle"
                   :prepend-inner-icon="svg.calendarStar"
@@ -58,10 +58,10 @@
           <v-col cols="12" md="4">
             <v-autocomplete
               v-model="country"
-              :rules="[() => !!country || $t('teacherProfile.fieldRules')]"
+              :rules="[() => !!country || $t('studentProfile.fieldRules')]"
               :items="countryNames"
               :prepend-inner-icon="svg.bornMap"
-              :label="$t('teacherProfile.birthplace')"
+              :label="$t('studentProfile.birthplace')"
               :disabled="disabled"
               @input="onInput"
             ></v-autocomplete>
@@ -69,8 +69,8 @@
           <v-col cols="12" md="4">
             <v-text-field
               v-model="city"
-              :label="$t('teacherProfile.location')"
-              :rules="[v => !!v || $t('teacherProfile.fieldRules')]"
+              :label="$t('studentProfile.location')"
+              :rules="[v => !!v || $t('studentProfile.fieldRules')]"
               clearable
               clear-icon="mdi-close-circle"
               :disabled="disabled"
@@ -90,8 +90,9 @@
               :prepend-inner-icon="svg.phone"
               :rules="phoneRules"
               clearable
+              placeholder="89999999999"
               clear-icon="mdi-close-circle"
-              :label="$t('teacherProfile.phone')"
+              :label="$t('studentProfile.phone')"
               :disabled="disabled"
             ></v-text-field>
           </v-col>
@@ -103,7 +104,7 @@
               :rules="emailRules"
               clearable
               clear-icon="mdi-close-circle"
-              :label="$t('teacherProfile.email')"
+              :label="$t('studentProfile.email')"
               :disabled="disabled"
             ></v-text-field>
           </v-col>
@@ -116,7 +117,7 @@
               row-height="10"
               :prepend-inner-icon="svg.info"
               clear-icon="mdi-close-circle"
-              :label="$t('teacherProfile.contactInformation')"
+              :label="$t('studentProfile.contactInformation')"
               :disabled="disabled"
             ></v-textarea>
           </v-col>
@@ -126,7 +127,7 @@
               v-model="dataStudent.education"
               :items="educationItems"
               :prepend-inner-icon="svg.diplom"
-              :label="$t('teacherProfile.education')"
+              :label="$t('studentProfile.education')"
               :disabled="disabled"
             ></v-select>
           </v-col>
@@ -154,7 +155,7 @@
               row-height="10"
               :prepend-inner-icon="svg.human"
               clear-icon="mdi-close-circle"
-              :label="$t('teacherProfile.about')"
+              :label="$t('studentProfile.about')"
               :disabled="disabled"
             ></v-textarea>
           </v-col>
@@ -303,10 +304,10 @@
               text
               @click="cancelEdit()"
             >
-              {{ $t('teacherProfile.cancel') }}
+              {{ $t('studentProfile.cancel') }}
             </v-btn>
             <v-btn color="primary" :loading="loadingForm" @click="save">
-              {{ $t('teacherProfile.save') }}
+              {{ $t('studentProfile.save') }}
             </v-btn>
           </v-card-actions>
         </v-col>
@@ -365,7 +366,6 @@ export default {
   },
   data() {
     return {
-      visability: this.$t('profile.visibilityTypes'),
       uploadRules: [
         value => !value || value.size < 2000000 || this.$t('imageLegthErr')
       ],
@@ -405,8 +405,8 @@ export default {
       city: '',
       birthday: '',
       sexItem: [
-        this.$t('teacherProfile.sexItemWoman'),
-        this.$t('teacherProfile.sexItemMan')
+        this.$t('studentProfile.sexItemWoman'),
+        this.$t('studentProfile.sexItemMan')
       ],
       cityItems: [],
       cityLessonItems: [],
@@ -414,14 +414,14 @@ export default {
       cities: [],
       CurrencyItem: ['USD', 'RUB', 'EUR'],
       educationItems: [
-        this.$t('teacherProfile.educationitemsHigher'),
-        this.$t('teacherProfile.educationitemsInitialGeneral'),
+        this.$t('studentProfile.educationitemsHigher'),
+        this.$t('studentProfile.educationitemsInitialGeneral'),
 
-        this.$t('teacherProfile.educationitemsLowerSecondary'),
+        this.$t('studentProfile.educationitemsLowerSecondary'),
 
-        this.$t('teacherProfile.educationitemsCompleteSecondary'),
+        this.$t('studentProfile.educationitemsCompleteSecondary'),
 
-        this.$t('teacherProfile.educationitemsSecondaryVocational')
+        this.$t('studentProfile.educationitemsSecondaryVocational')
       ],
       countryNames: [],
       countryCode: ''
@@ -437,29 +437,29 @@ export default {
     },
     fullNameRules() {
       return [
-        v => !!v || this.$t('teacherProfile.fieldRules'),
-        v => (v && v.length <= 50) || this.$t('teacherProfile.nameRulesPattern')
+        v => !!v || this.$t('studentProfile.fieldRules'),
+        v => (v && v.length <= 50) || this.$t('studentProfile.nameRulesPattern')
       ]
     },
     emailRules() {
       return [
-        v => !!v || this.$t('teacherProfile.emailRules'),
-        v => /.+@.+\..+/.test(v) || this.$t('teacherProfile.rulesPattern')
+        v => !!v || this.$t('studentProfile.emailRules'),
+        v => /.+@.+\..+/.test(v) || this.$t('studentProfile.rulesPattern')
       ]
     },
     phoneRules() {
       return [
-        v => !!v || this.$t('teacherProfile.phoneRules'),
+        v => !!v || this.$t('studentProfile.phoneRules'),
         v => {
           const pattern = /^(\d){1,11}$/g
-          return pattern.test(v) || this.$t('teacherProfile.rulesPattern')
+          return pattern.test(v) || this.$t('studentProfile.rulesPattern')
         }
       ]
     },
     numRules() {
       return [
-        v => !!v || this.$t('teacherProfile.fieldRules'),
-        v => /^\d+$/.test(v) || this.$t('teacherProfile.rulesPattern')
+        v => !!v || this.$t('studentProfile.fieldRules'),
+        v => /^\d+$/.test(v) || this.$t('studentProfile.rulesPattern')
       ]
     }
   },
