@@ -1,10 +1,7 @@
 export default {
   gender: 'מגדר',
-  genders: [
-    { text: 'זכר', value: 'male' },
-    { text: 'נקבה', value: 'female' }
-  ],
-
+  sexItemMan: 'זכר',
+  sexItemWoman: 'נקבה',
   name: 'ם פרטי',
   citiesForLessons: 'ערים זמינים להעברת השיעורים',
   location: 'עיר מגורים',

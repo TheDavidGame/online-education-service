@@ -1,9 +1,7 @@
 export default {
   gender: 'Пол',
-  genders: [
-    { text: 'Мужской', value: 'male' },
-    { text: 'Женский', value: 'female' }
-  ],
+  sexItemMan: 'Мужской',
+  sexItemWoman: 'Женский',
   name: 'ФИО',
   citiesForLessons: 'Города проведения уроков',
   location: 'Город проживания',

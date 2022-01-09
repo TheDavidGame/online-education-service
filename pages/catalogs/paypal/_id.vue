@@ -119,7 +119,9 @@ export default {
                   description: this.product.description,
                   amount: {
                     currency_code: this.product.price.currency,
-                    value: this.product.price.value
+                    value: this.product.price.discountBool
+                      ? this.product.discountPrice
+                      : this.product.price
                   }
                 }
               ]

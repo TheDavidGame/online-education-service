@@ -23,7 +23,7 @@
     <v-tabs-items v-model="tab">
       <v-tab-item value="tab-1">
         <v-row v-if="!isLoading" style="background: #e3f2fd">
-          <v-col cols="12" md="8" order="1" order-md="1" class="mt-3">
+          <v-col cols="12" md="8" order="1" order-md="1" class="mt-n3">
             <v-card>
               <AppEditFormTeacher
                 v-if="isAuthenticated && userCredentials"
@@ -50,6 +50,11 @@
               <AppDisabledProfile
                 v-show="!isAuthenticated"
               ></AppDisabledProfile>
+            </v-card>
+
+            <v-card cols="12" md="4" order="-1" order-md="2" class="mt-8">
+              <AppSubscriptionTeacher :data="profileTeacherGet">
+              </AppSubscriptionTeacher>
             </v-card>
           </v-col>
         </v-row>
@@ -93,6 +98,7 @@
 import AppProfileTeacher from '@/components/teacherProfile/AppProfileTeacher.vue'
 import AppEditFormTeacher from '@/components/teacherProfile/AppEditFormTeacher.vue'
 import AppDisabledProfile from '@/components/Profile/AppDisabledProfile.vue'
+import AppSubscriptionTeacher from '@/components/teacherProfile/AppSubscriptionTeacher.vue'
 // import reviews from '@/components/teacherProfile/reviews.vue'
 import topCourses from '@/components/teacherProfile/freeCourses/topCourses.vue'
 import botCourses from '@/components/teacherProfile/freeCourses/botCourses.vue'
@@ -103,6 +109,7 @@ export default {
   middleware: 'auth',
   components: {
     AppProfileTeacher,
+    AppSubscriptionTeacher,
     AppDisabledProfile,
     AppEditFormTeacher,
     topCourses,

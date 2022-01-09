@@ -23,7 +23,7 @@
     <v-tabs-items v-model="tab">
       <v-tab-item value="tab-1">
         <v-row v-if="!isLoading" style="background: #e3f2fd">
-          <v-col cols="12" md="8" order="1" order-md="1" class="mt-3">
+          <v-col cols="12" md="8" order="1" order-md="1" class="mt-n3">
             <v-card>
               <AppEditFormStudent
                 v-if="isAuthenticated && userCredentials"
@@ -131,7 +131,6 @@ export default {
   },
   methods: {
     validStudent() {
-      console.log(this.profileStudentGet)
       if (!this.profileStudentGet) {
         this.$router.push({
           name: `learningModule___ru`
