@@ -21,8 +21,8 @@ export default {
   editProfile: 'Редактировать профиль',
   changeAvatar: 'Изменить аватар',
   tabs: [
-    { name: 'Я ученик', link: '#tab-1' }
-    // { name: 'Бесплатные курсы', link: '#tab-2' },
+    { name: 'Я ученик', link: '#tab-1' },
+    { name: 'Профиль преподавателя от лица ученика', link: '#tab-2' }
     // { name: 'Материалы', link: '#tab-3' }
   ],
   imageLegthErr: 'Файл фото не должен быть больше 10 MB!',
