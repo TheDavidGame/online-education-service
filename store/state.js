@@ -59,6 +59,7 @@ export default () => ({
   productsCatalogs: {},
   profileStudent: {},
   profileTeacher: {},
+  listTeachers: [],
   infinitiDataToLoad: true,
   error: null,
   path: '',

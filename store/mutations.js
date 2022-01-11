@@ -4,6 +4,9 @@ export default {
   setUser(state, user) {
     state.user = user
   },
+  SET_TEACHERS(state, teachers) {
+    state.listTeachers = teachers
+  },
   SOCKET_newMessage(state, msg) {
     state.messages = [...state.messages, msg]
   },

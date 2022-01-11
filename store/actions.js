@@ -4,6 +4,11 @@ import axios from 'axios'
 // import Api from '../plugins/api'
 
 export default {
+  async GET_TEACHERS({ commit }) {
+    await this.$apiLearning.get(`teachers`).then(res => {
+      commit('SET_TEACHERS', res.data.data)
+    })
+  },
   async GET_PRODUCTS({ commit }) {
     await this.$apiLearning.get(`products`).then(res => {
       commit('SET_PRODUCTS', res.data.data)

@@ -51,6 +51,7 @@
                 v-show="!isAuthenticated"
               ></AppDisabledProfile>
             </v-card>
+            <v-btn class="my-8" @click="nextPage"> Поиск преподавателя </v-btn>
           </v-col>
         </v-row>
 
@@ -112,7 +113,6 @@ export default {
     ...mapState(['status']),
     ...mapGetters([
       'profileStudentGet',
-      'profileTeacherGet',
       'userCredentials',
       'loadingUI',
       'isAuthenticated',
@@ -126,6 +126,11 @@ export default {
     this.isLoading = false
   },
   methods: {
+    nextPage() {
+      this.$router.push({
+        name: `learningModule-student-searchTeacher___ru`
+      })
+    },
     validStudent() {
       if (!this.profileStudentGet) {
         this.$router.push({
