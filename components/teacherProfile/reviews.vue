@@ -44,22 +44,29 @@
       </v-dialog>
     </div> -->
 
-    <div
-      v-for="(sub, i) in data"
-      :key="i"
-      class="my-12"
-      style="margin-right: 220px"
-    >
+    <div v-for="(sub, i) in data" :key="i" class="my-12">
       <v-card
         class="mx-auto elevation-20"
         color="primary"
         dark
         disabled
-        style="max-width: 800px"
+        style="max-width: 850px"
       >
         <v-row justify="space-between">
-          <v-col cols="3" md="3">
-            <div class="ml-8 mt-5">
+          <v-col cols="12" md="3" xs="4">
+            <v-card-title>
+              <v-row>
+                <v-col cols="10" class="text-h7 pa-4">
+                  {{ sub.createdName }}
+                </v-col>
+                <v-col class="text-h7 pa-4" style="font-size: 15px">
+                  {{ sub.createdAt }}
+                </v-col>
+              </v-row>
+            </v-card-title>
+          </v-col>
+          <v-col cols="12" md="4">
+            <div class="ma-8">
               <v-row>
                 <v-rating
                   v-model="sub.rating"
@@ -75,20 +82,10 @@
                 >
               </v-row>
             </div>
-
-            <v-card-title>
-              <div>
-                <div class="text-h7">{{ sub.createdName }}</div>
-                <div class="text-h7" style="font-size: 15px">
-                  {{ sub.createdAt }}
-                </div>
-              </div>
-            </v-card-title>
           </v-col>
 
           <v-img
             class="shrink ma-4 mr-8"
-            contain
             height="125px"
             src="https://cdn.vuetifyjs.com/images/cards/halcyon.png"
             style="flex-basis: 125px"

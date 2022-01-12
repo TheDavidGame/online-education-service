@@ -1,19 +1,19 @@
 <template>
   <v-container v-if="!isLoading">
-    <v-card max-width="1200" height="1100">
+    <v-card max-width="1200">
       <v-img
         class="white--text align-end"
-        height="350px"
-        src="https://avatars.mds.yandex.net/get-zen_doc/4303740/pub_605fa616b1f696367c469a53_605fa9db188a9f73594cefdc/scale_1200"
+        height="100%"
+        :src="require('@/assets/teacherProfile.jpg')"
       >
-        <v-row class="my-n8">
-          <v-col cols="6" md="4" class="ml-8">
-            <v-avatar size="200">
-              <v-img class="relative ma-8 card-img" :src="profileImg"></v-img>
+        <v-row align="end" class="fill-height">
+          <v-col cols="12" md="4" sm="4" xs="4" class="ml-8">
+            <v-avatar size="230">
+              <v-img class="ma-8 profile" :src="profileImg"></v-img>
             </v-avatar>
           </v-col>
 
-          <v-col cols="6" md="4">
+          <v-col cols="12" md="4" sm="4" xs="4">
             <v-row class="py-7 justify-center">
               <v-col cols="7">
                 <v-rating
@@ -55,16 +55,15 @@
 
       <v-card-text class="text--primary text-center">
         <v-row class="justify-center">
-          <v-col cols="12" md="7">
+          <v-col cols="12" md="12">
             <v-card
-              width="500"
+              width="100%"
               outlined
               style="
                 background: #79a6f2;
                 border: thick double #32a1ce;
                 font-size: 16px;
               "
-              class="ml-9"
             >
               <v-row style="text-align: left">
                 <v-col cols="6">
@@ -87,14 +86,11 @@
             v-for="(sub, i) in dataTeacher.subjects"
             :key="i"
             cols="12"
-            class="pr-14"
+            md="4"
             sm="4"
+            class="pr-14"
           >
-            <v-card
-              height="auto"
-              class="mx-auto pa-5"
-              style="background: #a9c9ff"
-            >
+            <v-card height="auto" width="auto" style="background: #a9c9ff">
               <v-text-field
                 v-model="sub.name"
                 clearable
@@ -147,7 +143,7 @@
     </v-card>
     <reviews
       style="background: #e3f2fd"
-      class="px-16 mx-16 pt-10"
+      class="px-auto mx-auto pt-10"
       :data="feedbacks"
     >
     </reviews>

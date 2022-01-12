@@ -225,6 +225,7 @@
         </v-col>
         <v-col cols="12" md="6" class="pa-5 my-n2 ms-5">
           <div v-for="(sub, i) in dataTeacher.subjects" :key="i">
+            <v-divider v-if="i >= 1" class="my-4"></v-divider>
             <v-text-field
               v-model="sub.name"
               :prepend-inner-icon="svg.range"
