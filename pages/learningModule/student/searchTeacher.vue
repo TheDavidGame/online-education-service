@@ -1,27 +1,35 @@
 <template>
   <header>
-    <div class="inner">
-      <span style="font-size: 200%"
-        >Индивидуальные онлайн-занятия с преподавателем</span
-      ><br />
+    <v-form ref="form" v-model="valid" lazy-validation>
+      <div class="inner">
+        <span style="font-size: 200%"
+          >Индивидуальные онлайн-занятия с преподавателем</span
+        ><br />
 
-      <span class="main-text"> Найти преподавателя прямо сейчас: </span>
-      <div class="fields">
-        <v-select
-          background-color="white"
-          label="Предмет"
-          filled
-          :items="itemSub"
-        ></v-select>
-        <v-select
-          :items="itemTeacher"
-          background-color="white"
-          label="Город преподавателя"
-          filled
-        ></v-select>
+        <span class="main-text"> Найти преподавателя прямо сейчас: </span>
+        <div class="fields">
+          <v-select
+            v-model="name"
+            background-color="white"
+            label="Предмет"
+            filled
+            :rules="[v => !!v || 'Заполните поле']"
+            :items="itemSub"
+            required
+          ></v-select>
+          <v-select
+            v-model="city"
+            :items="itemTeacher"
+            background-color="white"
+            label="Город преподавателя"
+            filled
+          ></v-select>
+        </div>
+        <v-btn :disabled="!valid" class="search" x-large @click="pageTeachers">
+          Найти
+        </v-btn>
       </div>
-      <v-btn class="search" x-large @click="pageTeachers"> Найти </v-btn>
-    </div>
+    </v-form>
   </header>
 </template>
 
@@ -31,17 +39,34 @@ export default {
   props: {},
   data() {
     return {
-      itemSub: ['Алгебра', 'Русский', 'Физика', 'География'],
-      itemTeacher: ['Москва', 'Волгоград', 'Смоленск']
+      dataFilter: {
+        citiesForLessons: [],
+        subject: ''
+      },
+      itemSub: ['Алгебра', 'Русский язык', 'Физика', 'География'],
+      itemTeacher: ['Москва', 'Волгоград', 'Воронеж'],
+      name: '',
+      city: '',
+      valid: true
     }
   },
   computed: {},
   mounted() {},
   methods: {
-    pageTeachers() {
+    async sendSearchTeacher() {
+      this.dataFilter.subject = this.name
+      if (this.city) {
+        this.dataFilter.citiesForLessons.push(this.city)
+      }
+      await this.$store.dispatch('POST_TEACHER_FILTER', this.dataFilter)
       this.$router.push({
         name: `learningModule-listTeachers___ru`
       })
+    },
+    pageTeachers() {
+      if (this.$refs.form.validate()) {
+        this.sendSearchTeacher()
+      }
     }
   }
 }

@@ -3,6 +3,11 @@
     <div v-for="(sub, i) in dataListTeachers" :key="i">
       <cardTeacher :dataCard="sub"> </cardTeacher>
     </div>
+    <div v-if="dataListTeachers.length === 0">
+      <h1 style="text-align: center; margin-top: 250px">
+        Таких анкет не найдено
+      </h1>
+    </div>
   </div>
 </template>
 
@@ -21,7 +26,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getTeachers'])
+    ...mapGetters(['getTeacherFilter'])
   },
   async mounted() {
     await this.getTeachersList()
@@ -30,7 +35,7 @@ export default {
   methods: {
     async getTeachersList() {
       await this.$store.dispatch('GET_TEACHERS')
-      this.dataListTeachers = [...this.getTeachers]
+      this.dataListTeachers = [...this.getTeacherFilter]
       console.log(this.dataListTeachers)
     }
   }

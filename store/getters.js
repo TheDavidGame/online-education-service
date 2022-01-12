@@ -4,6 +4,8 @@ export default {
   typingUsers: ({ users, user }) =>
     users.filter(({ typingStatus, id }) => typingStatus && user.id !== id),
   typingStatus: ({ user }) => user.typingStatus,
+  getTeacherFilter: state => state.teacherFilter,
+  getTestSubject: state => state.testSubject,
   getTeachers: state => state.listTeachers,
   getProducts: state => state.productsCatalogs,
   feedbacksGet: state => state.feedbacks,

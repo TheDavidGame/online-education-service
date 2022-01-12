@@ -14,6 +14,50 @@ export default {
       commit('SET_PRODUCTS', res.data.data)
     })
   },
+  async POST_TEACHER_FILTER({ commit }, formData) {
+    const token = localStorage.getItem('auth._token.local')
+
+    await this.$apiLearning
+      .post('teacher-filter', formData, {
+        headers: {
+          Authorization: `${token}`
+        }
+      })
+      .then(res => {
+        commit('SET_TEACHER_FILTER', res.data.data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
+  async POST_TEST_SUBJECT({ commit }, formData) {
+    const token = localStorage.getItem('auth._token.local')
+
+    await this.$apiLearning
+      .post('test-subject', formData, {
+        headers: {
+          Authorization: `${token}`
+        }
+      })
+      .then(res => {})
+      .catch(error => {
+        console.log(error)
+      })
+  },
+  async GET_TEST_SUBJECT({ commit }) {
+    const token = localStorage.getItem('auth._token.local')
+    await this.$apiLearning
+      .get(`test-subject`, {
+        headers: {
+          Authorization: `${token}`
+        }
+      })
+      // commit('SET_BARTS_HISTORY', bartsHistory.data)
+      .then(res => {
+        commit('SET_TEST_SUBJECT', res.data.data)
+        // commit('SET_LOADING', { name: 'user', value: false })
+      })
+  },
   async PAYMENT_SUCCESS({ commit }, formData) {
     const token = localStorage.getItem('auth._token.local')
 

@@ -56,6 +56,8 @@ export default () => ({
   //   }
   // ],
   feedbacks: {},
+  testSubject: {},
+  teacherFilter: {},
   productsCatalogs: {},
   profileStudent: {},
   profileTeacher: {},
