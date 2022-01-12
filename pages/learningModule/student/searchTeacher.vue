@@ -76,20 +76,20 @@ header:after {
 .search {
   position: relative;
   top: 150px;
-  left: 24%;
+
   display: inline-block;
 }
 .fields {
   position: relative;
   top: 150px;
-  width: 300px;
+  width: 50%;
 }
 
 .inner {
   display: inline-block;
   position: relative;
   z-index: 3;
-  right: 100px;
+  right: 160px;
   bottom: 100px;
 
   color: #fff;
