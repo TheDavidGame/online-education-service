@@ -4,6 +4,7 @@
       v-if="dataCard.subscription.status"
       class="mx-auto my-7"
       max-width="800"
+      style="border: 3px solid red"
       outlined
     >
       <v-list-item three-line>
@@ -11,6 +12,11 @@
           <v-row>
             <v-col cols="7" class="text-h5 mb-4">
               {{ dataCard.fullName }}
+              <p class="text-overline mt-2">Пол: {{ dataCard.sex }}</p>
+              <p class="text-overline mb-n2">
+                Возраст: {{ dataCard.age }}
+                <span>{{ ageChange(dataCard.age) }}</span>
+              </p>
             </v-col>
             <v-col cols="4">
               <v-rating
@@ -34,15 +40,15 @@
                 <v-col cols="3">
                   <p class="mr-1">- {{ subjects.name }}</p>
                 </v-col>
-                <v-col cols="6">
-                  <div>Цена: {{ subjects.price }}</div>
+                <v-col cols="8" class="ml-10">
+                  <p>Цена: {{ subjects.price }}</p>
                 </v-col>
               </v-row>
             </div>
           </v-list-item-title>
-          <!-- <v-list-item-subtitle>
+          <v-list-item-subtitle>
             Кол-во отзывов {{ dataCard.feedbacks.length }}</v-list-item-subtitle
-          > -->
+          >
         </v-list-item-content>
 
         <v-list-item-avatar v-if="dataCard.photo[0]" size="150">
@@ -68,6 +74,11 @@
           <v-row>
             <v-col cols="7" class="text-h5 mb-4">
               {{ dataCard.fullName }}
+              <p class="text-overline mt-2">Пол: {{ dataCard.sex }}</p>
+              <p class="text-overline mb-n2">
+                Возраст: {{ dataCard.age }}
+                <span>{{ ageChange(dataCard.age) }}</span>
+              </p>
             </v-col>
             <v-col cols="4">
               <v-rating
@@ -91,15 +102,15 @@
                 <v-col cols="3">
                   <p class="mr-1">- {{ subjects.name }}</p>
                 </v-col>
-                <v-col cols="6">
-                  <div>Цена: {{ subjects.price }}</div>
+                <v-col cols="8" class="ml-10">
+                  <p>Цена: {{ subjects.price }}</p>
                 </v-col>
               </v-row>
             </div>
           </v-list-item-title>
-          <!-- <v-list-item-subtitle>
-            Кол-во отзывов {{ dataCard.feedbacks.length }}</v-list-item-subtitle
-          > -->
+          <v-list-item-subtitle>
+            Кол-во отзывов {{ dataCard.feedbacks.length }}
+          </v-list-item-subtitle>
         </v-list-item-content>
 
         <v-list-item-avatar v-if="dataCard.photo[0]" size="150">
@@ -131,7 +142,9 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      text_forms: ['год', 'года', 'лет']
+    }
   },
   computed: {
     profileImg() {
@@ -139,6 +152,21 @@ export default {
     }
   },
   mounted() {},
-  methods: {}
+  methods: {
+    ageChange(n) {
+      n = Math.abs(n) % 100
+      const n1 = n % 10
+      if (n > 10 && n < 20) {
+        return this.text_forms[2]
+      }
+      if (n1 > 1 && n1 < 5) {
+        return this.text_forms[1]
+      }
+      if (n1 === 1) {
+        return this.text_forms[0]
+      }
+      return this.text_forms[2]
+    }
+  }
 }
 </script>

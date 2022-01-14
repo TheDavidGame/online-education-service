@@ -39,10 +39,7 @@ export default {
   props: {},
   data() {
     return {
-      dataFilter: {
-        citiesForLessons: [],
-        subject: ''
-      },
+      dataFilter: {},
       itemSub: ['Алгебра', 'Русский язык', 'Физика', 'География'],
       itemTeacher: ['Москва', 'Волгоград', 'Воронеж'],
       name: '',
@@ -56,7 +53,7 @@ export default {
     async sendSearchTeacher() {
       this.dataFilter.subject = this.name
       if (this.city) {
-        this.dataFilter.citiesForLessons.push(this.city)
+        this.dataFilter.citiesForLessons = [this.city]
       }
       await this.$store.dispatch('POST_TEACHER_FILTER', this.dataFilter)
       this.$router.push({
