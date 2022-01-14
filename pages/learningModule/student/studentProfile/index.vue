@@ -52,6 +52,9 @@
               ></AppDisabledProfile>
             </v-card>
             <v-btn class="my-8" @click="nextPage"> Поиск преподавателя </v-btn>
+            <v-btn @click="nextPageTestSubject">
+              Записаться на пробный урок
+            </v-btn>
           </v-col>
         </v-row>
 
@@ -129,6 +132,11 @@ export default {
     nextPage() {
       this.$router.push({
         name: `learningModule-student-searchTeacher___ru`
+      })
+    },
+    nextPageTestSubject() {
+      this.$router.push({
+        name: `learningModule-student-testSubject___ru`
       })
     },
     validStudent() {

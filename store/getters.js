@@ -5,6 +5,7 @@ export default {
     users.filter(({ typingStatus, id }) => typingStatus && user.id !== id),
   typingStatus: ({ user }) => user.typingStatus,
   getTeacherFilter: state => state.teacherFilter,
+  getTestSubjectFilter: state => state.testSubjectFilter,
   getTestSubject: state => state.testSubject,
   getTeachers: state => state.listTeachers,
   getProducts: state => state.productsCatalogs,

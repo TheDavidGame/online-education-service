@@ -14,6 +14,22 @@ export default {
       commit('SET_PRODUCTS', res.data.data)
     })
   },
+  async POST_TEST_SUBJECT_FILTER({ commit }, formData) {
+    const token = localStorage.getItem('auth._token.local')
+
+    await this.$apiLearning
+      .post('test-subject-filter', formData, {
+        headers: {
+          Authorization: `${token}`
+        }
+      })
+      .then(res => {
+        commit('SET_TEST_SUBJECT_FILTER', res.data.data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
   async POST_TEACHER_FILTER({ commit }, formData) {
     const token = localStorage.getItem('auth._token.local')
 
