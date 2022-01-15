@@ -57,10 +57,10 @@
             <v-card-title>
               <v-row>
                 <v-col cols="10" class="text-h7 pa-4">
-                  {{ sub.createdName }}
+                  {{ sub.fullName }}
                 </v-col>
                 <v-col class="text-h7 pa-4" style="font-size: 15px">
-                  {{ Date(sub.createdAt).toLocaleString() }}
+                  {{ new Date(sub.createdAt).toLocaleString() }}
                 </v-col>
               </v-row>
             </v-card-title>
@@ -122,12 +122,10 @@ export default {
       second: ''
     }
   },
-  computed: {
-    // date(date) {
-    //   return moment(date).format('DD.MM.YYYY')
-    // }
+  computed: {},
+  mounted() {
+    console.log(this.data)
   },
-  mounted() {},
 
   methods: {}
 }
