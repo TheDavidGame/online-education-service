@@ -43,7 +43,7 @@
         </v-card>
       </v-dialog>
     </div> -->
-
+    <h1>greherh</h1>
     <div
       v-for="(sub, i) in data"
       :key="i"
@@ -80,7 +80,10 @@
               <div>
                 <div class="text-h7">{{ sub.createdName }}</div>
                 <div class="text-h7" style="font-size: 15px">
-                  {{ sub.createdAt }}
+                  {{ moment(sub.createdAt).format('DD.MM.YYYY') }}
+                </div>
+                <div class="text-h7" style="font-size: 15px">
+                  <h1>greehre</h1>
                 </div>
               </div>
             </v-card-title>

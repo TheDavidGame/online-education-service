@@ -60,7 +60,7 @@
                   {{ sub.createdName }}
                 </v-col>
                 <v-col class="text-h7 pa-4" style="font-size: 15px">
-                  {{ sub.createdAt }}
+                  {{ Date(sub.createdAt).toLocaleString() }}
                 </v-col>
               </v-row>
             </v-card-title>
@@ -73,6 +73,7 @@
                   background-color="white"
                   color="yellow accent-4"
                   dense
+                  readonly
                   half-increments
                   hover
                   size="18"
@@ -121,7 +122,11 @@ export default {
       second: ''
     }
   },
-  computed: {},
+  computed: {
+    // date(date) {
+    //   return moment(date).format('DD.MM.YYYY')
+    // }
+  },
   mounted() {},
 
   methods: {}

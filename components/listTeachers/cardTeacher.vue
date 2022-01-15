@@ -21,6 +21,7 @@
             <v-col cols="4">
               <v-rating
                 v-model="dataCard.rating"
+                readonly
                 background-color="yellow lighten-3"
                 color="yellow"
               ></v-rating>
@@ -64,7 +65,9 @@
       </v-list-item>
 
       <v-card-actions>
-        <v-btn outlined rounded text> Страница преподавателя </v-btn>
+        <v-btn outlined rounded text @click="nextPageTeacher()">
+          Страница преподавателя
+        </v-btn>
       </v-card-actions>
     </v-card>
 
@@ -126,7 +129,9 @@
       </v-list-item>
 
       <v-card-actions>
-        <v-btn outlined rounded text> Страница преподавателя </v-btn>
+        <v-btn outlined rounded text @click="nextPageTeacher()">
+          Страница преподавателя
+        </v-btn>
       </v-card-actions>
     </v-card>
   </div>
@@ -166,6 +171,12 @@ export default {
         return this.text_forms[0]
       }
       return this.text_forms[2]
+    },
+    nextPageTeacher() {
+      this.$router.push({
+        name: `learningModule-teacherProfileFromStudent___ru`,
+        params: { teacherProfileFromStudent: this.dataCard.uid }
+      })
     }
   }
 }

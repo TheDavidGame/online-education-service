@@ -68,7 +68,7 @@
         </reviews> -->
       </v-tab-item>
 
-      <v-tab-item value="tab-2">
+      <!-- <v-tab-item value="tab-2">
         <v-row style="background: #e3f2fd">
           <v-col cols="12" md="12" class="mt-3">
             <teacherProfileFromStudent
@@ -78,7 +78,7 @@
             </teacherProfileFromStudent>
           </v-col>
         </v-row>
-      </v-tab-item>
+      </v-tab-item> -->
       <!------------------------ END PROFILE ----------------------->
     </v-tabs-items>
   </v-container>
@@ -90,7 +90,6 @@
 import AppProfileStudent from '@/components/studentProfile/AppProfileStudent.vue'
 import AppEditFormStudent from '@/components/studentProfile/AppEditFormStudent.vue'
 import AppDisabledProfile from '@/components/Profile/AppDisabledProfile.vue'
-import teacherProfileFromStudent from '@/components/studentProfile/teacherProfileFromStudent.vue'
 // import reviews from '@/components/teacherProfile/reviews.vue'
 // import topCourses from '@/components/teacherProfile/freeCourses/topCourses.vue'
 // import botCourses from '@/components/teacherProfile/freeCourses/botCourses.vue'
@@ -101,7 +100,6 @@ export default {
   middleware: 'auth',
   components: {
     AppProfileStudent,
-    teacherProfileFromStudent,
     AppDisabledProfile,
     AppEditFormStudent
   },

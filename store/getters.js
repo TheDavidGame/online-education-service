@@ -7,6 +7,7 @@ export default {
   getTeacherFilter: state => state.teacherFilter,
   getTestSubjectFilter: state => state.testSubjectFilter,
   getTestSubject: state => state.testSubject,
+  getTeacherIdData: state => state.teacherIdData,
   getTeachers: state => state.listTeachers,
   getProducts: state => state.productsCatalogs,
   feedbacksGet: state => state.feedbacks,

@@ -4,6 +4,12 @@ import axios from 'axios'
 // import Api from '../plugins/api'
 
 export default {
+  async GET_TEACHER_ID({ commit }, uid) {
+    console.log(uid)
+    await this.$apiLearning.get(`teacher/${uid}`).then(res => {
+      commit('SET_TEACHER_ID_DATA', res.data.data)
+    })
+  },
   async GET_TEACHERS({ commit }) {
     await this.$apiLearning.get(`teachers`).then(res => {
       commit('SET_TEACHERS', res.data.data)

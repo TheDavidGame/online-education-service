@@ -4,6 +4,9 @@ export default {
   setUser(state, user) {
     state.user = user
   },
+  SET_TEACHER_ID_DATA(state, teacher) {
+    state.teacherIdData = teacher
+  },
   SET_TEST_SUBJECT_FILTER(state, filterTestSubject) {
     state.testSubjectFilter = filterTestSubject
   },

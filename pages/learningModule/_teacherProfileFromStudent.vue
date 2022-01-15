@@ -18,6 +18,7 @@
               <v-col cols="7">
                 <v-rating
                   v-model="dataTeacher.rating"
+                  readonly
                   class="mr-n5"
                   background-color="white lighten-3"
                   color="white"
@@ -32,7 +33,7 @@
                 <div>Телефон преподавателя:</div>
               </v-col>
               <v-col v-if="showPhone" cols="5">
-                <div>88005553535</div>
+                <div>{{ dataTeacher.phone }}</div>
               </v-col>
               <v-col v-if="!showPhone" cols="4">
                 <v-btn x-small @click="showPhone = true"
@@ -50,7 +51,13 @@
             </v-row>
           </v-col>
         </v-row>
-        <v-card-title class="ml-6">Имя преподавателя</v-card-title>
+        <v-card-title class="ml-6"
+          >{{ dataTeacher.fullName }}
+          <div class="mx-3">
+            Возраст: {{ dataTeacher.age }}
+            <span>{{ ageChange(dataTeacher.age) }}</span>
+          </div></v-card-title
+        >
       </v-img>
 
       <v-card-text class="text--primary text-center">
@@ -90,14 +97,22 @@
             sm="4"
             class="pr-14"
           >
-            <v-card height="auto" width="auto" style="background: #a9c9ff">
-              <v-text-field
+            <v-card
+              height="auto"
+              width="auto"
+              style="background: #a9c9ff; text-align: left; padding: 1em"
+            >
+              <p>Название предмета</p>
+              <p class="text-h6 mb-1">
+                {{ sub.name }}
+              </p>
+              <!-- <v-text-field
                 v-model="sub.name"
                 clearable
                 clear-icon="mdi-close-circle"
                 label="Название предмета"
                 disabled
-              ></v-text-field>
+              ></v-text-field> -->
 
               <v-checkbox
                 v-model="sub.lessonLocation"
@@ -120,22 +135,14 @@
                 label="Дома у ученика или у преподавателя"
                 disabled
               ></v-checkbox>
-              <v-col cols="12">
-                <v-text-field
-                  v-model="sub.price"
-                  clearable
-                  clear-icon="mdi-close-circle"
-                  label="Цена"
-                  disabled
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-select
-                  v-model="sub.currency"
-                  label="Валюта"
-                  disabled
-                ></v-select>
-              </v-col>
+              <p>Цена</p>
+              <p class="text-h6 mb-1">
+                {{ sub.price }}
+              </p>
+              <p>Валюта</p>
+              <p class="text-h6 mb-1">
+                {{ sub.currency }}
+              </p>
             </v-card>
           </v-col>
         </v-row>
@@ -161,39 +168,56 @@ export default {
     dataStudent: {
       type: Object,
       default: null
-    },
-    dataTeacher: {
-      type: Object,
-      default: null
     }
   },
   data() {
     return {
       showPhone: false,
       feedbacks: [],
-      isLoading: true
+      isLoading: true,
+      dataTeacher: {},
+      text_forms: ['год', 'года', 'лет']
     }
   },
   computed: {
-    ...mapGetters(['feedbacksGet', 'profileTeacherGet']),
+    ...mapGetters(['getTeacherIdData']),
+
     profileImg() {
       return `${process.env.LEARNING_API}/` + this.dataTeacher.photo[0]
     }
   },
   async mounted() {
     await this.getForm()
-    await this.getFeedBacks()
+    // await this.getFeedBacks()
     this.isLoading = false
   },
   methods: {
     async getForm() {
-      await this.$store.dispatch('GET_FORM_TEACHER')
-      this.dataTeacher = this.profileTeacherGet
+      await this.$store.dispatch(
+        'GET_TEACHER_ID',
+        this.$route.params.teacherProfileFromStudent
+      )
+      this.dataTeacher = this.getTeacherIdData
+      this.feedbacks = this.getTeacherIdData.feedbacks
     },
-    async getFeedBacks() {
-      await this.$store.dispatch('GET_FEEDBACKS')
-      this.feedbacks = this.feedbacksGet
+    ageChange(n) {
+      n = Math.abs(n) % 100
+      const n1 = n % 10
+      if (n > 10 && n < 20) {
+        return this.text_forms[2]
+      }
+      if (n1 > 1 && n1 < 5) {
+        return this.text_forms[1]
+      }
+      if (n1 === 1) {
+        return this.text_forms[0]
+      }
+      return this.text_forms[2]
     }
+    // async getFeedBacks() {
+    //   await this.$store.dispatch('GET_FEEDBACKS')
+    //   this.feedbacks = this.feedbacksGet
+    // }
   }
 }
 </script>
