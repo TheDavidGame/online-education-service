@@ -27,7 +27,7 @@
             <v-card>
               <AppEditFormTeacher
                 v-if="isAuthenticated && userCredentials"
-                :data="profileTeacherGet"
+                :data="dataTeacher"
               ></AppEditFormTeacher>
             </v-card>
           </v-col>
@@ -42,7 +42,7 @@
               <!------------------------ PROFILE CARD ----------------------->
               <AppProfileTeacher
                 v-if="isAuthenticated"
-                :dataTeacher="profileTeacherGet"
+                :dataTeacher="dataTeacher"
                 :data="userCredentials"
               ></AppProfileTeacher>
               <!------------------------ END PROFILE CARD ----------------------->
@@ -53,7 +53,7 @@
             </v-card>
 
             <v-card cols="12" md="4" order="-1" order-md="2" class="mt-8">
-              <AppSubscriptionTeacher :data="profileTeacherGet">
+              <AppSubscriptionTeacher :data="dataTeacher">
               </AppSubscriptionTeacher>
             </v-card>
           </v-col>
@@ -119,7 +119,8 @@ export default {
     return {
       tab: null,
       isLoading: true,
-      feedbacks: []
+      feedbacks: [],
+      dataTeacher: {}
     }
   },
   computed: {
@@ -135,12 +136,13 @@ export default {
   async mounted() {
     await this.getForm()
     await this.getFeedBacks()
+    this.validTeacher()
     this.isLoading = false
     // this.fetchUser()
   },
   methods: {
     validTeacher() {
-      if (!this.profileTeacherGet) {
+      if (!this.dataTeacher) {
         this.$router.push({
           name: `learningModule___ru`
         })
@@ -149,7 +151,8 @@ export default {
     },
     async getForm() {
       await this.$store.dispatch('GET_FORM_TEACHER')
-      this.validTeacher()
+      this.dataTeacher = this.profileTeacherGet
+      console.log(this.dataTeacher)
     },
     async getFeedBacks() {
       await this.$store.dispatch('GET_FEEDBACKS')

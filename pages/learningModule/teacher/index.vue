@@ -357,14 +357,7 @@ export default {
         placeOfWork: '',
         aboutMe: '',
         descriptionLesson: '',
-        subjects: [
-          {
-            name: '',
-            lessonLocation: [],
-            price: '',
-            currency: ''
-          }
-        ]
+        subjects: []
       },
       nameSubjects: '',
       lessonLocationSubjects: [],
@@ -395,10 +388,8 @@ export default {
         {
           label1: this.$t('learningModule.subFieldName'),
           value1: '',
-
           label3: this.$t('learningModule.subFieldPrice'),
           value3: '',
-
           label4: this.$t('learningModule.subFieldCurrency'),
           value4: ''
         }
@@ -505,24 +496,23 @@ export default {
         this.cities.forEach((item, index) => {
           this.formTeacher.citiesForLessons[index] = item.value
         })
-
+        const sub = []
         this.subjectsSecond.forEach((item, index) => {
-          // console.log(item.value1)
-          // test = item.value1
-          this.formTeacher.subjects[index].name = item.value1
-          // test = item.value3
-          this.formTeacher.subjects[index].price = item.value3
-          // test = item.value4
-          this.formTeacher.subjects[index].currency = item.value4
-
           if (this.lessonLocationSubjects.length === 0) {
             this.lessonLocationSubjects.push(this.selected)
           } else {
             this.lessonLocationSubjects.splice(0)
             this.lessonLocationSubjects.push(this.selected)
           }
-          this.formTeacher.subjects[index].lessonLocation = this.selected
+
+          sub.push({
+            name: item.value1,
+            price: item.value3,
+            currency: item.value4,
+            lessonLocation: this.selected
+          })
         })
+        this.formTeacher.subjects = sub
         const photo = this.formTeacher.photo
         const formData = new FormData()
         formData.append('photo', photo, photo.name)

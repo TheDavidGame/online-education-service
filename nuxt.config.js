@@ -178,7 +178,8 @@ export default {
     '@/plugins/day.js',
     '@/plugins/api.js',
     '@/plugins/api_board.js',
-    '@/plugins/apiLearning.js'
+    '@/plugins/apiLearning.js',
+    '@/plugins/socket.client.js'
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)

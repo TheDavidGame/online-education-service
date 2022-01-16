@@ -36,7 +36,7 @@ export default {
   },
   computed: {},
   mounted() {
-    console.log(this.data.subscription)
+    // console.log(this.data.subscription)
   },
   methods: {
     buySub() {
