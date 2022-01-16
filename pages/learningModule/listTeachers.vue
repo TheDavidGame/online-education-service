@@ -48,7 +48,39 @@
             <v-col cols="12">
               <h3>Цена</h3>
             </v-col>
-            <v-col cols="12" md="4">
+            <v-col class="px-4">
+              <v-range-slider
+                v-model="range"
+                :max="max"
+                :min="min"
+                hide-details
+                class="align-center"
+              >
+                <template v-slot:prepend>
+                  <v-text-field
+                    :value="range[0]"
+                    class="mt-0 pt-0"
+                    hide-details
+                    single-line
+                    type="number"
+                    style="width: 60px"
+                    @change="$set(range, 0, $event)"
+                  ></v-text-field>
+                </template>
+                <template v-slot:append>
+                  <v-text-field
+                    :value="range[1]"
+                    class="mt-0 pt-0"
+                    hide-details
+                    single-line
+                    type="number"
+                    style="width: 60px"
+                    @change="$set(range, 1, $event)"
+                  ></v-text-field>
+                </template>
+              </v-range-slider>
+            </v-col>
+            <!-- <v-col cols="12" md="4">
               <v-text-field
                 v-model="priceMin"
                 :rules="numRules"
@@ -63,7 +95,7 @@
                 clearable
                 label="Максимум"
               ></v-text-field>
-            </v-col>
+            </v-col> -->
             <v-col cols="12">
               <h3>Возраст</h3>
             </v-col>
@@ -117,14 +149,15 @@ export default {
       dataFilter: {},
       city: '',
       subject: '',
-      priceMin: 0,
-      priceMax: 0,
       sex: '',
       rating: 0,
       ageMax: 0,
       ageMin: 0,
       itemSubject: ['Русский язык', 'Математмка', 'Физика'],
-      itemSex: ['Мужской', 'Женский']
+      itemSex: ['Мужской', 'Женский'],
+      min: 0,
+      max: 10000,
+      range: [0, 10000]
     }
   },
   computed: {
@@ -149,12 +182,10 @@ export default {
       if (this.sex) {
         this.dataFilter.sex = this.sex
       }
-      if (this.priceMin) {
-        this.dataFilter.price = { ...this.dataFilter.price, min: this.priceMin }
-      }
-      if (this.priceMax) {
-        this.dataFilter.price = { ...this.dataFilter.price, max: this.priceMax }
-      }
+      this.dataFilter.price = { ...this.dataFilter.price, min: this.range[0] }
+
+      this.dataFilter.price = { ...this.dataFilter.price, max: this.range[1] }
+
       if (this.ageMin) {
         this.dataFilter.age = { ...this.dataFilter.age, min: this.ageMin }
       }
@@ -171,7 +202,7 @@ export default {
         this.dataFilter.rating = this.rating
       }
 
-      // this.dataFilter.price.min = this.min
+      this.dataFilter.price.min = this.min
 
       await this.$store.dispatch('POST_TEACHER_FILTER', this.dataFilter)
       this.dataListTeachers = [...this.getTeacherFilter]

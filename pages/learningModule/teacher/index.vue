@@ -502,12 +502,11 @@ export default {
     },
     validate() {
       if (this.$refs.form.validate()) {
-        this.cities.reduce((test, item, index) => {
-          test = item.value
-          this.formTeacher.citiesForLessons[index] = test
-        }, {})
+        this.cities.forEach((item, index) => {
+          this.formTeacher.citiesForLessons[index] = item.value
+        })
 
-        this.subjectsSecond.reduce((test, item, index) => {
+        this.subjectsSecond.forEach((item, index) => {
           // console.log(item.value1)
           // test = item.value1
           this.formTeacher.subjects[index].name = item.value1
@@ -523,7 +522,7 @@ export default {
             this.lessonLocationSubjects.push(this.selected)
           }
           this.formTeacher.subjects[index].lessonLocation = this.selected
-        }, {})
+        })
         const photo = this.formTeacher.photo
         const formData = new FormData()
         formData.append('photo', photo, photo.name)

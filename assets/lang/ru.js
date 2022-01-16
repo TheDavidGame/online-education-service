@@ -48,8 +48,8 @@ export default {
       link: '/ru/board'
     },
     { title: 'Учебный модуль', icon: 'mdi-book', link: '/ru/learningModule' },
-    { title: 'Подписки', icon: 'mdi-bank', link: '/ru/catalogs/catalogs' }
-    // { title: 'chat', icon: 'mdi-chat', link: '/ru/messager/dialogs' }
+    { title: 'Подписки', icon: 'mdi-bank', link: '/ru/catalogs/catalogs' },
+    { title: 'chat', icon: 'mdi-chat', link: '/ru/messager/dialogs' }
   ],
   learningModule_categories: [
     {

@@ -29,16 +29,17 @@
                   ({{ dataTeacher.rating }})
                 </span>
               </v-col>
-              <v-col cols="7">
+              <v-col v-if="dataTeacher.subscription.status" cols="12" md="11">
                 <div>Телефон преподавателя:</div>
-              </v-col>
-              <v-col v-if="showPhone" cols="5">
-                <div>{{ dataTeacher.phone }}</div>
-              </v-col>
-              <v-col v-if="!showPhone" cols="4">
-                <v-btn x-small @click="showPhone = true"
-                  >Показать телефон</v-btn
-                >
+
+                <div v-if="showPhone" cols="5">
+                  <div>{{ dataTeacher.phone }}</div>
+                </div>
+                <div v-if="!showPhone" cols="4">
+                  <v-btn x-small @click="showPhone = true"
+                    >Показать телефон</v-btn
+                  >
+                </div>
               </v-col>
               <v-col cols="11">
                 <div>
@@ -56,8 +57,10 @@
           <div class="mx-3">
             Возраст: {{ dataTeacher.age }}
             <span>{{ ageChange(dataTeacher.age) }}</span>
-          </div></v-card-title
-        >
+          </div>
+
+          <v-btn small @click="nextPageChat">Написать преподавателю</v-btn>
+        </v-card-title>
       </v-img>
 
       <v-card-text class="text--primary text-center">
@@ -115,25 +118,32 @@
               ></v-text-field> -->
 
               <v-checkbox
+                v-if="sub.lessonLocation[0]"
                 v-model="sub.lessonLocation"
                 label="Дистанционно"
-                disabled
+                value="Дистанционно"
+                readonly
               ></v-checkbox>
               <v-checkbox
+                v-if="sub.lessonLocation[1]"
                 v-model="sub.lessonLocation"
                 label="Дома у преподавателя"
-                disabled
+                value="Дома у преподавателя"
               ></v-checkbox>
 
               <v-checkbox
+                v-if="sub.lessonLocation[2]"
                 v-model="sub.lessonLocation"
                 label="Дома у ученика"
-                disabled
+                value="Дома у ученика"
+                readonly
               ></v-checkbox>
               <v-checkbox
+                v-if="sub.lessonLocation[3]"
                 v-model="sub.lessonLocation"
                 label="Дома у ученика или у преподавателя"
-                disabled
+                value="Дома у ученика или у преподавателя"
+                readonly
               ></v-checkbox>
               <p>Цена</p>
               <p class="text-h6 mb-1">
@@ -198,6 +208,7 @@ export default {
         this.$route.params.teacherProfileFromStudent
       )
       this.dataTeacher = this.getTeacherIdData
+      console.log(this.dataTeacher)
       this.feedbacks = this.getTeacherIdData.feedbacks
     },
     ageChange(n) {
@@ -213,6 +224,12 @@ export default {
         return this.text_forms[0]
       }
       return this.text_forms[2]
+    },
+    nextPageChat() {
+      this.$router.push({
+        name: `messager-dialog-id___ru`,
+        params: { id: this.dataTeacher.uid }
+      })
     }
     // async getFeedBacks() {
     //   await this.$store.dispatch('GET_FEEDBACKS')

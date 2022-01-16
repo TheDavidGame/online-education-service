@@ -49,7 +49,7 @@
         class="mx-auto elevation-20"
         color="primary"
         dark
-        disabled
+        readonly
         style="max-width: 850px"
       >
         <v-row justify="space-between">
@@ -123,9 +123,7 @@ export default {
     }
   },
   computed: {},
-  mounted() {
-    console.log(this.data)
-  },
+  mounted() {},
 
   methods: {}
 }

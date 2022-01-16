@@ -34,9 +34,9 @@ export default {
       return this.$store.getters.isAuthenticated
     }
   },
-  mounted() {
-    this.getTeacher()
-    this.getStudent()
+  async mounted() {
+    await this.getTeacher()
+    await this.getStudent()
   },
 
   methods: {
@@ -47,7 +47,6 @@ export default {
       await this.$store.dispatch('GET_FORM_STUDENT')
     },
     routerValid(link, key) {
-      console.log(key)
       if (key === 'teacher') {
         if (this.profileTeacherGet) {
           this.$router.push({

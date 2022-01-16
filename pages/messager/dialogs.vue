@@ -1,95 +1,102 @@
 <template>
-  <v-row no-gutters align="center" justify="center">
-    <v-col cols="auto">
-      <v-card min-width="290" color="#424242">
-        <Snackbar v-model="snackbar" :text="message" />
+  <v-row justify="center" style="margin-top: 1rem">
+    <v-col cols="12" md="8">
+      <v-card>
+        <v-form ref="form" lazy-validation>
+          <h1 class="pa-6 ml-2 center">Ваши диалоги</h1>
 
-        <v-card-title>
-          <h2>Login</h2>
-        </v-card-title>
-        <v-card-text>
-          <v-form
-            ref="form"
-            v-model="isValid"
-            lazy-validation
-            @submit.prevent="submit"
-          >
-            <v-text-field
-              v-model="user.name"
-              :counter="16"
-              :rules="nameRules"
-              label="Name"
-              required
+          <div v-for="(dialog, i) in dialogs" :key="i" class="dialog">
+            <img
+              src="https://www.actbuilders.org/wp-content/uploads/2014/01/avatar.png"
+              alt="photo"
+              width="50"
             />
-            <v-text-field
-              v-model="user.room"
-              :counter="16"
-              :rules="roomRules"
-              label="Enter the room"
-              required
-            />
-            <v-btn
-              :disabled="!isValid"
-              color="primary"
-              class="mt-3"
-              type="submit"
+            <nuxt-link
+              class="fullname"
+              :to="{
+                path: `/ru/messager/dialog/${dialog.uid}`
+              }"
             >
-              Submit
-            </v-btn>
-          </v-form>
-        </v-card-text>
+              <p>{{ dialog.fullName }}</p>
+            </nuxt-link>
+          </div>
+        </v-form>
       </v-card>
     </v-col>
   </v-row>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import Snackbar from '@/components/dialogs/SnackBar.vue'
-import messageDict from '~/components/dialogs/Message/messageDict'
+// import payPal from '@/components/paypal/paypal.vue'
+
 export default {
-  name: 'Home',
-  layout: 'login',
-  components: {
-    Snackbar
-  },
-  data: () => ({
-    isValid: true,
-    user: {
-      name: '',
-      room: '',
-      typingStatus: false
-    },
-    nameRules: [
-      v => !!v || 'Name is required',
-      v => (v && v.length <= 16) || 'Name must be less than 16 characters'
-    ],
-    roomRules: [
-      v => !!v || 'Enter the room',
-      v => (v && v.length <= 16) || 'Room must be less than 16 characters'
-    ],
-    snackbar: false
-  }),
-  computed: {
-    message() {
-      const { message } = this.$route.query
-      return messageDict[message] || ''
+  name: 'HelloWorld',
+  components: {},
+  data() {
+    return {
+      dialogs: []
     }
   },
+
+  sockets: {
+    connect() {
+      console.log('socket connected')
+    },
+    getDialogs({ dialogs }) {
+      if (dialogs.length) {
+        this.dialogs = dialogs
+      }
+      console.log(this.dialogs)
+    }
+  },
+
+  computed: {},
   mounted() {
-    this.snackbar = !!this.message
+    this.getDialogs()
   },
   methods: {
-    ...mapActions(['createUser']),
-    submit() {
-      if (this.$refs.form.validate()) {
-        this.createUser(this.user)
-        this.$router.push('/chat')
-      }
+    getDialogs() {
+      const token = localStorage.getItem('auth._token.local')
+      this.$socket.emit('get_dialogs', {
+        token
+      })
     }
-  },
-  head: {
-    title: 'nuxt-chat-app'
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.btn_pay {
+  margin-top: 5rem;
+}
+.product {
+  width: 400px;
+  background: #c2eee1;
+  border-radius: 5px;
+  padding: 1rem;
+  margin: 1rem;
+  box-shadow: 1px 1px 5px 0px rgb(50 50 50 / 75%);
+}
+.container {
+  display: flex;
+  justify-content: center;
+}
+.dialog {
+  border-top: 1px solid #ccc;
+  padding: 1rem;
+  transition: all 0.3s ease;
+  display: flex;
+
+  &:hover {
+    background: #e8eaff;
+  }
+}
+.fullname {
+  display: flex;
+  align-items: center;
+  p {
+    margin: 0 0 0 1rem;
+    font-size: 20px;
+  }
+}
+</style>
