@@ -32,7 +32,7 @@
             type="text"
             placeholder="Введите сообщение"
           />
-          <button @click="sendMessage()">Отправить</button>
+          <button @click="sendMessage()">{{ $t('chat.send') }}</button>
         </div>
       </div>
     </div>

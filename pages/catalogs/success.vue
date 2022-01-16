@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center" style="margin-top: 200px">
-    <p class="description">Вы успешно оплатили товар</p>
+    <p class="description">{{ $t('chat.successfulPay') }}</p>
   </v-row>
 </template>
 

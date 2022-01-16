@@ -5,18 +5,25 @@
       cols="10"
       class="left relative my-8"
     >
-      <h1 class="ma-8 inline-block">Подписка</h1>
+      <h1 class="ma-8 inline-block">{{ $t('teacherProfile.subscription') }}</h1>
 
-      <v-btn class="ma-9 inline-block" @click="buySub"> Купить </v-btn>
+      <v-btn class="ma-9 inline-block" @click="buySub">
+        {{ $t('teacherProfile.buy') }}
+      </v-btn>
     </v-row>
     <v-row v-else cols="10" class="left relative ma-8">
-      <h1 class="ma-2">Подписка куплена</h1>
-      <p class="ma-2">Закончится: {{ data.subscription.timeText }}</p>
+      <h1 class="ma-2">{{ $t('teacherProfile.subscriptionBuy') }}</h1>
       <p class="ma-2">
-        Просмотров телефона: {{ data.subscription.viewsPhone }}
+        {{ $t('teacherProfile.subscriptionDataEnd') }}
+        {{ data.subscription.timeText }}
       </p>
       <p class="ma-2">
-        Бесплатных отзывов: <v-btn>{{ data.subscription.feedbacks }} </v-btn>
+        {{ $t('teacherProfile.viewPhone') }}
+        {{ data.subscription.viewsPhone }}
+      </p>
+      <p class="ma-2">
+        {{ $t('teacherProfile.freeReviews') }}
+        <v-btn>{{ data.subscription.feedbacks }} </v-btn>
       </p>
     </v-row>
   </div>
@@ -41,7 +48,7 @@ export default {
   methods: {
     buySub() {
       this.$router.push({
-        name: `catalogs-catalogs___ru`
+        name: `catalogs-catalogs___${this.$i18n.locale}`
       })
     }
   }

@@ -14,11 +14,15 @@ import scream from '~/assets/lang/ru/scream.js'
 import learningModule from '~/assets/lang/ru/learningModule'
 import teacherProfile from '~/assets/lang/ru/teacherProfile'
 import student from '~/assets/lang/ru/student'
+import chat from '~/assets/lang/ru/chat'
+import catalogs from '~/assets/lang/ru/catalogs'
 
 export default {
   studentProfile,
   student,
   auth,
+  chat,
+  catalogs,
   barting,
   board,
   teacherProfile,
@@ -49,7 +53,7 @@ export default {
     },
     { title: 'Учебный модуль', icon: 'mdi-book', link: '/ru/learningModule' },
     { title: 'Подписки', icon: 'mdi-bank', link: '/ru/catalogs/catalogs' },
-    { title: 'chat', icon: 'mdi-chat', link: '/ru/messager/dialogs' }
+    { title: 'Сообщения', icon: 'mdi-chat', link: '/ru/messager/dialogs' }
   ],
   learningModule_categories: [
     {

@@ -2,18 +2,21 @@
   <header>
     <v-form ref="form" v-model="valid" lazy-validation>
       <div class="inner">
-        <span style="font-size: 200%"
-          >Пробные онлайн-занятия с преподавателем</span
+        <span style="font-size: 200%">{{
+          $t('studentProfile.testOnlineClasses')
+        }}</span
         ><br />
 
-        <span class="main-text"> Найти преподавателя прямо сейчас: </span>
+        <span class="main-text">
+          {{ $t('studentProfile.testOnlineClasses') }}
+        </span>
         <div class="fields">
           <v-select
             v-model="name"
             background-color="white"
-            label="Предмет"
+            :label="$t('studentProfile.subName')"
             filled
-            :rules="[v => !!v || 'Заполните поле']"
+            :rules="[v => !!v || $t('studentProfile.fieldRules')]"
             :items="itemSub"
             required
           ></v-select>
@@ -21,7 +24,7 @@
             v-model="city"
             :items="itemTeacher"
             background-color="white"
-            label="Город преподавателя"
+            :label="$t('studentProfile.teacherCity')"
             filled
           ></v-select>
         </div>
@@ -31,7 +34,7 @@
           x-large
           @click="pageTestSubject"
         >
-          Найти
+          {{ $t('studentProfile.search') }}
         </v-btn>
       </div>
     </v-form>
@@ -45,8 +48,16 @@ export default {
   data() {
     return {
       dataFilter: {},
-      itemSub: ['Алгебра', 'Русский язык', 'Физика', 'География'],
-      itemTeacher: ['Москва', 'Волгоград', 'Воронеж'],
+      itemSub: [
+        this.$t('studentProfile.math'),
+        this.$t('studentProfile.language'),
+        this.$t('studentProfile.physics'),
+        this.$t('studentProfile.geography')
+      ],
+      itemTeacher: [
+        this.$t('studentProfile.moscow'),
+        this.$t('studentProfile.volgograd')
+      ],
       name: '',
       city: '',
       valid: true
@@ -62,7 +73,7 @@ export default {
       }
       await this.$store.dispatch('POST_TEST_SUBJECT_FILTER', this.dataFilter)
       this.$router.push({
-        name: `learningModule-listTestSubject___ru`
+        name: `learningModule-listTestSubject___${this.$i18n.locale}`
       })
     },
     pageTestSubject() {

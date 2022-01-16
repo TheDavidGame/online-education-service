@@ -3,7 +3,7 @@
     <v-col cols="12" md="8">
       <v-card>
         <v-form ref="form" lazy-validation>
-          <h1 class="pa-6 ml-2 center">Ваши диалоги</h1>
+          <h1 class="pa-6 ml-2 center">{{ $t('chat.yourDialogs') }}</h1>
 
           <div v-for="(dialog, i) in dialogs" :key="i" class="dialog">
             <img

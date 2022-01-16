@@ -12,9 +12,11 @@
           <v-row>
             <v-col cols="7" class="text-h5 mb-4">
               {{ dataCard.fullName }}
-              <p class="text-overline mt-2">Пол: {{ dataCard.sex }}</p>
+              <p class="text-overline mt-2">
+                {{ $t('studentProfile.gender') }} {{ dataCard.sex }}
+              </p>
               <p class="text-overline mb-n2">
-                Возраст: {{ dataCard.age }}
+                {{ $t('studentProfile.age') }} {{ dataCard.age }}
                 <span>{{ ageChange(dataCard.age) }}</span>
               </p>
             </v-col>
@@ -30,25 +32,30 @@
           <v-list-item-title class="text-h6 mb-1">
             {{ dataCard.aboutMe }}
             <v-divider class="my-2"></v-divider>
-            <p class="text-overline mb-4">Города где преподает:</p>
+            <p class="text-overline mb-4">
+              {{ $t('studentProfile.citiesForLessons') }}
+            </p>
             <div v-for="(city, j) in dataCard.citiesForLessons" :key="j">
               <p class="mr-1">{{ city }}</p>
             </div>
             <v-divider class="my-2"></v-divider>
-            <p class="text-overline mb-4">Предметы:</p>
+            <p class="text-overline mb-4">{{ $t('studentProfile.subName') }}</p>
             <div v-for="(subjects, m) in dataCard.subjects" :key="m">
               <v-row>
                 <v-col cols="3">
                   <p class="mr-1">- {{ subjects.name }}</p>
                 </v-col>
                 <v-col cols="8" class="ml-10">
-                  <p>Цена: {{ subjects.price }}</p>
+                  <p>
+                    {{ $t('studentProfile.subPrice') }} {{ subjects.price }}
+                  </p>
                 </v-col>
               </v-row>
             </div>
           </v-list-item-title>
           <v-list-item-subtitle>
-            Кол-во отзывов {{ dataCard.feedbacks.length }}</v-list-item-subtitle
+            {{ $t('studentProfile.lengthReviews') }}
+            {{ dataCard.feedbacks.length }}</v-list-item-subtitle
           >
         </v-list-item-content>
 
@@ -66,7 +73,7 @@
 
       <v-card-actions>
         <v-btn outlined rounded text @click="nextPageTeacher()">
-          Страница преподавателя
+          {{ $t('studentProfile.pageTeacher') }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -77,9 +84,11 @@
           <v-row>
             <v-col cols="7" class="text-h5 mb-4">
               {{ dataCard.fullName }}
-              <p class="text-overline mt-2">Пол: {{ dataCard.sex }}</p>
+              <p class="text-overline mt-2">
+                {{ $t('studentProfile.gender') }} {{ dataCard.sex }}
+              </p>
               <p class="text-overline mb-n2">
-                Возраст: {{ dataCard.age }}
+                {{ $t('studentProfile.age') }}{{ dataCard.age }}
                 <span>{{ ageChange(dataCard.age) }}</span>
               </p>
             </v-col>
@@ -94,25 +103,30 @@
           <v-list-item-title class="text-h6 mb-1">
             {{ dataCard.aboutMe }}
             <v-divider class="my-2"></v-divider>
-            <p class="text-overline mb-4">Города где преподает:</p>
+            <p class="text-overline mb-4">
+              {{ $t('studentProfile.citiesForLessons') }}
+            </p>
             <div v-for="(city, j) in dataCard.citiesForLessons" :key="j">
               <p class="mr-1">{{ city }}</p>
             </div>
             <v-divider class="my-2"></v-divider>
-            <p class="text-overline mb-4">Предметы:</p>
+            <p class="text-overline mb-4">{{ $t('studentProfile.subName') }}</p>
             <div v-for="(subjects, m) in dataCard.subjects" :key="m">
               <v-row>
                 <v-col cols="3">
                   <p class="mr-1">- {{ subjects.name }}</p>
                 </v-col>
                 <v-col cols="8" class="ml-10">
-                  <p>Цена: {{ subjects.price }}</p>
+                  <p>
+                    {{ $t('studentProfile.subPrice') }} {{ subjects.price }}
+                  </p>
                 </v-col>
               </v-row>
             </div>
           </v-list-item-title>
           <v-list-item-subtitle>
-            Кол-во отзывов {{ dataCard.feedbacks.length }}
+            {{ $t('studentProfile.lengthReviews') }}
+            {{ dataCard.feedbacks.length }}
           </v-list-item-subtitle>
         </v-list-item-content>
 
@@ -130,7 +144,7 @@
 
       <v-card-actions>
         <v-btn outlined rounded text @click="nextPageTeacher()">
-          Страница преподавателя
+          {{ $t('studentProfile.pageTeacher') }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -148,7 +162,11 @@ export default {
   },
   data() {
     return {
-      text_forms: ['год', 'года', 'лет']
+      text_forms: [
+        this.$t('studentProfile.ageFormFirst'),
+        this.$t('studentProfile.ageFormSecond'),
+        this.$t('studentProfile.ageFormThird')
+      ]
     }
   },
   computed: {
@@ -174,7 +192,7 @@ export default {
     },
     nextPageTeacher() {
       this.$router.push({
-        name: `learningModule-teacherProfileFromStudent___ru`,
+        name: `learningModule-teacherProfileFromStudent___${this.$i18n.locale}`,
         params: { teacherProfileFromStudent: this.dataCard.uid }
       })
     }

@@ -2,18 +2,21 @@
   <header>
     <v-form ref="form" v-model="valid" lazy-validation>
       <div class="inner">
-        <span style="font-size: 200%"
-          >Индивидуальные онлайн-занятия с преподавателем</span
+        <span style="font-size: 200%">{{
+          $t('studentProfile.searchOnlineClasses')
+        }}</span
         ><br />
 
-        <span class="main-text"> Найти преподавателя прямо сейчас: </span>
+        <span class="main-text">
+          {{ $t('studentProfile.searchTeacherRightNow') }}
+        </span>
         <div class="fields">
           <v-select
             v-model="name"
             background-color="white"
-            label="Предмет"
+            :label="$t('studentProfile.subName')"
             filled
-            :rules="[v => !!v || 'Заполните поле']"
+            :rules="[v => !!v || $t('studentProfile.fieldRules')]"
             :items="itemSub"
             required
           ></v-select>
@@ -21,12 +24,12 @@
             v-model="city"
             :items="itemTeacher"
             background-color="white"
-            label="Город преподавателя"
+            :label="$t('studentProfile.location')"
             filled
           ></v-select>
         </div>
         <v-btn :disabled="!valid" class="search" x-large @click="pageTeachers">
-          Найти
+          {{ $t('studentProfile.search') }}
         </v-btn>
       </div>
     </v-form>
@@ -40,8 +43,16 @@ export default {
   data() {
     return {
       dataFilter: {},
-      itemSub: ['Алгебра', 'Русский язык', 'Физика', 'География'],
-      itemTeacher: ['Москва', 'Волгоград', 'Воронеж'],
+      itemSub: [
+        this.$t('studentProfile.math'),
+        this.$t('studentProfile.language'),
+        this.$t('studentProfile.physics'),
+        this.$t('studentProfile.geography')
+      ],
+      itemTeacher: [
+        this.$t('studentProfile.moscow'),
+        this.$t('studentProfile.volgograd')
+      ],
       name: '',
       city: '',
       valid: true
@@ -57,7 +68,7 @@ export default {
       }
       await this.$store.dispatch('POST_TEACHER_FILTER', this.dataFilter)
       this.$router.push({
-        name: `learningModule-listTeachers___ru`
+        name: `learningModule-listTeachers___${this.$i18n.locale}`
       })
     },
     pageTeachers() {

@@ -7,7 +7,7 @@
         </div>
         <div v-if="dataListTeachers.length === 0">
           <h1 style="text-align: center; margin-top: 250px">
-            Таких анкет не найдено
+            {{ $t('studentProfile.noProfiles') }}
           </h1>
         </div>
       </v-col>
@@ -18,7 +18,7 @@
               <v-text-field
                 v-model="city"
                 clearable
-                label="Город"
+                :label="$t('studentProfile.city')"
               ></v-text-field>
             </v-col>
             <v-col cols="6">
@@ -26,11 +26,11 @@
                 v-model="subject"
                 clearable
                 :items="itemSubject"
-                label="Предмет"
+                :label="$t('studentProfile.subName')"
               ></v-select>
             </v-col>
             <v-col cols="12">
-              <v-btn @click="filter"> Фильтровать </v-btn>
+              <v-btn @click="filter"> {{ $t('studentProfile.filter') }} </v-btn>
             </v-col>
           </v-row>
         </v-card>
@@ -61,7 +61,12 @@ export default {
       isLoading: true,
       dataFilter: {},
       city: '',
-      itemSubject: ['Русский язык', 'Математмка', 'Физика']
+      itemSubject: [
+        this.$t('studentProfile.language'),
+        this.$t('studentProfile.math'),
+        this.$t('studentProfile.geography'),
+        this.$t('studentProfile.physics')
+      ]
     }
   },
   computed: {

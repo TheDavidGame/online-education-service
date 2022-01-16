@@ -23,8 +23,8 @@ export default {
   editProfile: 'עידכון פרופיל',
   changeAvatar: 'לשנות תמונה',
   tabs: [
-    { name: 'אני מורה', link: '#tab-1' }
-    // { name: 'חומרים', link: '#tab-2' },
+    { name: 'אני מורה', link: '#tab-1' },
+    { name: 'שיעורי ניסיון חינמיים', link: '#tab-2' }
     // { name: 'קורסים', link: '#tab-3' }
   ],
 
@@ -51,5 +51,16 @@ export default {
   nameRulesPattern: 'שם פרטי אינו עולה על 50 תווים',
   emailRules: 'מיולוי דואר אלקטרוני',
   phoneRules: 'מילוי טלפון',
-  rulesPattern: 'מילוי שדה'
+  rulesPattern: 'הזנה לא חוקית',
+  subscription: 'מנוי',
+  buy: 'לקנות',
+  subscriptionBuy: 'המנוי נרכש בהצלחה',
+  subscriptionDataEnd: 'תוקף המנוי:',
+  viewPhone: 'להציג מספר טלפון:',
+  freeReviews: 'תגובות ללא תשלום:',
+  addTestSubject: 'להוסיף שיעור ניסיון חינמי',
+  phoneTeacher: 'טלפון המורה:',
+  showPhone: 'להציג טלפון',
+  age: 'גיל',
+  writeTeacher: 'לכתוב למורה'
 }

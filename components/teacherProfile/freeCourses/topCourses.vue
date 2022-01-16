@@ -6,10 +6,10 @@
           <v-col cols="12" md="3">
             <v-text-field
               v-model="itemCourses"
-              :rules="[v => !!v || 'Заполните поле']"
+              :rules="[v => !!v || $t('teacherProfile.fieldRules')]"
               clearable
               clear-icon="mdi-close-circle"
-              label="Предмет"
+              :label="$t('teacherProfile.subName')"
               required
             ></v-text-field>
           </v-col>
@@ -19,7 +19,7 @@
               :rules="numRules"
               clearable
               clear-icon="mdi-close-circle"
-              label="Цена урока"
+              :label="$t('teacherProfile.subPrice')"
               required
             ></v-text-field>
           </v-col>
@@ -27,29 +27,31 @@
             <v-select
               v-model="currency"
               :items="CurrencyItem"
-              label="Валюта"
-              :rules="[v => !!v || 'заполните поле']"
+              :label="$t('teacherProfile.subCurrency')"
+              :rules="[v => !!v || $t('teacherProfile.fieldRules')]"
               required
             ></v-select>
           </v-col>
           <v-col cols="12" md="10">
             <v-row class="pb-12 justify-center">
-              <h2 style="margin-bottom: -50px">Формат проведения</h2>
+              <h2 style="margin-bottom: -50px">
+                {{ $t('teacherProfile.lessonLocation') }}
+              </h2>
             </v-row>
             <v-row>
               <v-col cols="6" md="6" sm="10">
                 <v-checkbox
                   v-model="selected"
-                  label="Дистанционно"
-                  value="Дистанционно"
+                  :label="$t('teacherProfile.subRemotely')"
+                  :value="$t('teacherProfile.subRemotely')"
                   :rules="checkboxRules"
                   required
                 ></v-checkbox>
 
                 <v-checkbox
                   v-model="selected"
-                  label="У учителя дома"
-                  value="У учителя дома"
+                  :label="$t('teacherProfile.subHomeTeacher')"
+                  :value="$t('teacherProfile.subHomeTeacher')"
                   :rules="checkboxRules"
                   required
                 ></v-checkbox>
@@ -57,15 +59,15 @@
               <v-col cols="6" md="6" sm="2">
                 <v-checkbox
                   v-model="selected"
-                  label="У ученика дома"
-                  value="У ученика дома"
+                  :label="$t('teacherProfile.subHomeStudent')"
+                  :value="$t('teacherProfile.subHomeStudent')"
                   :rules="checkboxRules"
                   required
                 ></v-checkbox>
                 <v-checkbox
                   v-model="selected"
-                  label="У учителя или у ученика"
-                  value="У учителя или у ученика"
+                  :label="$t('teacherProfile.subHomeTeacherOrStudent')"
+                  :value="$t('teacherProfile.subHomeTeacherOrStudent')"
                   :rules="checkboxRules"
                   required
                 ></v-checkbox>
@@ -80,7 +82,7 @@
               rows="2"
               row-height="10"
               clear-icon="mdi-close-circle"
-              label="Описание урока"
+              :label="$t('teacherProfile.descriptionLesson')"
               required
             ></v-textarea>
           </v-col>
@@ -88,7 +90,7 @@
         <v-row class="pb-12 justify-center">
           <v-col cols="12" md="4">
             <v-btn :disabled="!valid" @click="addSubject">
-              Добавить пробный урок
+              {{ $t('teacherProfile.addTestSubject') }}
             </v-btn>
           </v-col>
         </v-row>

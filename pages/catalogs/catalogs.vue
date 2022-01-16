@@ -112,7 +112,6 @@ export default {
           link: this.localePath(`/catalogs/paypal/${item.id}`)
         }
       })
-      console.log(this.products)
     }
   }
 }

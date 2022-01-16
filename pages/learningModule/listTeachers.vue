@@ -7,7 +7,7 @@
         </div>
         <div v-if="dataListTeachers.length === 0">
           <h1 style="text-align: center; margin-top: 250px">
-            Таких анкет не найдено
+            {{ $t('studentProfile.noProfiles') }}
           </h1>
         </div>
       </v-col>
@@ -19,14 +19,14 @@
                 v-model="sex"
                 clearable
                 :items="itemSex"
-                label="Пол"
+                :label="$t('studentProfile.city')"
               ></v-select>
             </v-col>
             <v-col cols="12" md="5" class="mx-6">
               <v-text-field
                 v-model="city"
                 clearable
-                label="Город"
+                :label="$t('studentProfile.city')"
               ></v-text-field>
             </v-col>
             <v-col cols="12">
@@ -34,19 +34,19 @@
                 v-model="subject"
                 clearable
                 :items="itemSubject"
-                label="Предмет"
+                :label="$t('studentProfile.subName')"
               ></v-select>
             </v-col>
             <v-col cols="12">
               <v-slider
                 v-model="rating"
                 max="5"
-                label="Рейтинг"
+                :label="$t('studentProfile.rating')"
                 thumb-label
               ></v-slider>
             </v-col>
             <v-col cols="12">
-              <h3>Цена</h3>
+              <h3>{{ $t('studentProfile.subprice') }}</h3>
             </v-col>
             <v-col class="px-4">
               <v-range-slider
@@ -97,14 +97,14 @@
               ></v-text-field>
             </v-col> -->
             <v-col cols="12">
-              <h3>Возраст</h3>
+              <h3>{{ $t('studentProfile.subprice') }}</h3>
             </v-col>
             <v-col cols="12" md="4">
               <v-text-field
                 v-model="ageMax"
                 :rules="numRules"
                 clearable
-                label="Максимальный"
+                :label="$t('studentProfile.max')"
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="4">
@@ -112,12 +112,12 @@
                 v-model="ageMin"
                 :rules="numRules"
                 clearable
-                label="Минимальный"
+                :label="$t('studentProfile.min')"
               ></v-text-field>
             </v-col>
 
             <v-col cols="12">
-              <v-btn @click="filter"> Фильтровать </v-btn>
+              <v-btn @click="filter"> {{ $t('studentProfile.filter') }} </v-btn>
             </v-col>
           </v-row>
         </v-card>
@@ -153,8 +153,16 @@ export default {
       rating: 0,
       ageMax: 0,
       ageMin: 0,
-      itemSubject: ['Русский язык', 'Математмка', 'Физика'],
-      itemSex: ['Мужской', 'Женский'],
+      itemSubject: [
+        this.$t('studentProfile.language'),
+        this.$t('studentProfile.math'),
+        this.$t('studentProfile.geography'),
+        this.$t('studentProfile.physics')
+      ],
+      itemSex: [
+        this.$t('studentProfile.sexItemMan'),
+        this.$t('studentProfile.sexItemWoman')
+      ],
       min: 0,
       max: 10000,
       range: [0, 10000]
@@ -163,7 +171,7 @@ export default {
   computed: {
     ...mapGetters(['getTeacherFilter']),
     numRules() {
-      return [v => /^\d+$/.test(v) || this.$t('Введите число')]
+      return [v => /^\d+$/.test(v) || this.$t('studentProfile.rulesPattern')]
     }
   },
   async mounted() {

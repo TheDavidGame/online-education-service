@@ -51,9 +51,11 @@
                 v-show="!isAuthenticated"
               ></AppDisabledProfile>
             </v-card>
-            <v-btn class="my-8" @click="nextPage"> Поиск преподавателя </v-btn>
+            <v-btn class="my-8" @click="nextPage"
+              >{{ $t('studentProfile.searchTeacher') }}
+            </v-btn>
             <v-btn @click="nextPageTestSubject">
-              Записаться на пробный урок
+              {{ $t('studentProfile.signUpTestSubject') }}
             </v-btn>
           </v-col>
         </v-row>
@@ -129,20 +131,19 @@ export default {
   methods: {
     nextPage() {
       this.$router.push({
-        name: `learningModule-student-searchTeacher___ru`
+        name: `learningModule-student-searchTeacher___${this.$i18n.locale}`
       })
     },
     nextPageTestSubject() {
       this.$router.push({
-        name: `learningModule-student-testSubject___ru`
+        name: `learningModule-student-testSubject___${this.$i18n.locale}`
       })
     },
     validStudent() {
       if (!this.profileStudentGet) {
         this.$router.push({
-          name: `learningModule___ru`
+          name: `learningModule___${this.$i18n.locale}`
         })
-        // this.$router.push('learningModule___ru')
       }
     },
     async getForm() {

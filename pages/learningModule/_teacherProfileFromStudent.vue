@@ -30,24 +30,27 @@
                 </span>
               </v-col>
               <v-col v-if="dataTeacher.subscription.status" cols="12" md="11">
-                <div>Телефон преподавателя:</div>
+                <div>{{ $t('teacherProfile.phoneTeacher') }}</div>
 
                 <div v-if="showPhone" cols="5">
                   <div>{{ dataTeacher.phone }}</div>
                 </div>
                 <div v-if="!showPhone" cols="4">
-                  <v-btn x-small @click="showPhone = true"
-                    >Показать телефон</v-btn
-                  >
+                  <v-btn x-small @click="showPhone = true">{{
+                    $t('teacherProfile.showPhone')
+                  }}</v-btn>
                 </div>
               </v-col>
               <v-col cols="11">
                 <div>
-                  Город проживания: {{ dataTeacher.cityOfResidence.city }}
+                  {{ $t('teacherProfile.location') }}
+                  {{ dataTeacher.cityOfResidence.city }}
                 </div>
               </v-col>
               <v-col cols="11">
-                <div>Пол: {{ dataTeacher.sex }}</div>
+                <div>
+                  {{ $t('teacherProfile.gender') }}{{ dataTeacher.sex }}
+                </div>
               </v-col>
             </v-row>
           </v-col>
@@ -55,11 +58,13 @@
         <v-card-title class="ml-6"
           >{{ dataTeacher.fullName }}
           <div class="mx-3">
-            Возраст: {{ dataTeacher.age }}
+            {{ $t('teacherProfile.age') }} {{ dataTeacher.age }}
             <span>{{ ageChange(dataTeacher.age) }}</span>
           </div>
 
-          <v-btn small @click="nextPageChat">Написать преподавателю</v-btn>
+          <v-btn small @click="nextPageChat">{{
+            $t('teacherProfile.writeTeacher')
+          }}</v-btn>
         </v-card-title>
       </v-img>
 
@@ -77,15 +82,20 @@
             >
               <v-row style="text-align: left">
                 <v-col cols="6">
-                  Описание уроков: {{ dataTeacher.descriptionLesson }}
+                  {{ $t('teacherProfile.descriptionLesson') }}
+                  {{ dataTeacher.descriptionLesson }}
                 </v-col>
                 <v-col cols="6">
-                  Контактные данные: {{ dataTeacher.contactInformation }}
+                  {{ $t('teacherProfile.contactInformation') }}
+                  {{ dataTeacher.contactInformation }}
                 </v-col>
                 <v-col cols="6">
-                  Контактные данные: {{ dataTeacher.education }}
+                  {{ $t('teacherProfile.education') }}
+                  {{ dataTeacher.education }}
                 </v-col>
-                <v-col cols="6"> Обо мне: {{ dataTeacher.aboutMe }} </v-col>
+                <v-col cols="6">
+                  {{ $t('teacherProfile.about') }} {{ dataTeacher.aboutMe }}
+                </v-col>
               </v-row>
             </v-card>
           </v-col>
@@ -105,7 +115,7 @@
               width="auto"
               style="background: #a9c9ff; text-align: left; padding: 1em"
             >
-              <p>Название предмета</p>
+              <p>{{ $t('teacherProfile.subName') }}</p>
               <p class="text-h6 mb-1">
                 {{ sub.name }}
               </p>
@@ -120,36 +130,36 @@
               <v-checkbox
                 v-if="sub.lessonLocation[0]"
                 v-model="sub.lessonLocation"
-                label="Дистанционно"
-                value="Дистанционно"
+                :label="$t('teacherProfile.subRemotely')"
+                :value="$t('teacherProfile.subRemotely')"
                 readonly
               ></v-checkbox>
               <v-checkbox
                 v-if="sub.lessonLocation[1]"
                 v-model="sub.lessonLocation"
-                label="Дома у преподавателя"
-                value="Дома у преподавателя"
+                :label="$t('teacherProfile.subHomeTeacher')"
+                :value="$t('teacherProfile.subHomeTeacher')"
               ></v-checkbox>
 
               <v-checkbox
                 v-if="sub.lessonLocation[2]"
                 v-model="sub.lessonLocation"
-                label="Дома у ученика"
-                value="Дома у ученика"
+                :label="$t('teacherProfile.subHomeStudent')"
+                :value="$t('teacherProfile.subHomeStudent')"
                 readonly
               ></v-checkbox>
               <v-checkbox
                 v-if="sub.lessonLocation[3]"
                 v-model="sub.lessonLocation"
-                label="Дома у ученика или у преподавателя"
-                value="Дома у ученика или у преподавателя"
+                :label="$t('teacherProfile.subHomeTeacherOrStudent')"
+                :value="$t('teacherProfile.subHomeTeacherOrStudent')"
                 readonly
               ></v-checkbox>
               <p>Цена</p>
               <p class="text-h6 mb-1">
                 {{ sub.price }}
               </p>
-              <p>Валюта</p>
+              <p>{{ $t('teacherProfile.subCurrency') }}</p>
               <p class="text-h6 mb-1">
                 {{ sub.currency }}
               </p>
@@ -186,7 +196,11 @@ export default {
       feedbacks: [],
       isLoading: true,
       dataTeacher: {},
-      text_forms: ['год', 'года', 'лет']
+      text_forms: [
+        this.$t('studentProfile.ageFormFirst'),
+        this.$t('studentProfile.ageFormSecond'),
+        this.$t('studentProfile.ageFormThird')
+      ]
     }
   },
   computed: {
@@ -227,7 +241,7 @@ export default {
     },
     nextPageChat() {
       this.$router.push({
-        name: `messager-dialog-id___ru`,
+        name: `messager-dialog-id___${this.$i18n.locale}`,
         params: { id: this.dataTeacher.uid }
       })
     }

@@ -12,6 +12,8 @@ import profile from '~/assets/lang/he/profile.js'
 import scream from '~/assets/lang/he/scream.js'
 import learningModule from '~/assets/lang/he/learningModule'
 import teacherProfile from '~/assets/lang/he/teacherProfile'
+import chat from '~/assets/lang/he/chat'
+import catalogs from '~/assets/lang/he/catalogs'
 
 export default {
   learningModule,
@@ -20,6 +22,8 @@ export default {
   auth,
   barting,
   board,
+  chat,
+  catalogs,
   breadcrumbs,
   profile,
   scream,
@@ -40,7 +44,8 @@ export default {
     { title: 'בארטינג', icon: 'mdi-bitcoin', link: '/barting' },
     { title: 'לוח מודעות', icon: 'mdi-clipboard-text', link: '/board' },
     { title: 'לימודים', icon: 'mdi-book', link: '/learningModule' },
-    { title: 'מנויים', icon: 'mdi-bank', link: '/catalogs/catalogs' }
+    { title: 'מנויים', icon: 'mdi-bank', link: '/catalogs/catalogs' },
+    { title: 'הודעות', icon: 'mdi-chat', link: '/messager/dialogs' }
   ],
   learningModule_categories: [
     {

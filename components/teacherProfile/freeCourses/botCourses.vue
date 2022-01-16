@@ -1,6 +1,8 @@
 <template>
   <v-container v-if="!isLoading">
-    <h1 class="ma-5" style="text-align: center">Мои предметы</h1>
+    <h1 class="ma-5" style="text-align: center">
+      {{ $t('teacherProfile.subjects') }}
+    </h1>
     <v-row class="px-12 pt-6 justify-center">
       <v-row class="pb-12 justify-center">
         <v-col v-for="(sub, i) in dataTestSubject" :key="i">
@@ -33,7 +35,7 @@
               <v-divider class="my-2"></v-divider>
             </v-col>
             <v-col cols="7" class="text-h5">
-              <v-btn small>Удалить</v-btn>
+              <v-btn small>{{ $t('teacherProfile.delete') }}</v-btn>
             </v-col>
           </v-row>
         </v-col>

@@ -47,5 +47,16 @@ export default {
   nameRulesPattern: 'Имя не должно превышать 50 символов',
   emailRules: 'Заполните почту',
   phoneRules: 'Заполните номер телефона',
-  rulesPattern: 'Некорректно введенно поле'
+  rulesPattern: 'Некорректно введенно поле',
+  subscription: 'Подписка',
+  buy: 'Купить',
+  subscriptionBuy: 'Подписка куплена',
+  subscriptionDataEnd: 'Закончится:',
+  viewPhone: 'Просмотров телефона:',
+  freeReviews: 'Бесплатных отзывов:',
+  addTestSubject: 'Добавить пробный урок',
+  phoneTeacher: 'Телефон преподавателя:',
+  showPhone: 'Показать телефон',
+  age: 'Возраст',
+  writeTeacher: 'Написать преподавателю'
 }
