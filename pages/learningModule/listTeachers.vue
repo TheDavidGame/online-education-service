@@ -19,7 +19,7 @@
                 v-model="sex"
                 clearable
                 :items="itemSex"
-                :label="$t('studentProfile.city')"
+                :label="$t('studentProfile.gender')"
               ></v-select>
             </v-col>
             <v-col cols="12" md="5" class="mx-6">
@@ -97,9 +97,41 @@
               ></v-text-field>
             </v-col> -->
             <v-col cols="12">
-              <h3>{{ $t('studentProfile.subprice') }}</h3>
+              <h3>{{ $t('studentProfile.age') }}</h3>
             </v-col>
-            <v-col cols="12" md="4">
+            <v-col class="px-4">
+              <v-range-slider
+                v-model="rangeAge"
+                :max="maxAge"
+                :min="minAge"
+                hide-details
+                class="align-center"
+              >
+                <template v-slot:prepend>
+                  <v-text-field
+                    :value="rangeAge[0]"
+                    class="mt-0 pt-0"
+                    hide-details
+                    single-line
+                    type="number"
+                    style="width: 60px"
+                    @change="$set(rangeAge, 0, $event)"
+                  ></v-text-field>
+                </template>
+                <template v-slot:append>
+                  <v-text-field
+                    :value="rangeAge[1]"
+                    class="mt-0 pt-0"
+                    hide-details
+                    single-line
+                    type="number"
+                    style="width: 60px"
+                    @change="$set(rangeAge, 1, $event)"
+                  ></v-text-field>
+                </template>
+              </v-range-slider>
+            </v-col>
+            <!-- <v-col cols="12" md="4">
               <v-text-field
                 v-model="ageMax"
                 :rules="numRules"
@@ -114,7 +146,7 @@
                 clearable
                 :label="$t('studentProfile.min')"
               ></v-text-field>
-            </v-col>
+            </v-col> -->
 
             <v-col cols="12">
               <v-btn @click="filter"> {{ $t('studentProfile.filter') }} </v-btn>
@@ -151,21 +183,44 @@ export default {
       subject: '',
       sex: '',
       rating: 0,
-      ageMax: 0,
-      ageMin: 0,
-      itemSubject: [
-        this.$t('studentProfile.language'),
+      // itemSubject: [
+      //   this.$t('studentProfile.language'),
+      //   this.$t('studentProfile.math'),
+      //   this.$t('studentProfile.geography'),
+      //   this.$t('studentProfile.physics')
+      // ],
+      ruItem: [
         this.$t('studentProfile.math'),
-        this.$t('studentProfile.geography'),
-        this.$t('studentProfile.physics')
+        this.$t('studentProfile.language'),
+        this.$t('studentProfile.physics'),
+        this.$t('studentProfile.geography')
       ],
+      heItem: [
+        'תמטיקה תיכון 3 יח',
+        'מתמטיקה תיכון 4 יח',
+        'מתמטיקה תיכון 5 יחידות',
+        'אלגברה',
+        'חדוא 1',
+        'חדוא 2',
+        'חדוא 3',
+        'אינפי 1',
+        'אינפי 2',
+        'אינפי 3',
+        'תורת הקבוצות',
+        'קומבינטוריקה',
+        'הסתברות'
+      ],
+      itemSubject: [],
       itemSex: [
         this.$t('studentProfile.sexItemMan'),
         this.$t('studentProfile.sexItemWoman')
       ],
       min: 0,
       max: 10000,
-      range: [0, 10000]
+      range: [0, 10000],
+      minAge: 0,
+      maxAge: 90,
+      rangeAge: [0, 90]
     }
   },
   computed: {
@@ -175,14 +230,32 @@ export default {
     }
   },
   async mounted() {
+    this.getFilter()
     await this.getTeachersList()
+    if (this.$i18n.locale === 'ru') {
+      this.itemSubject = [...this.ruItem]
+    } else {
+      this.itemSubject = [...this.heItem]
+    }
     this.isLoading = false
   },
   methods: {
+    getFilter() {
+      const { dataFilter } = this.$route.params
+      if (dataFilter && dataFilter.subject) {
+        this.dataFilter.subject = dataFilter.subject
+        this.subject = dataFilter.subject
+      }
+
+      if (dataFilter && dataFilter.citiesForLessons) {
+        this.dataFilter.citiesForLessons = [dataFilter.citiesForLessons[0]]
+        this.city = dataFilter.citiesForLessons[0] || []
+      }
+    },
+
     async getTeachersList() {
-      await this.$store.dispatch('GET_TEACHERS')
+      await this.$store.dispatch('POST_TEACHER_FILTER', this.dataFilter)
       this.dataListTeachers = [...this.getTeacherFilter]
-      console.log(this.dataListTeachers)
     },
     async filter() {
       this.isLoading = true
@@ -190,16 +263,16 @@ export default {
       if (this.sex) {
         this.dataFilter.sex = this.sex
       }
+
       this.dataFilter.price = { ...this.dataFilter.price, min: this.range[0] }
 
       this.dataFilter.price = { ...this.dataFilter.price, max: this.range[1] }
 
-      if (this.ageMin) {
-        this.dataFilter.age = { ...this.dataFilter.age, min: this.ageMin }
-      }
-      if (this.ageMax) {
-        this.dataFilter.age = { ...this.dataFilter.age, max: this.ageMax }
-      }
+      this.dataFilter.age = { ...this.dataFilter.age, min: this.rangeAge[0] }
+
+      this.dataFilter.age = { ...this.dataFilter.age, max: this.rangeAge[1] }
+
+      console.log(this.dataFilter)
       if (this.city) {
         this.dataFilter.citiesForLessons = [this.city]
       }
@@ -209,8 +282,6 @@ export default {
       if (this.rating > 0) {
         this.dataFilter.rating = this.rating
       }
-
-      this.dataFilter.price.min = this.min
 
       await this.$store.dispatch('POST_TEACHER_FILTER', this.dataFilter)
       this.dataListTeachers = [...this.getTeacherFilter]

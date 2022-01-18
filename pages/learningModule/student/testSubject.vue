@@ -20,13 +20,13 @@
             :items="itemSub"
             required
           ></v-select>
-          <v-select
+          <v-text-field
             v-model="city"
-            :items="itemTeacher"
+            clearable
             background-color="white"
-            :label="$t('studentProfile.teacherCity')"
-            filled
-          ></v-select>
+            height="56px"
+            :label="$t('studentProfile.location')"
+          ></v-text-field>
         </div>
         <v-btn
           :disabled="!valid"
@@ -48,12 +48,34 @@ export default {
   data() {
     return {
       dataFilter: {},
-      itemSub: [
+      // itemSub: [
+      //   this.$t('studentProfile.math'),
+      //   this.$t('studentProfile.language'),
+      //   this.$t('studentProfile.physics'),
+      //   this.$t('studentProfile.geography')
+      // ],
+      ruItem: [
         this.$t('studentProfile.math'),
         this.$t('studentProfile.language'),
         this.$t('studentProfile.physics'),
         this.$t('studentProfile.geography')
       ],
+      heItem: [
+        'תמטיקה תיכון 3 יח',
+        'מתמטיקה תיכון 4 יח',
+        'מתמטיקה תיכון 5 יחידות',
+        'אלגברה',
+        'חדוא 1',
+        'חדוא 2',
+        'חדוא 3',
+        'אינפי 1',
+        'אינפי 2',
+        'אינפי 3',
+        'תורת הקבוצות',
+        'קומבינטוריקה',
+        'הסתברות'
+      ],
+      itemSub: [],
       itemTeacher: [
         this.$t('studentProfile.moscow'),
         this.$t('studentProfile.volgograd')
@@ -64,7 +86,13 @@ export default {
     }
   },
   computed: {},
-  mounted() {},
+  mounted() {
+    if (this.$i18n.locale === 'ru') {
+      this.itemSub = [...this.ruItem]
+    } else {
+      this.itemSub = [...this.heItem]
+    }
+  },
   methods: {
     async sendSearchTeacher() {
       this.dataFilter.subject = this.name
@@ -73,7 +101,8 @@ export default {
       }
       await this.$store.dispatch('POST_TEST_SUBJECT_FILTER', this.dataFilter)
       this.$router.push({
-        name: `learningModule-listTestSubject___${this.$i18n.locale}`
+        name: `learningModule-listTestSubject___${this.$i18n.locale}`,
+        params: { dataFilter: this.dataFilter }
       })
     },
     pageTestSubject() {

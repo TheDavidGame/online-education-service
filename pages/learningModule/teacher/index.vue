@@ -246,12 +246,15 @@
               <h3>{{ $t('learningModule.mySubjects') }}</h3>
 
               <div v-for="(textField, i) in subjectsSecond" :key="i">
-                <v-text-field
+                <v-select
                   v-model="textField.value1"
-                  :rules="[v => !!v || $t('learningModule.rulesField')]"
+                  background-color="white"
                   :label="textField.label1"
+                  filled
+                  :rules="[v => !!v || $t('learningModule.rulesField')]"
+                  :items="itemSub"
                   required
-                ></v-text-field>
+                ></v-select>
 
                 <v-checkbox
                   v-model="selected"
@@ -414,7 +417,29 @@ export default {
       subHomeTeacherOrStudent: this.$t(
         'learningModule.subHomeTeacherOrStudent'
       ),
-      countryNames: []
+      countryNames: [],
+      ruItem: [
+        this.$t('studentProfile.math'),
+        this.$t('studentProfile.language'),
+        this.$t('studentProfile.physics'),
+        this.$t('studentProfile.geography')
+      ],
+      heItem: [
+        'תמטיקה תיכון 3 יח',
+        'מתמטיקה תיכון 4 יח',
+        'מתמטיקה תיכון 5 יחידות',
+        'אלגברה',
+        'חדוא 1',
+        'חדוא 2',
+        'חדוא 3',
+        'אינפי 1',
+        'אינפי 2',
+        'אינפי 3',
+        'תורת הקבוצות',
+        'קומבינטוריקה',
+        'הסתברות'
+      ],
+      itemSub: []
     }
   },
   computed: {
@@ -454,6 +479,11 @@ export default {
   },
   mounted() {
     this.countryGetName('name')
+    if (this.$i18n.locale === 'ru') {
+      this.itemSub = [...this.ruItem]
+    } else {
+      this.itemSub = [...this.heItem]
+    }
   },
   methods: {
     countryGetName(lan) {

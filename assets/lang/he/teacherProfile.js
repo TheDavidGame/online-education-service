@@ -62,5 +62,7 @@ export default {
   phoneTeacher: 'טלפון המורה:',
   showPhone: 'להציג טלפון',
   age: 'גיל',
-  writeTeacher: 'לכתוב למורה'
+  writeTeacher: 'לכתוב למורה',
+  feedback: 'משוב',
+  addFeedback: 'הוסף משוב'
 }

@@ -61,22 +61,63 @@ export default {
       isLoading: true,
       dataFilter: {},
       city: '',
-      itemSubject: [
-        this.$t('studentProfile.language'),
+      subject: '',
+      // itemSubject: [
+      //   this.$t('studentProfile.language'),
+      //   this.$t('studentProfile.math'),
+      //   this.$t('studentProfile.geography'),
+      //   this.$t('studentProfile.physics')
+      // ]
+      ruItem: [
         this.$t('studentProfile.math'),
-        this.$t('studentProfile.geography'),
-        this.$t('studentProfile.physics')
-      ]
+        this.$t('studentProfile.language'),
+        this.$t('studentProfile.physics'),
+        this.$t('studentProfile.geography')
+      ],
+      heItem: [
+        'תמטיקה תיכון 3 יח',
+        'מתמטיקה תיכון 4 יח',
+        'מתמטיקה תיכון 5 יחידות',
+        'אלגברה',
+        'חדוא 1',
+        'חדוא 2',
+        'חדוא 3',
+        'אינפי 1',
+        'אינפי 2',
+        'אינפי 3',
+        'תורת הקבוצות',
+        'קומבינטוריקה',
+        'הסתברות'
+      ],
+      itemSubject: []
     }
   },
   computed: {
     ...mapGetters(['getTestSubjectFilter'])
   },
   async mounted() {
+    this.getFilter()
     await this.getTeachersList()
+    if (this.$i18n.locale === 'ru') {
+      this.itemSubject = [...this.ruItem]
+    } else {
+      this.itemSubject = [...this.heItem]
+    }
     this.isLoading = false
   },
   methods: {
+    getFilter() {
+      const { dataFilter } = this.$route.params
+      if (dataFilter && dataFilter.subject) {
+        this.dataFilter.subject = dataFilter.subject
+        this.subject = dataFilter.subject
+      }
+
+      if (dataFilter && dataFilter.citiesForLessons) {
+        this.dataFilter.citiesForLessons = [dataFilter.citiesForLessons[0]]
+        this.city = dataFilter.citiesForLessons[0] || []
+      }
+    },
     async getTeachersList() {
       await this.$store.dispatch('GET_TEACHERS')
       this.dataListTeachers = [...this.getTestSubjectFilter]

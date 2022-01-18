@@ -26,7 +26,7 @@
               </v-col>
               <v-col cols="5">
                 <span class="grey--text text--lighten-2 text-caption">
-                  ({{ dataTeacher.rating }})
+                  ({{ dataTeacher.rating.toFixed(1) }})
                 </span>
               </v-col>
               <v-col v-if="dataTeacher.subscription.status" cols="12" md="11">
@@ -43,13 +43,14 @@
               </v-col>
               <v-col cols="11">
                 <div>
-                  {{ $t('teacherProfile.location') }}
+                  {{ $t('teacherProfile.location') }}:
                   {{ dataTeacher.cityOfResidence.city }}
                 </div>
               </v-col>
               <v-col cols="11">
                 <div>
-                  {{ $t('teacherProfile.gender') }}{{ dataTeacher.sex }}
+                  {{ $t('teacherProfile.gender') }}:
+                  {{ dataTeacher.sex }}
                 </div>
               </v-col>
             </v-row>
@@ -172,6 +173,7 @@
       style="background: #e3f2fd"
       class="px-auto mx-auto pt-10"
       :data="feedbacks"
+      :uId="$route.params.teacherProfileFromStudent"
     >
     </reviews>
   </v-container>

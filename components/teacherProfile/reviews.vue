@@ -1,11 +1,10 @@
 <template>
   <v-container>
-    <!-- добавить отзыв -->
-    <!-- <div class="text-center">
+    <div class="text-center">
       <v-dialog v-model="dialog" width="500">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn color="primary" dark v-bind="attrs" v-on="on">
-            Добавить отзыв
+          <v-btn color="primary" dark v-bind="attrs" width="200px" v-on="on">
+            {{ $t('teacherProfile.addFeedback') }}
           </v-btn>
         </template>
 
@@ -24,25 +23,27 @@
           </v-card-title>
 
           <v-card-text>
-            <v-text-field
-              v-model="second"
+            <v-textarea
+              v-model="textFeedback"
               clearable
-              clear-icon="mdi-close-circle"
-              label="Отзыв"
-            ></v-text-field>
+              auto-grow
+              rows="2"
+              row-height="10"
+              :label="$t('teacherProfile.feedback')"
+            ></v-textarea>
           </v-card-text>
 
           <v-divider></v-divider>
 
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" text @click="dialog = false">
-              Добавить отзыв
+            <v-btn color="primary" text @click="sendReviews">
+              {{ $t('teacherProfile.addFeedback') }}
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
-    </div> -->
+    </div>
 
     <div v-for="(sub, i) in data" :key="i" class="my-12">
       <v-card
@@ -56,7 +57,7 @@
           <v-col cols="12" md="3" xs="4">
             <v-card-title>
               <v-row>
-                <v-col cols="10" class="text-h7 pa-4">
+                <v-col cols="12" class="text-h7 pa-4">
                   {{ sub.fullName }}
                 </v-col>
                 <v-col class="text-h7 pa-4" style="font-size: 15px">
@@ -95,7 +96,8 @@
 
         <v-divider dark></v-divider>
         <v-card-actions class="pa-4">
-          <div class="text-h5">
+          <!-- <v-textarea v-model="sub.text"></v-textarea> -->
+          <div class="text-h5" style="overflow: auto">
             {{ sub.text }}
           </div>
           <v-spacer></v-spacer>
@@ -113,18 +115,35 @@ export default {
     data: {
       type: Array,
       required: true
+    },
+    uId: {
+      type: String,
+      required: true
     }
   },
   data() {
     return {
       dialog: false,
       rating: 0,
-      second: ''
+      textFeedback: '',
+      dataFeedback: {}
     }
   },
   computed: {},
   mounted() {},
 
-  methods: {}
+  methods: {
+    async sendReviews() {
+      this.dataFeedback.teacherId = this.uId
+      this.dataFeedback.text = this.textFeedback
+      this.dataFeedback.rating = this.rating
+      await this.$store.dispatch('POST_FEEDBACK', this.dataFeedback)
+      this.reloadPage()
+      this.dialog = false
+    },
+    reloadPage() {
+      window.location.reload()
+    }
+  }
 }
 </script>

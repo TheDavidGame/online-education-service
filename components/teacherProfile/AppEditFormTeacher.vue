@@ -226,15 +226,16 @@
         <v-col cols="12" md="6" class="pa-5 my-n2 ms-5">
           <div v-for="(sub, i) in dataTeacher.subjects" :key="i">
             <v-divider v-if="i >= 1" class="my-4"></v-divider>
-            <v-text-field
+
+            <v-select
               v-model="sub.name"
               :prepend-inner-icon="svg.range"
               clearable
               clear-icon="mdi-close-circle"
-              :label="$t('teacherProfile.subName')"
+              :label="$t('studentProfile.subName')"
+              :items="itemSub"
               :disabled="disabled"
-            ></v-text-field>
-
+            ></v-select>
             <v-checkbox
               v-model="sub.lessonLocation"
               :label="$t('teacherProfile.subRemotely')"
@@ -426,7 +427,29 @@ export default {
         this.$t('teacherProfile.educationitemsSecondaryVocational')
       ],
       countryNames: [],
-      countryCode: ''
+      countryCode: '',
+      ruItem: [
+        this.$t('studentProfile.math'),
+        this.$t('studentProfile.language'),
+        this.$t('studentProfile.physics'),
+        this.$t('studentProfile.geography')
+      ],
+      heItem: [
+        'תמטיקה תיכון 3 יח',
+        'מתמטיקה תיכון 4 יח',
+        'מתמטיקה תיכון 5 יחידות',
+        'אלגברה',
+        'חדוא 1',
+        'חדוא 2',
+        'חדוא 3',
+        'אינפי 1',
+        'אינפי 2',
+        'אינפי 3',
+        'תורת הקבוצות',
+        'קומבינטוריקה',
+        'הסתברות'
+      ],
+      itemSub: []
     }
   },
   computed: {
@@ -477,6 +500,11 @@ export default {
           value: item
         }
       })
+    }
+    if (this.$i18n.locale === 'ru') {
+      this.itemSub = [...this.ruItem]
+    } else {
+      this.itemSub = [...this.heItem]
     }
     this.countryGetName('name')
     this.onInput()

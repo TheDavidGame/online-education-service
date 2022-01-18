@@ -95,6 +95,7 @@
             <v-col cols="4">
               <v-rating
                 v-model="dataCard.rating"
+                readonly
                 background-color="yellow lighten-3"
                 color="yellow"
               ></v-rating>

@@ -3,7 +3,7 @@ import VueSocketIO from 'vue-socket.io'
 import io from 'socket.io-client'
 import store from '../store/state'
 
-const socketInstance = io('http://localhost:5001', {
+const socketInstance = io(process.env.LEARNING_API, {
   query: {},
   rejectUnauthorized: false,
   reconnection: true,

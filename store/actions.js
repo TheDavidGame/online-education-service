@@ -4,8 +4,21 @@ import axios from 'axios'
 // import Api from '../plugins/api'
 
 export default {
+  async POST_FEEDBACK({ commit }, data) {
+    const token = localStorage.getItem('auth._token.local')
+
+    await this.$apiLearning
+      .post('feedback', data, {
+        headers: {
+          Authorization: `${token}`
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
   async GET_TEACHER_ID({ commit }, uid) {
-    console.log(uid)
+    // console.log(uid)
     await this.$apiLearning.get(`teacher/${uid}`).then(res => {
       commit('SET_TEACHER_ID_DATA', res.data.data)
     })

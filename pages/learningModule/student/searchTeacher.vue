@@ -20,13 +20,13 @@
             :items="itemSub"
             required
           ></v-select>
-          <v-select
+          <v-text-field
             v-model="city"
-            :items="itemTeacher"
+            clearable
             background-color="white"
+            height="56px"
             :label="$t('studentProfile.location')"
-            filled
-          ></v-select>
+          ></v-text-field>
         </div>
         <v-btn :disabled="!valid" class="search" x-large @click="pageTeachers">
           {{ $t('studentProfile.search') }}
@@ -43,12 +43,28 @@ export default {
   data() {
     return {
       dataFilter: {},
-      itemSub: [
+      ruItem: [
         this.$t('studentProfile.math'),
         this.$t('studentProfile.language'),
         this.$t('studentProfile.physics'),
         this.$t('studentProfile.geography')
       ],
+      heItem: [
+        'תמטיקה תיכון 3 יח',
+        'מתמטיקה תיכון 4 יח',
+        'מתמטיקה תיכון 5 יחידות',
+        'אלגברה',
+        'חדוא 1',
+        'חדוא 2',
+        'חדוא 3',
+        'אינפי 1',
+        'אינפי 2',
+        'אינפי 3',
+        'תורת הקבוצות',
+        'קומבינטוריקה',
+        'הסתברות'
+      ],
+      itemSub: [],
       itemTeacher: [
         this.$t('studentProfile.moscow'),
         this.$t('studentProfile.volgograd')
@@ -59,7 +75,13 @@ export default {
     }
   },
   computed: {},
-  mounted() {},
+  mounted() {
+    if (this.$i18n.locale === 'ru') {
+      this.itemSub = [...this.ruItem]
+    } else {
+      this.itemSub = [...this.heItem]
+    }
+  },
   methods: {
     async sendSearchTeacher() {
       this.dataFilter.subject = this.name
@@ -67,8 +89,12 @@ export default {
         this.dataFilter.citiesForLessons = [this.city]
       }
       await this.$store.dispatch('POST_TEACHER_FILTER', this.dataFilter)
+      // this.$router.push({
+      //   name: `learningModule-listTeachers___${this.$i18n.locale}`
+      // })
       this.$router.push({
-        name: `learningModule-listTeachers___${this.$i18n.locale}`
+        name: `learningModule-listTeachers___${this.$i18n.locale}`,
+        params: { dataFilter: this.dataFilter }
       })
     },
     pageTeachers() {

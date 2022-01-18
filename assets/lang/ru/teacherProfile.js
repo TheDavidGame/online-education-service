@@ -58,5 +58,7 @@ export default {
   phoneTeacher: 'Телефон преподавателя:',
   showPhone: 'Показать телефон',
   age: 'Возраст',
-  writeTeacher: 'Написать преподавателю'
+  writeTeacher: 'Написать преподавателю',
+  feedback: 'Отзыв',
+  addFeedback: 'Добавить отзыв'
 }
