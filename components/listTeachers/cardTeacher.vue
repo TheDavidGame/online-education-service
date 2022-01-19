@@ -20,7 +20,7 @@
                 <span>{{ ageChange(dataCard.age) }}</span>
               </p>
             </v-col>
-            <v-col cols="4">
+            <v-col cols="12" md="5">
               <v-rating
                 v-model="dataCard.rating"
                 readonly
@@ -59,14 +59,14 @@
           >
         </v-list-item-content>
 
-        <v-list-item-avatar v-if="dataCard.photo[0]" size="150">
+        <v-list-item-avatar v-if="dataCard.photo[0]" size="85">
           <v-img class="card-img" :src="profileImg"></v-img
         ></v-list-item-avatar>
 
         <v-list-item-avatar
           v-else
           tile
-          size="150"
+          size="85"
           color="grey"
         ></v-list-item-avatar>
       </v-list-item>
@@ -92,7 +92,7 @@
                 <span>{{ ageChange(dataCard.age) }}</span>
               </p>
             </v-col>
-            <v-col cols="4">
+            <v-col cols="12" md="5">
               <v-rating
                 v-model="dataCard.rating"
                 readonly
@@ -131,14 +131,14 @@
           </v-list-item-subtitle>
         </v-list-item-content>
 
-        <v-list-item-avatar v-if="dataCard.photo[0]" size="150">
+        <v-list-item-avatar v-if="dataCard.photo[0]" size="85">
           <v-img class="card-img" :src="profileImg"></v-img
         ></v-list-item-avatar>
 
         <v-list-item-avatar
           v-else
           tile
-          size="150"
+          size="85"
           color="grey"
         ></v-list-item-avatar>
       </v-list-item>

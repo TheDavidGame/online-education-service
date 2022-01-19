@@ -1,7 +1,7 @@
 <template>
   <div v-if="!isLoading">
     <v-row>
-      <v-col cols="8">
+      <v-col cols="12" md="9">
         <div v-for="(sub, i) in dataListTeachers" :key="i">
           <cardTeacher :dataCard="sub"> </cardTeacher>
         </div>
@@ -11,7 +11,7 @@
           </h1>
         </div>
       </v-col>
-      <v-col cols="4">
+      <v-col cols="12" md="3">
         <v-card class="ma-10">
           <v-row class="ma-2">
             <v-col cols="12" md="5">

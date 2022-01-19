@@ -39,7 +39,7 @@
               </h2>
             </v-row>
             <v-row>
-              <v-col cols="6" md="6" sm="10">
+              <v-col cols="12" md="6">
                 <v-checkbox
                   v-model="selected"
                   :label="$t('teacherProfile.subRemotely')"
@@ -56,7 +56,7 @@
                   required
                 ></v-checkbox>
               </v-col>
-              <v-col cols="6" md="6" sm="2">
+              <v-col cols="12" md="6">
                 <v-checkbox
                   v-model="selected"
                   :label="$t('teacherProfile.subHomeStudent')"
