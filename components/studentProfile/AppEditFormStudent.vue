@@ -29,6 +29,8 @@
             <v-menu
               ref="menu"
               v-model="menu"
+              :close-on-content-click="false"
+              :return-value.sync="birthday"
               transition="scale-transition"
               offset-y
               min-width="290px"
@@ -37,7 +39,7 @@
                 <v-text-field
                   v-model="birthday"
                   :disabled="disabled"
-                  :label="$t('studentProfile.birthday')"
+                  :label="$t('teacherProfile.birthday')"
                   clearable
                   clear-icon="mdi-close-circle"
                   :prepend-inner-icon="svg.calendarStar"
@@ -47,12 +49,20 @@
                 ></v-text-field>
               </template>
               <v-date-picker
-                ref="picker"
                 v-model="birthday"
-                locale="ru"
+                no-title
+                scrollable
                 :max="new Date().toISOString().substr(0, 10)"
                 min="1930-01-01"
-              ></v-date-picker>
+              >
+                <v-spacer></v-spacer>
+                <v-btn text color="primary" @click="menu = false">
+                  {{ $t('learningModule.cancel') }}
+                </v-btn>
+                <v-btn text color="primary" @click="$refs.menu.save(birthday)">
+                  {{ $t('learningModule.save') }}
+                </v-btn>
+              </v-date-picker>
             </v-menu>
           </v-col>
           <v-col cols="12" md="4">

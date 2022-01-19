@@ -60,6 +60,8 @@
                   v-model="formTeacher.birthday"
                   no-title
                   scrollable
+                  :max="new Date().toISOString().substr(0, 10)"
+                  min="1930-01-01"
                 >
                   <v-spacer></v-spacer>
                   <v-btn text color="primary" @click="menu = false">

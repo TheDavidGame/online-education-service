@@ -29,6 +29,46 @@
             <v-menu
               ref="menu"
               v-model="menu"
+              :close-on-content-click="false"
+              :return-value.sync="birthday"
+              transition="scale-transition"
+              offset-y
+              min-width="290px"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="birthday"
+                  :disabled="disabled"
+                  :label="$t('teacherProfile.birthday')"
+                  clearable
+                  clear-icon="mdi-close-circle"
+                  :prepend-inner-icon="svg.calendarStar"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                v-model="birthday"
+                no-title
+                scrollable
+                :max="new Date().toISOString().substr(0, 10)"
+                min="1930-01-01"
+              >
+                <v-spacer></v-spacer>
+                <v-btn text color="primary" @click="menu = false">
+                  {{ $t('learningModule.cancel') }}
+                </v-btn>
+                <v-btn text color="primary" @click="$refs.menu.save(birthday)">
+                  {{ $t('learningModule.save') }}
+                </v-btn>
+              </v-date-picker>
+            </v-menu>
+          </v-col>
+          <!-- <v-col cols="12" md="4">
+            <v-menu
+              ref="menu"
+              v-model="menu"
               transition="scale-transition"
               offset-y
               min-width="290px"
@@ -54,7 +94,7 @@
                 min="1930-01-01"
               ></v-date-picker>
             </v-menu>
-          </v-col>
+          </v-col> -->
           <v-col cols="12" md="4">
             <v-autocomplete
               v-model="country"
