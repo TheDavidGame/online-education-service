@@ -234,7 +234,7 @@
               clear-icon="mdi-close-circle"
               :label="$t('studentProfile.subName')"
               :items="itemSub"
-              :disabled="disabled"
+              disabled
             ></v-select>
             <v-checkbox
               v-model="sub.lessonLocation"

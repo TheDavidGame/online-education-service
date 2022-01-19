@@ -132,6 +132,7 @@ export default {
     },
     async getSubject() {
       const object = { ln: this.$i18n.locale, name: this.nameCategory }
+      this.dataFilter.nameCategory = this.nameCategory
       await this.$store.dispatch('GET_SUBJECTS', object)
       this.subjectItem = this.getSubjects
       this.openSubject = true

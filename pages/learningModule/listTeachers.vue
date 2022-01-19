@@ -229,9 +229,12 @@ export default {
   methods: {
     getFilter() {
       const { dataFilter } = this.$route.params
+
       if (dataFilter && dataFilter.subject) {
         this.dataFilter.subject = dataFilter.subject
         this.subject = dataFilter.subject
+        this.nameCategory = dataFilter.nameCategory
+        this.getSubject()
       }
 
       if (dataFilter && dataFilter.citiesForLessons) {
