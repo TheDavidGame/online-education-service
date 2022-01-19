@@ -15,7 +15,7 @@ import learningModule from '~/assets/lang/ru/learningModule'
 import teacherProfile from '~/assets/lang/ru/teacherProfile'
 import student from '~/assets/lang/ru/student'
 import chat from '~/assets/lang/ru/chat'
-import catalogs from '~/assets/lang/ru/catalogs'
+import catalogs from '~/assets/lang/ru/catalogs.js'
 
 export default {
   studentProfile,

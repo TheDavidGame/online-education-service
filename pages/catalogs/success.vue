@@ -1,6 +1,8 @@
 <template>
   <v-row justify="center" style="margin-top: 200px">
-    <p class="description">{{ $t('chat.successfulPay') }}</p>
+    <nuxt-link :to="localePath(`/`)" class="description">
+      {{ $t('catalogs.successfulPay') }}
+    </nuxt-link>
   </v-row>
 </template>
 
@@ -41,9 +43,14 @@ export default {
   justify-content: center;
 }
 .description {
-  background: #69f06a82;
-  padding: 1rem;
+  background: rgba(105, 240, 106, 0.5098);
+  padding: 2rem;
   font-size: 24px;
   border-radius: 5px;
+  border: 1px solid #ccc;
+  box-shadow: 3px 3px 5px 0px #32323299;
+}
+.description:hover {
+  background: #61ffda82;
 }
 </style>

@@ -86,6 +86,7 @@ export default {
       if (id) {
         try {
           const product = this.products.find(x => Number(id) === x.id)
+
           this.product = {
             title: product.title,
             time: product.time,
@@ -95,10 +96,17 @@ export default {
             discount: product.discount,
             ...product[ln]
           }
+          if (this.product.discountBool) {
+            this.product.summa = Math.floor(
+              this.product.price -
+                (this.product.price / 100) * this.product.discount
+            )
+          } else {
+            this.product.summa = this.product.price
+          }
 
           const script = document.createElement('script')
-          script.src =
-            'https://www.paypal.com/sdk/js?client-id=ARHn0pYUardbaEFAeo7uia3Jqd6HKsQCDfJUdUKNVbUWhJeItAmM8grqflYl9Xa6MYdWsQlF0bZRCqIQ'
+          script.src = `https://www.paypal.com/sdk/js?client-id=${process.env.PAYPAL_CLIENT_ID}&currency=${this.product.currency}`
           script.addEventListener('load', this.setLoaded)
           document.body.appendChild(script)
         } catch (e) {
@@ -118,10 +126,7 @@ export default {
                   custom_id: this.product.id,
                   description: this.product.description,
                   amount: {
-                    currency_code: this.product.price.currency,
-                    value: this.product.price.discountBool
-                      ? this.product.discountPrice
-                      : this.product.price
+                    value: this.product.summa
                   }
                 }
               ]
@@ -131,10 +136,9 @@ export default {
             const order = await actions.order.capture()
             this.paidFor = true
             this.opa(order)
-            console.log(order)
 
             this.$router.push({
-              name: `catalogs-success___ru`
+              name: `catalogs-success___${this.currentRouteName.substr(-2)}`
             })
           },
           onError: err => {

@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-form ref="form" class="mb-4">
+    <v-form v-if="!isLoading" ref="form" class="mb-4">
       <v-row class="px-12 pt-6 justify-center">
         <!----------- PERSONAL ---------------------->
         <v-row class="pb-12 justify-center">
@@ -227,7 +227,8 @@
           <div v-for="(sub, i) in dataTeacher.subjects" :key="i">
             <v-divider v-if="i >= 1" class="my-4"></v-divider>
 
-            <v-select
+            <!-- <v-select
+              v-if="sub.name"
               v-model="sub.name"
               :prepend-inner-icon="svg.range"
               clearable
@@ -235,7 +236,28 @@
               :label="$t('studentProfile.subName')"
               :items="itemSub"
               disabled
-            ></v-select>
+            ></v-select> -->
+            <div>
+              <v-select
+                v-model="sub.categoryName"
+                :rules="[v => !!v || $t('teacherProfile.fieldRules')]"
+                background-color="white"
+                :label="$t('studentProfile.subCategory')"
+                clearable
+                :items="categoryItem"
+                :disabled="disabled"
+                @change="getSubject(sub.categoryName, i)"
+              ></v-select>
+              <v-select
+                v-if="sub.openSubject"
+                v-model="sub.name"
+                background-color="white"
+                :label="$t('studentProfile.subName')"
+                clearable
+                :items="sub.subjectItems"
+                :disabled="disabled"
+              ></v-select>
+            </div>
             <v-checkbox
               v-model="sub.lessonLocation"
               :label="$t('teacherProfile.subRemotely')"
@@ -428,35 +450,46 @@ export default {
       ],
       countryNames: [],
       countryCode: '',
-      ruItem: [
-        this.$t('studentProfile.math'),
-        this.$t('studentProfile.language'),
-        this.$t('studentProfile.physics'),
-        this.$t('studentProfile.geography')
-      ],
-      heItem: [
-        'תמטיקה תיכון 3 יח',
-        'מתמטיקה תיכון 4 יח',
-        'מתמטיקה תיכון 5 יחידות',
-        'אלגברה',
-        'חדוא 1',
-        'חדוא 2',
-        'חדוא 3',
-        'אינפי 1',
-        'אינפי 2',
-        'אינפי 3',
-        'תורת הקבוצות',
-        'קומבינטוריקה',
-        'הסתברות'
-      ],
-      itemSub: []
+      nameCategory: '',
+      valid: true,
+      isLoading: true,
+      categoryItem: [],
+      openSubject: false,
+      dataFilter: {}
+      // ruItem: [
+      //   this.$t('studentProfile.math'),
+      //   this.$t('studentProfile.language'),
+      //   this.$t('studentProfile.physics'),
+      //   this.$t('studentProfile.geography')
+      // ],
+      // heItem: [
+      //   'תמטיקה תיכון 3 יח',
+      //   'מתמטיקה תיכון 4 יח',
+      //   'מתמטיקה תיכון 5 יחידות',
+      //   'אלגברה',
+      //   'חדוא 1',
+      //   'חדוא 2',
+      //   'חדוא 3',
+      //   'אינפי 1',
+      //   'אינפי 2',
+      //   'אינפי 3',
+      //   'תורת הקבוצות',
+      //   'קומבינטוריקה',
+      //   'הסתברות'
+      // ],
+      // itemSub: []
     }
   },
   computed: {
     currentRouteName() {
       return this.$route.name
     },
-    ...mapGetters(['loadingForm', 'profileEditable']),
+    ...mapGetters([
+      'loadingForm',
+      'profileEditable',
+      'getCategoryList',
+      'getSubjects'
+    ]),
     disabled() {
       return !this.profileEditable
     },
@@ -489,9 +522,13 @@ export default {
     }
   },
   watch: {},
-  mounted() {
+  async mounted() {
     if (this.data) {
       this.dataTeacher = { ...this.data }
+      for (const item of this.dataTeacher.subjects) {
+        item.subjectItems = await this.getSubject(item.categoryName)
+        item.openSubject = true
+      }
       this.birthday = this.dataTeacher.birthday.substr(0, 10)
       this.country = this.dataTeacher.cityOfResidence.country
       this.city = this.dataTeacher.cityOfResidence.city
@@ -501,15 +538,32 @@ export default {
         }
       })
     }
-    if (this.$i18n.locale === 'ru') {
-      this.itemSub = [...this.ruItem]
-    } else {
-      this.itemSub = [...this.heItem]
-    }
+    await this.getCategory()
     this.countryGetName('name')
     this.onInput()
+    this.isLoading = false
   },
   methods: {
+    async getCategory() {
+      await this.$store.dispatch('GET_CATEGORY', this.$i18n.locale)
+      this.categoryItem = [...this.getCategoryList]
+    },
+    async getSubject(category, i) {
+      const object = { ln: this.$i18n.locale, name: category }
+      await this.$store.dispatch('GET_SUBJECTS', object)
+
+      if (i !== undefined) {
+        this.dataTeacher.subjects[i].subjectItems.splice(
+          0,
+          100,
+          ...this.getSubjects
+        )
+        this.dataTeacher.subjects[i].name = ''
+        this.dataTeacher.subjects[i].openSubject = true
+      } else {
+        return this.getSubjects
+      }
+    },
     countryGetName(lan) {
       if (this.currentRouteName.substr(-2) === 'ru') {
         this.countryNames = countriesRu.map(x => {
@@ -537,7 +591,10 @@ export default {
         name: '',
         lessonLocation: [],
         price: 0,
-        currency: ''
+        currency: '',
+        categoryName: '',
+        openSubject: false,
+        subjectItems: []
       })
     },
     cancelEdit() {
@@ -554,6 +611,7 @@ export default {
       // this.$store.state.profileEditable = false
     },
     save() {
+      console.log(this.dataTeacher)
       this.dataTeacher.cityOfResidence = {
         city: this.city,
         country: this.country

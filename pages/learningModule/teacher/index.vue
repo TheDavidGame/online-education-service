@@ -2,7 +2,7 @@
   <v-row justify="center">
     <v-col cols="12" md="8">
       <v-card>
-        <v-form ref="form" v-model="valid" lazy-validation>
+        <v-form v-if="!isLoading" ref="form" v-model="valid" lazy-validation>
           <h1 class="pa-6 ml-2">{{ $t('learningModule.myForm') }}</h1>
           <v-row>
             <v-col cols="6" md="5" class="ma-2 ms-8">
@@ -247,6 +247,26 @@
 
               <div v-for="(textField, i) in subjectsSecond" :key="i">
                 <v-select
+                  v-model="textField.value0"
+                  background-color="white"
+                  :label="textField.label0"
+                  filled
+                  :rules="[v => !!v || $t('studentProfile.fieldRules')]"
+                  :items="categoryItem"
+                  required
+                  @change="getSubject(textField.value0, i)"
+                ></v-select>
+                <v-select
+                  v-if="textField.openSubject"
+                  v-model="textField.value1"
+                  background-color="white"
+                  :label="textField.label1"
+                  filled
+                  :rules="[v => !!v || $t('studentProfile.fieldRules')]"
+                  :items="textField.subjectItems"
+                  required
+                ></v-select>
+                <!-- <v-select
                   v-model="textField.value1"
                   background-color="white"
                   :label="textField.label1"
@@ -254,7 +274,7 @@
                   :rules="[v => !!v || $t('learningModule.rulesField')]"
                   :items="itemSub"
                   required
-                ></v-select>
+                ></v-select> -->
 
                 <v-checkbox
                   v-model="selected"
@@ -333,11 +353,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 const countriesRu = require('@/assets/lang/country/ru/countries.json')
 // const countriesEn = require('@/assets/lang/country/en/countries.json')
 const countriesHe = require('@/assets/lang/country/he/countries.json')
 
 const countries = require('./countries.json')
+
 export default {
   name: 'Teacher',
   components: {},
@@ -389,6 +411,10 @@ export default {
       checkboxStudentTeacherHouse: false,
       subjectsSecond: [
         {
+          openSubject: false,
+          subjectItems: [],
+          label0: this.$t('studentProfile.subCategory'),
+          value0: '',
           label1: this.$t('learningModule.subFieldName'),
           value1: '',
           label3: this.$t('learningModule.subFieldPrice'),
@@ -418,31 +444,14 @@ export default {
         'learningModule.subHomeTeacherOrStudent'
       ),
       countryNames: [],
-      ruItem: [
-        this.$t('studentProfile.math'),
-        this.$t('studentProfile.language'),
-        this.$t('studentProfile.physics'),
-        this.$t('studentProfile.geography')
-      ],
-      heItem: [
-        'תמטיקה תיכון 3 יח',
-        'מתמטיקה תיכון 4 יח',
-        'מתמטיקה תיכון 5 יחידות',
-        'אלגברה',
-        'חדוא 1',
-        'חדוא 2',
-        'חדוא 3',
-        'אינפי 1',
-        'אינפי 2',
-        'אינפי 3',
-        'תורת הקבוצות',
-        'קומבינטוריקה',
-        'הסתברות'
-      ],
-      itemSub: []
+
+      isLoading: true,
+      categoryItem: [],
+      subjectItem: []
     }
   },
   computed: {
+    ...mapGetters(['getCategoryList', 'getSubjects']),
     currentRouteName() {
       return this.$route.name
     },
@@ -477,15 +486,35 @@ export default {
       return [this.selected.length > 0 || this.$t('learningModule.rulesField')]
     }
   },
-  mounted() {
+  async mounted() {
     this.countryGetName('name')
-    if (this.$i18n.locale === 'ru') {
-      this.itemSub = [...this.ruItem]
-    } else {
-      this.itemSub = [...this.heItem]
-    }
+    await this.getCategory()
+    this.isLoading = false
   },
   methods: {
+    async getCategory() {
+      await this.$store.dispatch('GET_CATEGORY', this.$i18n.locale)
+      this.categoryItem = [...this.getCategoryList]
+    },
+    // async getSubject(sub, i) {
+    //   const object = { ln: this.$i18n.locale, name: sub }
+    //   await this.$store.dispatch('GET_SUBJECTS', object)
+    //   // this.subjectItem = this.getSubjects
+    //   this.subjectsSecond[i].subjectItems = this.getSubjects
+    //   this.subjectsSecond[i].openSubject = true
+    // },
+    async getSubject(category, i) {
+      const object = { ln: this.$i18n.locale, name: category }
+      await this.$store.dispatch('GET_SUBJECTS', object)
+
+      if (i !== undefined) {
+        this.subjectsSecond[i].subjectItems.splice(0, 100, ...this.getSubjects)
+        this.subjectsSecond[i].name = ''
+        this.subjectsSecond[i].openSubject = true
+      } else {
+        return this.getSubjects
+      }
+    },
     countryGetName(lan) {
       if (this.currentRouteName.substr(-2) === 'ru') {
         this.countryNames = countriesRu.map(x => {
@@ -513,6 +542,10 @@ export default {
     },
     add() {
       this.subjectsSecond.push({
+        openSubject: false,
+        subjectItems: [],
+        label0: this.$t('studentProfile.subCategory'),
+        value0: '',
         label1: this.$t('learningModule.subFieldName'),
         value1: '',
         label3: this.$t('learningModule.subFieldPrice'),
@@ -536,6 +569,7 @@ export default {
           }
 
           sub.push({
+            categoryName: item.value0,
             name: item.value1,
             price: item.value3,
             currency: item.value4,
