@@ -29,6 +29,7 @@ export default {
   addCity: 'Добавить город',
   subjects: 'Мои предметы',
   subName: 'Название предмета',
+  subCategory: 'Название категории',
   subprice: 'Цена за урок',
   subCurrency: 'Валюта',
   subPrice: 'Цена за урок',

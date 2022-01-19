@@ -34,6 +34,7 @@ export default {
   addCity: 'הוספת עיר',
   subjects: 'המקצועות שלי',
   subName: 'שם המקצוע',
+  subCategory: 'שם קטגוריה',
   subprice: 'מחיר שיעור',
   subCurrency: 'מטבע',
   subPrice: 'מחיר שיעור',

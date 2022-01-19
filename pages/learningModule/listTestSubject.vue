@@ -14,19 +14,35 @@
       <v-col cols="4">
         <v-card class="ma-10">
           <v-row class="ma-2">
-            <v-col cols="6">
+            <v-col cols="12">
               <v-text-field
                 v-model="city"
                 clearable
                 :label="$t('studentProfile.city')"
               ></v-text-field>
             </v-col>
-            <v-col cols="6">
-              <v-select
+            <v-col cols="12">
+              <!-- <v-select
                 v-model="subject"
                 clearable
                 :items="itemSubject"
                 :label="$t('studentProfile.subName')"
+              ></v-select> -->
+              <v-select
+                v-model="nameCategory"
+                background-color="white"
+                :label="$t('studentProfile.subCategory')"
+                clearable
+                :items="categoryItem"
+                @change="getSubject"
+              ></v-select>
+              <v-select
+                v-if="openSubject"
+                v-model="subject"
+                clearable
+                background-color="white"
+                :label="$t('studentProfile.subName')"
+                :items="subjectItem"
               ></v-select>
             </v-col>
             <v-col cols="12">
@@ -62,50 +78,66 @@ export default {
       dataFilter: {},
       city: '',
       subject: '',
+      nameCategory: '',
+      valid: true,
+      categoryItem: [],
+      subjectItem: [],
+      openSubject: false
       // itemSubject: [
       //   this.$t('studentProfile.language'),
       //   this.$t('studentProfile.math'),
       //   this.$t('studentProfile.geography'),
       //   this.$t('studentProfile.physics')
       // ]
-      ruItem: [
-        this.$t('studentProfile.math'),
-        this.$t('studentProfile.language'),
-        this.$t('studentProfile.physics'),
-        this.$t('studentProfile.geography')
-      ],
-      heItem: [
-        'תמטיקה תיכון 3 יח',
-        'מתמטיקה תיכון 4 יח',
-        'מתמטיקה תיכון 5 יחידות',
-        'אלגברה',
-        'חדוא 1',
-        'חדוא 2',
-        'חדוא 3',
-        'אינפי 1',
-        'אינפי 2',
-        'אינפי 3',
-        'תורת הקבוצות',
-        'קומבינטוריקה',
-        'הסתברות'
-      ],
-      itemSubject: []
+      // ruItem: [
+      //   this.$t('studentProfile.math'),
+      //   this.$t('studentProfile.language'),
+      //   this.$t('studentProfile.physics'),
+      //   this.$t('studentProfile.geography')
+      // ],
+      // heItem: [
+      //   'תמטיקה תיכון 3 יח',
+      //   'מתמטיקה תיכון 4 יח',
+      //   'מתמטיקה תיכון 5 יחידות',
+      //   'אלגברה',
+      //   'חדוא 1',
+      //   'חדוא 2',
+      //   'חדוא 3',
+      //   'אינפי 1',
+      //   'אינפי 2',
+      //   'אינפי 3',
+      //   'תורת הקבוצות',
+      //   'קומבינטוריקה',
+      //   'הסתברות'
+      // ],
+      // itemSubject: []
     }
   },
   computed: {
-    ...mapGetters(['getTestSubjectFilter'])
+    ...mapGetters(['getTestSubjectFilter', 'getCategoryList', 'getSubjects'])
   },
   async mounted() {
     this.getFilter()
     await this.getTeachersList()
-    if (this.$i18n.locale === 'ru') {
-      this.itemSubject = [...this.ruItem]
-    } else {
-      this.itemSubject = [...this.heItem]
-    }
+    await this.getCategory()
+    // if (this.$i18n.locale === 'ru') {
+    //   this.itemSubject = [...this.ruItem]
+    // } else {
+    //   this.itemSubject = [...this.heItem]
+    // }
     this.isLoading = false
   },
   methods: {
+    async getCategory() {
+      await this.$store.dispatch('GET_CATEGORY', this.$i18n.locale)
+      this.categoryItem = [...this.getCategoryList]
+    },
+    async getSubject() {
+      const object = { ln: this.$i18n.locale, name: this.nameCategory }
+      await this.$store.dispatch('GET_SUBJECTS', object)
+      this.subjectItem = this.getSubjects
+      this.openSubject = true
+    },
     getFilter() {
       const { dataFilter } = this.$route.params
       if (dataFilter && dataFilter.subject) {

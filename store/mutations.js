@@ -4,6 +4,12 @@ export default {
   setUser(state, user) {
     state.user = user
   },
+  SET_SUBJECTS(state, sub) {
+    state.subjects = sub
+  },
+  SET_CATEGORY(state, category) {
+    state.categoryList = category
+  },
   SET_TEACHER_ID_DATA(state, teacher) {
     state.teacherIdData = teacher
   },

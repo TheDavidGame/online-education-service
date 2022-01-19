@@ -30,11 +30,26 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-select
+              <!-- <v-select
                 v-model="subject"
                 clearable
                 :items="itemSubject"
                 :label="$t('studentProfile.subName')"
+              ></v-select> -->
+              <v-select
+                v-model="nameCategory"
+                background-color="white"
+                :label="$t('studentProfile.subCategory')"
+                clearable
+                :items="categoryItem"
+                @change="getSubject"
+              ></v-select>
+              <v-select
+                v-if="openSubject"
+                v-model="subject"
+                :label="$t('studentProfile.subName')"
+                clearable
+                :items="subjectItem"
               ></v-select>
             </v-col>
             <v-col cols="12">
@@ -183,34 +198,6 @@ export default {
       subject: '',
       sex: '',
       rating: 0,
-      // itemSubject: [
-      //   this.$t('studentProfile.language'),
-      //   this.$t('studentProfile.math'),
-      //   this.$t('studentProfile.geography'),
-      //   this.$t('studentProfile.physics')
-      // ],
-      ruItem: [
-        this.$t('studentProfile.math'),
-        this.$t('studentProfile.language'),
-        this.$t('studentProfile.physics'),
-        this.$t('studentProfile.geography')
-      ],
-      heItem: [
-        'תמטיקה תיכון 3 יח',
-        'מתמטיקה תיכון 4 יח',
-        'מתמטיקה תיכון 5 יחידות',
-        'אלגברה',
-        'חדוא 1',
-        'חדוא 2',
-        'חדוא 3',
-        'אינפי 1',
-        'אינפי 2',
-        'אינפי 3',
-        'תורת הקבוצות',
-        'קומבינטוריקה',
-        'הסתברות'
-      ],
-      itemSubject: [],
       itemSex: [
         this.$t('studentProfile.sexItemMan'),
         this.$t('studentProfile.sexItemWoman')
@@ -220,23 +207,23 @@ export default {
       range: [0, 10000],
       minAge: 0,
       maxAge: 90,
-      rangeAge: [0, 90]
+      rangeAge: [0, 90],
+      nameCategory: '',
+      categoryItem: [],
+      subjectItem: [],
+      openSubject: false
     }
   },
   computed: {
-    ...mapGetters(['getTeacherFilter']),
+    ...mapGetters(['getTeacherFilter', 'getCategoryList', 'getSubjects']),
     numRules() {
       return [v => /^\d+$/.test(v) || this.$t('studentProfile.rulesPattern')]
     }
   },
   async mounted() {
     this.getFilter()
-    await this.getTeachersList()
-    if (this.$i18n.locale === 'ru') {
-      this.itemSubject = [...this.ruItem]
-    } else {
-      this.itemSubject = [...this.heItem]
-    }
+    await this.getCategory()
+    await this.postTeachersList()
     this.isLoading = false
   },
   methods: {
@@ -252,8 +239,17 @@ export default {
         this.city = dataFilter.citiesForLessons[0] || []
       }
     },
-
-    async getTeachersList() {
+    async getCategory() {
+      await this.$store.dispatch('GET_CATEGORY', this.$i18n.locale)
+      this.categoryItem = [...this.getCategoryList]
+    },
+    async getSubject() {
+      const object = { ln: this.$i18n.locale, name: this.nameCategory }
+      await this.$store.dispatch('GET_SUBJECTS', object)
+      this.subjectItem = this.getSubjects
+      this.openSubject = true
+    },
+    async postTeachersList() {
       await this.$store.dispatch('POST_TEACHER_FILTER', this.dataFilter)
       this.dataListTeachers = [...this.getTeacherFilter]
     },

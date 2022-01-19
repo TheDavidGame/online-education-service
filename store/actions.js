@@ -4,6 +4,19 @@ import axios from 'axios'
 // import Api from '../plugins/api'
 
 export default {
+  async GET_SUBJECTS({ commit }, object) {
+    await this.$apiLearning
+      .get(`list/subjects?ln=${object.ln}&category=${object.name}`)
+      .then(res => {
+        const subjects = res.data.data.map(x => x.name)
+        commit('SET_SUBJECTS', subjects)
+      })
+  },
+  async GET_CATEGORY({ commit }, lang) {
+    await this.$apiLearning.get(`list/category?ln=${lang}`).then(res => {
+      commit('SET_CATEGORY', res.data.categories)
+    })
+  },
   async POST_FEEDBACK({ commit }, data) {
     const token = localStorage.getItem('auth._token.local')
 

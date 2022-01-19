@@ -55,6 +55,8 @@ export default () => ({
   //     id: 4
   //   }
   // ],
+  categoryList: [],
+  subjects: [],
   feedbacks: {},
   testSubject: {},
   teacherIdData: {},
