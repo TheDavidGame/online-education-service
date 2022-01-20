@@ -100,7 +100,9 @@ export default {
           Authorization: `${token}`
         }
       })
-      .then(res => {})
+      .then(res => {
+        commit('SET_TEST_SUBJECT', res.data.data)
+      })
       .catch(error => {
         console.log(error)
       })

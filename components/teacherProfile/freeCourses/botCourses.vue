@@ -61,12 +61,22 @@ export default {
   name: 'BotCourses',
   data() {
     return {
-      dataTestSubject: {},
+      dataTestSubject: [],
       isLoading: true
     }
   },
   computed: {
     ...mapGetters(['getTestSubject'])
+    // getAddSubject() {
+    //   this.dataTestSubject = [...this.getTestSubject]
+
+    //   return this.dataTestSubject
+    // }
+  },
+  watch: {
+    getTestSubject() {
+      this.dataTestSubject.push(this.getTestSubject)
+    }
   },
   async mounted() {
     await this.getDataTestSubject()
@@ -78,7 +88,6 @@ export default {
       this.dataTestSubject = this.getTestSubject
     },
     async deleteSubject(sub) {
-      // console.log(sub._id)
       await this.$store.dispatch('DELETE_TEST_SUBJECT', sub)
       await this.getDataTestSubject()
     }

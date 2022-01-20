@@ -182,13 +182,8 @@ export default {
         this.subject.price = this.price
         this.subject.currency = this.currency
         this.subject.comment = this.infoCourses
-        console.log(this.subject)
         this.sendTestSubject()
-        this.getDataTestSubject()
       }
-    },
-    async getDataTestSubject() {
-      await this.$store.dispatch('GET_TEST_SUBJECT')
     },
     async sendTestSubject() {
       await this.$store.dispatch('POST_TEST_SUBJECT', this.subject)
