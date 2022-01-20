@@ -71,6 +71,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  middleware: 'auth',
   name: 'HelloWorld',
   components: {
     // payPal

@@ -36,10 +36,10 @@
           <v-col cols="12" md="3">
             <v-text-field
               v-model="price"
-              :rules="numRules"
               clearable
               clear-icon="mdi-close-circle"
               :label="$t('teacherProfile.subPrice')"
+              disabled
               required
             ></v-text-field>
           </v-col>
@@ -184,7 +184,11 @@ export default {
         this.subject.comment = this.infoCourses
         console.log(this.subject)
         this.sendTestSubject()
+        this.getDataTestSubject()
       }
+    },
+    async getDataTestSubject() {
+      await this.$store.dispatch('GET_TEST_SUBJECT')
     },
     async sendTestSubject() {
       await this.$store.dispatch('POST_TEST_SUBJECT', this.subject)

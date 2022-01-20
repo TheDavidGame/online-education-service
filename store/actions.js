@@ -5,19 +5,14 @@ import axios from 'axios'
 
 export default {
   async DELETE_TEST_SUBJECT({ commit }, id) {
-    console.log('actions_id', { id })
     const token = localStorage.getItem('auth._token.local')
 
     await this.$apiLearning
-      .delete(
-        `test-subject`,
-        { id },
-        {
-          headers: {
-            Authorization: `${token}`
-          }
+      .delete(`test-subject/${id}`, {
+        headers: {
+          Authorization: `${token}`
         }
-      )
+      })
       .catch(error => {
         console.log(error)
       })

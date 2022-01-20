@@ -30,6 +30,7 @@
 // import payPal from '@/components/paypal/paypal.vue'
 
 export default {
+  middleware: 'auth',
   name: 'HelloWorld',
   components: {},
   data() {

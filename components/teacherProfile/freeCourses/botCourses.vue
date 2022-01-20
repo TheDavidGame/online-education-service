@@ -76,11 +76,11 @@ export default {
     async getDataTestSubject() {
       await this.$store.dispatch('GET_TEST_SUBJECT')
       this.dataTestSubject = this.getTestSubject
-      console.log(this.dataTestSubject)
     },
     async deleteSubject(sub) {
       // console.log(sub._id)
       await this.$store.dispatch('DELETE_TEST_SUBJECT', sub)
+      await this.getDataTestSubject()
     }
   }
 }
