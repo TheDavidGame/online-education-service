@@ -4,7 +4,7 @@
       v-if="dataCard.subscription.status"
       class="mx-auto my-7"
       max-width="800"
-      style="border: 3px solid red"
+      style="border: 2px solid #b90404"
       outlined
     >
       <v-list-item three-line>

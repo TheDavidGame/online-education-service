@@ -1,35 +1,27 @@
 <template>
   <div v-if="!isLoading">
-    <v-row>
-      <v-col cols="12" md="9">
-        <div v-for="(sub, i) in dataListTeachers" :key="i">
-          <cardTeacher :dataCard="sub"> </cardTeacher>
-        </div>
-        <div v-if="dataListTeachers.length === 0">
-          <h1 style="text-align: center; margin-top: 250px">
-            {{ $t('studentProfile.noProfiles') }}
-          </h1>
-        </div>
-      </v-col>
-      <v-col cols="12" md="3">
-        <v-card class="ma-10">
+    <v-row class="center">
+      <v-col cols="12" md="10" lg="8">
+        <v-card class="ma-6">
           <v-row class="ma-2">
-            <v-col cols="12" md="5">
+            <v-col cols="12" md="4" class="filter-row">
               <v-select
                 v-model="sex"
                 clearable
                 :items="itemSex"
                 :label="$t('studentProfile.gender')"
+                class="filter"
               ></v-select>
             </v-col>
-            <v-col cols="12" md="5" class="mx-6">
+            <v-col cols="12" md="4" class="filter-row">
               <v-text-field
                 v-model="city"
                 clearable
                 :label="$t('studentProfile.city')"
+                class="filter"
               ></v-text-field>
             </v-col>
-            <v-col cols="12">
+            <v-col cols="12" md="4" class="filter-row">
               <!-- <v-select
                 v-model="subject"
                 clearable
@@ -42,6 +34,7 @@
                 :label="$t('studentProfile.subCategory')"
                 clearable
                 :items="categoryItem"
+                class="filter"
                 @change="getSubject"
               ></v-select>
               <v-select
@@ -50,20 +43,22 @@
                 :label="$t('studentProfile.subName')"
                 clearable
                 :items="subjectItem"
+                class="filter"
               ></v-select>
             </v-col>
-            <v-col cols="12">
+            <v-col cols="12" class="filter-row">
               <v-slider
                 v-model="rating"
                 max="5"
                 :label="$t('studentProfile.rating')"
                 thumb-label
+                class="filter"
               ></v-slider>
             </v-col>
-            <v-col cols="12">
-              <h3>{{ $t('studentProfile.subprice') }}</h3>
+            <v-col cols="12" md="2" class="filter-row">
+              <h4>{{ $t('studentProfile.subprice') }}</h4>
             </v-col>
-            <v-col class="px-4">
+            <v-col md="10" class="px-4 filter-row">
               <v-range-slider
                 v-model="range"
                 :max="max"
@@ -95,26 +90,10 @@
                 </template>
               </v-range-slider>
             </v-col>
-            <!-- <v-col cols="12" md="4">
-              <v-text-field
-                v-model="priceMin"
-                :rules="numRules"
-                clearable
-                label="Минимум"
-              ></v-text-field>
+            <v-col cols="12" md="2">
+              <h4>{{ $t('studentProfile.age') }}</h4>
             </v-col>
-            <v-col cols="12" md="4">
-              <v-text-field
-                v-model="priceMax"
-                :rules="numRules"
-                clearable
-                label="Максимум"
-              ></v-text-field>
-            </v-col> -->
-            <v-col cols="12">
-              <h3>{{ $t('studentProfile.age') }}</h3>
-            </v-col>
-            <v-col class="px-4">
+            <v-col md="10" class="px-4 filter-row">
               <v-range-slider
                 v-model="rangeAge"
                 :max="maxAge"
@@ -168,6 +147,17 @@
             </v-col>
           </v-row>
         </v-card>
+      </v-col>
+
+      <v-col cols="12" md="10" class="pa-4">
+        <div v-for="(sub, i) in dataListTeachers" :key="i">
+          <cardTeacher :dataCard="sub"> </cardTeacher>
+        </div>
+        <div v-if="dataListTeachers.length === 0">
+          <h1 style="text-align: center; margin-top: 250px">
+            {{ $t('studentProfile.noProfiles') }}
+          </h1>
+        </div>
       </v-col>
     </v-row>
   </div>
@@ -289,3 +279,15 @@ export default {
   }
 }
 </script>
+
+<style>
+.filter {
+  margin: 0;
+  margin-top: 0;
+}
+
+.filter-row {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+</style>

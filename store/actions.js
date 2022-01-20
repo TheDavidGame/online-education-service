@@ -4,6 +4,24 @@ import axios from 'axios'
 // import Api from '../plugins/api'
 
 export default {
+  async DELETE_TEST_SUBJECT({ commit }, id) {
+    console.log('actions_id', { id })
+    const token = localStorage.getItem('auth._token.local')
+
+    await this.$apiLearning
+      .delete(
+        `test-subject`,
+        { id },
+        {
+          headers: {
+            Authorization: `${token}`
+          }
+        }
+      )
+      .catch(error => {
+        console.log(error)
+      })
+  },
   async GET_SUBJECTS({ commit }, object) {
     await this.$apiLearning
       .get(`list/subjects?ln=${object.ln}&category=${object.name}`)

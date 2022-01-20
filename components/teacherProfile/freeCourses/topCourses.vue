@@ -1,17 +1,37 @@
 <template>
   <v-container>
-    <v-form ref="form" v-model="valid" lazy-validation>
+    <v-form v-if="!isLoading" ref="form" v-model="valid" lazy-validation>
       <v-row class="px-12 pt-6 justify-center">
         <v-row class="pb-12 justify-center">
           <v-col cols="12" md="3">
-            <v-text-field
+            <v-select
+              v-model="nameCategory"
+              background-color="white"
+              :label="$t('studentProfile.subCategory')"
+              filled
+              :rules="[v => !!v || $t('studentProfile.fieldRules')]"
+              :items="categoryItem"
+              required
+              @change="getSubject"
+            ></v-select>
+            <v-select
+              v-if="openSubject"
+              v-model="nameSubject"
+              background-color="white"
+              :label="$t('studentProfile.subName')"
+              filled
+              :rules="[v => !!v || $t('studentProfile.fieldRules')]"
+              :items="subjectItem"
+              required
+            ></v-select>
+            <!-- <v-text-field
               v-model="itemCourses"
               :rules="[v => !!v || $t('teacherProfile.fieldRules')]"
               clearable
               clear-icon="mdi-close-circle"
               :label="$t('teacherProfile.subName')"
               required
-            ></v-text-field>
+            ></v-text-field> -->
           </v-col>
           <v-col cols="12" md="3">
             <v-text-field
@@ -74,13 +94,13 @@
               </v-col>
             </v-row>
           </v-col>
-          <v-col cols="12" md="4">
+          <v-col cols="12" md="6">
             <v-textarea
               v-model="infoCourses"
               clearable
               auto-grow
-              rows="2"
-              row-height="10"
+              rows="4"
+              row-height="20"
               clear-icon="mdi-close-circle"
               :label="$t('teacherProfile.descriptionLesson')"
               required
@@ -100,6 +120,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'TopCourses',
   data() {
@@ -111,16 +133,22 @@ export default {
         currency: '',
         comment: ''
       },
-      itemCourses: '',
+      nameSubject: '',
       selected: [],
       infoCourses: '',
       price: 0,
       currency: '',
       CurrencyItem: ['USD', 'RUB', 'EUR'],
-      valid: true
+      valid: true,
+      isLoading: true,
+      nameCategory: '',
+      categoryItem: [],
+      subjectItem: [],
+      openSubject: false
     }
   },
   computed: {
+    ...mapGetters(['getCategoryList', 'getSubjects']),
     numRules() {
       return [
         v => !!v || this.$t('teacherProfile.fieldRules'),
@@ -131,21 +159,36 @@ export default {
       return [this.selected.length > 0 || this.$t('learningModule.rulesField')]
     }
   },
-  mounted() {},
+  async mounted() {
+    await this.getCategory()
+    this.isLoading = false
+  },
   methods: {
+    async getCategory() {
+      await this.$store.dispatch('GET_CATEGORY', this.$i18n.locale)
+      this.categoryItem = [...this.getCategoryList]
+    },
+    async getSubject() {
+      const object = { ln: this.$i18n.locale, name: this.nameCategory }
+      await this.$store.dispatch('GET_SUBJECTS', object)
+      this.subjectItem = this.getSubjects
+      this.openSubject = true
+    },
     addSubject() {
       if (this.$refs.form.validate()) {
-        this.subject.name = this.itemCourses
+        this.subject.categoryName = this.nameCategory
+        this.subject.name = this.nameSubject
         this.subject.lessonLocation = [...this.selected]
         this.subject.price = this.price
         this.subject.currency = this.currency
         this.subject.comment = this.infoCourses
+        console.log(this.subject)
         this.sendTestSubject()
       }
     },
     async sendTestSubject() {
       await this.$store.dispatch('POST_TEST_SUBJECT', this.subject)
-      this.reloadPage()
+      // this.reloadPage()
     },
     reloadPage() {
       window.location.reload()

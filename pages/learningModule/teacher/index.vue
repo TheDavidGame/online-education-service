@@ -247,7 +247,11 @@
             <v-col cols="6" md="6" class="pa-5 my-n2 ms-5">
               <h3>{{ $t('learningModule.mySubjects') }}</h3>
 
-              <div v-for="(textField, i) in subjectsSecond" :key="i">
+              <div
+                v-for="(textField, i) in subjectsSecond"
+                :key="i"
+                class="card"
+              >
                 <v-select
                   v-model="textField.value0"
                   background-color="white"
@@ -620,4 +624,8 @@ export default {
   }
 }
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.card {
+  width: 300px;
+}
+</style>
