@@ -55,6 +55,7 @@ export default () => ({
   //     id: 4
   //   }
   // ],
+  valideModer: [],
   categoryList: [],
   subjects: [],
   feedbacks: {},

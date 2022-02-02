@@ -65,13 +65,26 @@ export default {
       name: 'Кабинет преподавателя',
       routing: '/ru/learningModule/teacher',
       key: 'teacher'
+    }
+
+    // { name: 'База знаний', routing: '/ru/learningModule/base', key: 'base' }
+  ],
+  moder_categories: [
+    {
+      name: 'Каталог товаров',
+      routing: '/ru/learningModule/moderator/catalog',
+      key: 'catalog'
     },
     {
-      name: 'Кабинет администратора',
-      routing: '/ru/learningModule/moderator',
-      key: 'moderator'
+      name: 'Справочники',
+      routing: '/ru/learningModule/moderator/referenceBooks',
+      key: 'referenceBooks'
+    },
+    {
+      name: 'Модераторы',
+      routing: '/ru/learningModule/moderator/moders',
+      key: 'moders'
     }
-    // { name: 'База знаний', routing: '/ru/learningModule/base', key: 'base' }
   ],
   main_categories: [
     { name: 'Животные', routing: '/ru/board/pets', key: 'pets' },

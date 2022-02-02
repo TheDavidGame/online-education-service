@@ -1,6 +1,9 @@
 import Vue from 'vue'
 
 export default {
+  SET_VALIDE_MODERATOR(state, moder) {
+    state.valideModer = moder
+  },
   setUser(state, user) {
     state.user = user
   },

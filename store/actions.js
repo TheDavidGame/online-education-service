@@ -4,6 +4,24 @@ import axios from 'axios'
 // import Api from '../plugins/api'
 
 export default {
+  async VALIDATE_MODER({ commit }) {
+    const token = localStorage.getItem('auth._token.local')
+    try {
+      await this.$apiLearning
+        .get('moder', {
+          headers: {
+            Authorization: `${token}`
+          }
+        })
+        .then(res => {
+          commit('SET_VALIDE_MODERATOR', res.data.data)
+        })
+    } catch (err) {
+      if (err.response.status === 400) {
+        commit('SET_VALIDE_MODERATOR', null)
+      }
+    }
+  },
   async DELETE_TEST_SUBJECT({ commit }, id) {
     const token = localStorage.getItem('auth._token.local')
 
