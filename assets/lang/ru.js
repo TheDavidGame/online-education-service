@@ -46,11 +46,11 @@ export default {
     },
     { title: 'Профиль', icon: 'mdi-account-outline', link: '/ru/profile' },
     { title: 'Бартинг', icon: 'mdi-bitcoin', link: '/ru/barting' },
-    {
-      title: 'Доска объявлений',
-      icon: 'mdi-clipboard-text',
-      link: '/ru/board'
-    },
+    // {
+    //   title: 'Доска объявлений',
+    //   icon: 'mdi-clipboard-text',
+    //   link: '/ru/board'
+    // },
     { title: 'Учебный модуль', icon: 'mdi-book', link: '/ru/learningModule' },
     { title: 'Подписки', icon: 'mdi-bank', link: '/ru/catalogs/catalogs' },
     { title: 'Сообщения', icon: 'mdi-chat', link: '/ru/messager/dialogs' }
@@ -65,6 +65,11 @@ export default {
       name: 'Кабинет преподавателя',
       routing: '/ru/learningModule/teacher',
       key: 'teacher'
+    },
+    {
+      name: 'Кабинет администратора',
+      routing: '/ru/learningModule/moderator',
+      key: 'moderator'
     }
     // { name: 'База знаний', routing: '/ru/learningModule/base', key: 'base' }
   ],

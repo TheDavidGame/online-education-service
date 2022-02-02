@@ -6,7 +6,7 @@
           <cardTeacher :dataCard="sub" class="ml-4"> </cardTeacher>
         </div>
         <div v-if="dataListTeachers.length === 0">
-          <h1 style="text-align: center; margin-top: 250px">
+          <h1 style="text-align: center">
             {{ $t('studentProfile.noProfiles') }}
           </h1>
         </div>
@@ -163,7 +163,8 @@ export default {
       if (this.city) {
         this.dataFilter.citiesForLessons = [this.city]
       }
-      if (this.subject) {
+
+      if (this.subject && this.nameCategory) {
         this.dataFilter.subject = this.subject
       }
 

@@ -151,17 +151,19 @@ export default {
     // }
   },
   methods: {
-    handleImageChange(event) {
+    async handleImageChange(event) {
       if (
         this.isAuthenticated &&
         this.userCredentials.handle === this.data.handle
       ) {
         const photo = event.target.files[0]
-        const formData = new FormData()
-        formData.append('photo', photo, photo.name)
-        formData.append('data', JSON.stringify(this.dataStudent))
-        console.log(formData)
-        this.$store.dispatch('PUT_STUDENT', formData)
+        if (photo) {
+          const formData = new FormData()
+          formData.append('photo', photo, photo.name)
+          formData.append('data', JSON.stringify(this.dataStudent))
+          console.log(formData)
+          await this.$store.dispatch('PUT_STUDENT', formData)
+        }
       } else {
         this.$router.push({ name: `login___${this.$i18n.locale}` })
       }

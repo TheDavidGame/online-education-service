@@ -103,6 +103,7 @@
               row-height="20"
               clear-icon="mdi-close-circle"
               :label="$t('teacherProfile.descriptionLesson')"
+              :rules="[v => !!v || $t('studentProfile.fieldRules')]"
               required
             ></v-textarea>
           </v-col>
@@ -187,6 +188,9 @@ export default {
     },
     async sendTestSubject() {
       await this.$store.dispatch('POST_TEST_SUBJECT', this.subject)
+      this.$refs.form.reset()
+      this.openSubject = false
+      window.scrollTo(0, document.body.scrollHeight)
       // this.reloadPage()
     },
     reloadPage() {

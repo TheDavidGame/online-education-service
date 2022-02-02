@@ -86,6 +86,9 @@
                     {{ $t('profile.editProfile') }}
                   </v-btn>
                 </v-row>
+                <v-row class="center mt-8">
+                  <p style="font-size: 12px">id: {{ dataTeacher.uid }}</p>
+                </v-row>
                 <!-- <AppEditProfile :data="data"></AppEditProfile> -->
                 <!---------------END EDIT PROFILE MODAL ------------->
               </div>
@@ -149,22 +152,25 @@ export default {
     }
   },
   mounted() {
-    if (this.dataTeacher) {
-      this.formTeacher = { ...this.dataTeacher }
-    }
+    // if (this.dataTeacher) {
+    //   this.formTeacher = { ...this.dataTeacher }
+    // }
   },
   methods: {
-    handleImageChange(event) {
+    async handleImageChange(event) {
       if (
         this.isAuthenticated &&
         this.userCredentials.handle === this.data.handle
       ) {
         const photo = event.target.files[0]
-        const formData = new FormData()
-        formData.append('photo', photo, photo.name)
-        formData.append('data', JSON.stringify(this.dataTeacher))
-        console.log(formData)
-        this.$store.dispatch('PUT_TEACHER', formData)
+        if (photo) {
+          const formData = new FormData()
+          formData.append('photo', photo, photo.name)
+          formData.append('data', JSON.stringify(this.dataTeacher))
+          console.log(formData)
+          await this.$store.dispatch('PUT_TEACHER', formData)
+          this.dataTeacher.photo = this.profileTeacherGet.photo
+        }
       } else {
         this.$router.push({ name: `login___${this.$i18n.locale}` })
       }

@@ -658,7 +658,6 @@ export default {
       }
       this.dataTeacher.citiesForLessons = this.cities.map(item => item.value)
       this.dataTeacher.birthday = this.birthday
-      console.log(this.dataTeacher)
       this.$store.dispatch('PUT_TEACHER', {
         data: this.dataTeacher
       })

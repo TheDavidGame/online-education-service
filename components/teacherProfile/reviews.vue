@@ -89,7 +89,7 @@
           <v-img
             class="shrink ma-4 mr-8"
             height="125px"
-            src="https://cdn.vuetifyjs.com/images/cards/halcyon.png"
+            :src="profileImg(sub.photo)"
             style="flex-basis: 125px"
           ></v-img>
         </v-row>
@@ -133,6 +133,9 @@ export default {
   mounted() {},
 
   methods: {
+    profileImg(path) {
+      return `${process.env.LEARNING_API}/${path}`
+    },
     async sendReviews() {
       this.dataFeedback.teacherId = this.uId
       this.dataFeedback.text = this.textFeedback

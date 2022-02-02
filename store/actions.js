@@ -200,7 +200,6 @@ export default {
       })
       .then(res => {
         commit('SET_PROFILE_TEACHER', res.data.data)
-        console.log(res)
         // commit('SET_PROFILE_TEACHER', res.data.data)
       })
   },

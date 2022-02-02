@@ -76,9 +76,11 @@
               width="100%"
               outlined
               style="
-                background: #79a6f2;
-                border: thick double #32a1ce;
+                width: 100%;
+                background: #e2f1fc;
+                border: 1px solid #a9c9ff;
                 font-size: 16px;
+                padding: 1rem 0.5rem;
               "
             >
               <v-row style="text-align: left">
@@ -140,6 +142,7 @@
                 v-model="sub.lessonLocation"
                 :label="$t('teacherProfile.subHomeTeacher')"
                 :value="$t('teacherProfile.subHomeTeacher')"
+                readonly
               ></v-checkbox>
 
               <v-checkbox

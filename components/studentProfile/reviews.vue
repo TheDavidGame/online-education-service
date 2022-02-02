@@ -93,7 +93,7 @@
             class="shrink ma-4 mr-8"
             contain
             height="125px"
-            src="https://cdn.vuetifyjs.com/images/cards/halcyon.png"
+            src="sub.photo"
             style="flex-basis: 125px"
           ></v-img>
         </v-row>

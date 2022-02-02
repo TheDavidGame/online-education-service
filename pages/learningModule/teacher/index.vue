@@ -250,7 +250,7 @@
               <div
                 v-for="(textField, i) in subjectsSecond"
                 :key="i"
-                class="card"
+                class="card-subject"
               >
                 <v-select
                   v-model="textField.value0"
@@ -625,7 +625,7 @@ export default {
 }
 </script>
 <style lang="scss">
-.card {
+.card-subject {
   width: 300px;
 }
 </style>
