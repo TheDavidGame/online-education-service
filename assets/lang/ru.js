@@ -79,11 +79,6 @@ export default {
       name: 'Справочники',
       routing: '/ru/learningModule/moderator/referenceBooks',
       key: 'referenceBooks'
-    },
-    {
-      name: 'Модераторы',
-      routing: '/ru/learningModule/moderator/moders',
-      key: 'moders'
     }
   ],
   main_categories: [

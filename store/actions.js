@@ -4,6 +4,55 @@ import axios from 'axios'
 // import Api from '../plugins/api'
 
 export default {
+  async DELETE_LIST({ commit }, obj) {
+    const token = localStorage.getItem('auth._token.local')
+
+    await this.$apiLearning
+      .delete(`list?language=${obj.ln}&list=${obj.list}&id=${obj.id}`, {
+        headers: {
+          Authorization: `${token}`
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
+  async PUT_LIST({ commit }, data) {
+    const token = localStorage.getItem('auth._token.local')
+    // const data = { data: formData }
+    await this.$apiLearning
+      .put(`list`, data, {
+        headers: {
+          Authorization: `${token}`
+        }
+      })
+      .then(res => {
+        commit('SET_LIST_DATA', res.data.data)
+      })
+  },
+  async POST_LIST({ commit }, data) {
+    const token = localStorage.getItem('auth._token.local')
+
+    await this.$apiLearning
+      .post('list', data, {
+        headers: {
+          Authorization: `${token}`
+        }
+      })
+      .then(res => {
+        commit('ADD_IN_LIST_DATA', res.data.result)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
+  async GET_LIST({ commit }, obj) {
+    await this.$apiLearning
+      .get(`list?language=${obj.ln}&list=${obj.name}`)
+      .then(res => {
+        commit('SET_LIST_DATA', res.data.data)
+      })
+  },
   async VALIDATE_MODER({ commit }) {
     const token = localStorage.getItem('auth._token.local')
     try {

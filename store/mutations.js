@@ -1,6 +1,12 @@
 import Vue from 'vue'
 
 export default {
+  ADD_IN_LIST_DATA(state, data) {
+    state.listData.push(data)
+  },
+  SET_LIST_DATA(state, data) {
+    state.listData = data
+  },
   SET_VALIDE_MODERATOR(state, moder) {
     state.valideModer = moder
   },

@@ -17,33 +17,38 @@
           >{{ link.name }}
         </v-btn>
       </v-col>
+      <v-col v-if="getValideModer.level > 1" cols="12" md="3">
+        <v-btn
+          height="200"
+          width="200"
+          x-large
+          color="primary"
+          :to="moderSelect.routing"
+          class="mx-auto mt-10"
+          >{{ moderSelect.name }}
+        </v-btn>
+      </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'Moderator',
   components: {},
   data() {
     return {
-      selectArray: [
-        {
-          name: 'catalog',
-          router: ''
-        },
-        {
-          name: '',
-          router: ''
-        },
-        {
-          name: '',
-          router: ''
-        }
-      ]
+      moderSelect: {
+        name: 'Модераторы',
+        routing: '/ru/learningModule/moderator/moders',
+        key: 'moders'
+      }
     }
   },
-  computed: {},
+  computed: {
+    ...mapGetters(['getValideModer'])
+  },
   watch: {},
   mounted() {},
   created() {},
