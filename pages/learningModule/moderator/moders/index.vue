@@ -1,153 +1,143 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col cols="12" md="6">
-        <v-select
-          v-model="mainSelect"
-          :items="mainItem"
-          label="Раздел"
-          @change="changeShowLangSelect"
-        ></v-select>
-      </v-col>
-      <v-col cols="12" md="6">
-        <v-select
-          v-if="showLangSelect"
-          v-model="langSelect"
-          :items="langItem"
-          label="Язык"
-          @change="changeShowTable"
-        ></v-select>
-      </v-col>
-    </v-row>
-    <v-data-table
-      v-if="showTable"
-      :headers="headers"
-      :items="itemTable"
-      class="elevation-1"
-    >
-      <template v-slot:top>
-        <v-toolbar flat>
-          <v-toolbar-title>{{ mainSelect }}</v-toolbar-title>
-          <v-divider class="mx-4" inset vertical></v-divider>
-          <v-spacer></v-spacer>
-          <v-dialog v-model="dialog" max-width="500px">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-                Добавить поле
-              </v-btn>
-            </template>
-            <v-card>
-              <v-card-title>
-                <span class="text-h5">{{ formTitle }}</span>
-              </v-card-title>
-
-              <v-card-text>
-                <v-container>
-                  <!-- добавить поле -->
-                  <v-row>
-                    <v-col cols="12" md="6">
-                      <v-text-field
-                        v-model="editedItem.name"
-                        label="Название"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="6">
-                      <!-- <v-text-field
-                        v-model="editedItem.description"
-                        label="Описание"
-                      ></v-text-field> -->
-                      <v-textarea
-                        v-model="editedItem.description"
-                        clearable
-                        auto-grow
-                        rows="2"
-                        row-height="10"
-                        clear-icon="mdi-close-circle"
-                        label="Описание"
-                      ></v-textarea>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-card-text>
-
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="close">
-                  Отменить
-                </v-btn>
-                <v-btn color="blue darken-1" text @click="save">
-                  Сохранить
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-          <v-dialog v-model="dialogDelete" max-width="500px">
-            <v-card>
-              <v-card-title class="text-h5"
-                >Вы точно хотите удалить?</v-card-title
-              >
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDelete"
-                  >Отменить</v-btn
+    <div v-if="isLoading">
+      <v-data-table :headers="headers" :items="itemTable" class="elevation-1">
+        <template v-slot:top>
+          <v-toolbar flat>
+            <v-spacer></v-spacer>
+            <v-dialog v-model="dialog" max-width="80%">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  color="primary"
+                  dark
+                  class="mb-2"
+                  v-bind="attrs"
+                  v-on="on"
+                  @click="addItem"
                 >
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                  >Удалить</v-btn
+                  Добавить поле
+                </v-btn>
+              </template>
+              <!-- добавить или изменить поле -->
+              <v-card height="700px">
+                <v-card-title>
+                  <span class="text-h5">{{ formTitle }}</span>
+                </v-card-title>
+
+                <v-card-text>
+                  <v-container>
+                    <v-row>
+                      <v-col cols="12" md="6">
+                        <v-text-field
+                          v-model="editedItem.fullName"
+                          label="Имя модератора"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="12" md="6">
+                        <v-select
+                          v-model="editedItem.level"
+                          :items="itemLevel"
+                          label="Уровень модератора"
+                        ></v-select>
+                      </v-col>
+                      <v-col cols="12" md="6">
+                        <v-text-field
+                          v-model="editedItem.userId"
+                          label="userId"
+                        ></v-text-field>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-card-text>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" text @click="close">
+                    Отменить
+                  </v-btn>
+                  <v-btn color="blue darken-1" text @click="save">
+                    Сохранить
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            <!-- подтверджение удаления -->
+            <v-dialog v-model="dialogDelete" max-width="500px">
+              <v-card>
+                <v-card-title class="text-h5"
+                  >Вы точно хотите удалить?</v-card-title
                 >
-                <v-spacer></v-spacer>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-        </v-toolbar>
-      </template>
-      <template v-slot:item.actions="{ item }">
-        <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
-        <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
-      </template>
-      <template v-slot:no-data>
-        <v-btn color="primary" @click="initialize"> Reset </v-btn>
-      </template>
-    </v-data-table>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" text @click="closeDelete"
+                    >Отменить</v-btn
+                  >
+                  <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                    >Удалить</v-btn
+                  >
+                  <v-spacer></v-spacer>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-toolbar>
+        </template>
+        <template v-slot:item.actions="{ item }">
+          <!-- <v-icon small class="mr-2" @click="editItem(item)">
+            mdi-pencil
+          </v-icon> -->
+          <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+        </template>
+      </v-data-table>
+    </div>
+    <div v-else>
+      <v-progress-circular
+        style="margin-left: 45%; margin-top: 20%"
+        :size="120"
+        color="primary"
+        indeterminate
+      ></v-progress-circular>
+    </div>
   </v-container>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  name: 'LearningModule',
+  name: 'Moders',
   components: {},
   data() {
     return {
-      mainSelect: '',
-      mainItem: ['Справочники', 'Предметы', 'Темы', 'Подтемы'],
-      showLangSelect: false,
-      showTable: false,
-      langSelect: '',
-      langItem: ['ru', 'en', 'he'],
       dialog: false,
       dialogDelete: false,
       headers: [
         {
-          text: 'Название',
+          text: 'Имя',
           align: 'start',
           sortable: false,
-          value: 'name'
+          value: 'fullName'
         },
-        { text: 'Описание', value: 'description' },
+        { text: 'Уровень', value: 'level' },
+        { text: 'userId', value: 'userId' },
         { text: 'Измененить', value: 'actions', sortable: false }
       ],
       itemTable: [],
+      itemLevel: ['1', '2'],
       editedIndex: -1,
       editedItem: {
-        name: '',
-        description: ''
+        fullName: '',
+        level: 0,
+        userId: ''
       },
       defaultItem: {
-        name: '',
-        description: ''
-      }
+        fullName: '',
+        level: 0,
+        userId: ''
+      },
+      isLoading: false
     }
   },
   computed: {
+    ...mapGetters(['getListModers']),
     formTitle() {
       return this.editedIndex === -1 ? 'Добавить поле' : 'Редактировать поле'
     }
@@ -160,36 +150,24 @@ export default {
       val || this.closeDelete()
     }
   },
-  mounted() {},
-  created() {
-    this.initialize()
+  async mounted() {
+    await this.getModersData()
+    this.isLoading = true
   },
   methods: {
-    changeShowLangSelect() {
-      this.showLangSelect = true
+    async getModersData() {
+      await this.$store.dispatch('GET_MODERS')
+      console.log(this.getListModers)
+      this.itemTable = [...this.getListModers]
     },
-    changeShowTable() {
-      this.showTable = true
-    },
-    initialize() {
-      this.itemTable = [
-        {
-          name: 'Физика',
-          description: 'Наука о природе'
-        },
-        {
-          name: 'Математика',
-          description:
-            'Фундаментальная наука, предоставляющая (общие) языковые средства другим наукам'
-        }
-      ]
-    },
-
-    editItem(item) {
-      this.editedIndex = this.itemTable.indexOf(item)
-      this.editedItem = Object.assign({}, item)
+    addItem() {
       this.dialog = true
     },
+    // editItem(item) {
+    //   this.editedIndex = this.itemTable.indexOf(item)
+    //   this.editedItem = Object.assign({}, item)
+    //   this.dialog = true
+    // },
 
     deleteItem(item) {
       this.editedIndex = this.itemTable.indexOf(item)
@@ -197,7 +175,9 @@ export default {
       this.dialogDelete = true
     },
 
-    deleteItemConfirm() {
+    async deleteItemConfirm() {
+      await this.$store.dispatch('DELETE_MODERS', this.editedItem.userId)
+
       this.itemTable.splice(this.editedIndex, 1)
       this.closeDelete()
     },
@@ -218,11 +198,28 @@ export default {
       })
     },
 
-    save() {
+    async save() {
       if (this.editedIndex > -1) {
+        // редактирование
+        // const data = {
+        //   id: this.editedItem._id,
+        //   list: this.mainSelect,
+        //   language: this.langSelect,
+        //   name: this.editedItem.name,
+        //   description: this.editedItem.description,
+        //   links: this.editedItem.links
+        // }
+        // await this.$store.dispatch('PUT_LIST', data)
         Object.assign(this.itemTable[this.editedIndex], this.editedItem)
       } else {
-        this.itemTable.push(this.editedItem)
+        // добавление
+        const data = {
+          fullName: this.editedItem.fullName,
+          uid: this.editedItem.userId,
+          level: this.editedItem.level
+        }
+        await this.$store.dispatch('POST_MODERS', data)
+        this.itemTable = [...this.getListModers]
       }
       this.close()
     }

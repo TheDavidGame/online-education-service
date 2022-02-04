@@ -56,6 +56,8 @@ export default () => ({
   //   }
   // ],
   listData: [],
+  listModers: [],
+  productsModer: [],
   valideModer: [],
   categoryList: [],
   subjects: [],

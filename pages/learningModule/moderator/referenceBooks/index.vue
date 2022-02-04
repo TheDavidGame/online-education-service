@@ -134,7 +134,7 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  name: 'LearningModule',
+  name: 'ReferenceBooks',
   components: {},
   data() {
     return {

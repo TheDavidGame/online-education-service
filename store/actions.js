@@ -4,6 +4,102 @@ import axios from 'axios'
 // import Api from '../plugins/api'
 
 export default {
+  async PUT_PRODUCTS_IN_MODER({ commit }, data) {
+    const token = localStorage.getItem('auth._token.local')
+    await this.$apiLearning
+      .put(`products`, data, {
+        headers: {
+          Authorization: `${token}`
+        }
+      })
+      .then(res => {
+        commit('SET_DATA_PRODUCTS_MODER', res.data.data)
+      })
+  },
+  async DELETE_PRODUCTS_IN_MODER({ commit }, uId) {
+    const token = localStorage.getItem('auth._token.local')
+
+    await this.$apiLearning
+      .delete(`products?id=${uId}`, {
+        headers: {
+          Authorization: `${token}`
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
+  async POST_PRODUCTS_IN_MODER({ commit }, data) {
+    const token = localStorage.getItem('auth._token.local')
+
+    await this.$apiLearning
+      .post('products', data, {
+        headers: {
+          Authorization: `${token}`
+        }
+      })
+      .then(res => {
+        commit('ADD_DATA_PRODUCTS_MODER', res.data.result)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
+  async GET_PRODUCTS_IN_MODER({ commit }) {
+    await this.$apiLearning
+      .get('products')
+      .then(res => {
+        commit('SET_DATA_PRODUCTS_MODER', res.data.data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
+  async DELETE_MODERS({ commit }, uId) {
+    const token = localStorage.getItem('auth._token.local')
+
+    await this.$apiLearning
+      .delete(`moder?uid=${uId}`, {
+        headers: {
+          Authorization: `${token}`
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
+  async POST_MODERS({ commit }, data) {
+    const token = localStorage.getItem('auth._token.local')
+
+    await this.$apiLearning
+      .post('moder', data, {
+        headers: {
+          Authorization: `${token}`
+        }
+      })
+      .then(res => {
+        commit('ADD_LIST_MODERS', res.data.result)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
+  async GET_MODERS({ commit }) {
+    const token = localStorage.getItem('auth._token.local')
+
+    await this.$apiLearning
+      .get('moders', {
+        headers: {
+          Authorization: `${token}`
+        }
+      })
+      .then(res => {
+        commit('SET_LIST_MODERS', res.data.data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
   async DELETE_LIST({ commit }, obj) {
     const token = localStorage.getItem('auth._token.local')
 
