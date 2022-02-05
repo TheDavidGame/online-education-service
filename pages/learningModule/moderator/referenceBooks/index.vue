@@ -214,7 +214,10 @@ export default {
       comparisonArray: {
         category: '',
         subject: 'category',
-        themes: 'subject'
+        themes: 'subject',
+        subthemes: 'themes',
+        university: 'subthemes',
+        faculties: 'university'
       }
     }
   },
