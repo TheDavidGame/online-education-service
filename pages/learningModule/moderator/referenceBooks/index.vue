@@ -196,7 +196,10 @@ export default {
           value: 'name'
         },
         { text: this.$t('moder.description'), value: 'description' },
-        { text: this.$t('moder.links'), value: 'links' },
+        {
+          text: this.$t('moder.links'),
+          value: 'links'
+        },
         { text: this.$t('moder.edit'), value: 'actions', sortable: false }
       ],
       itemTable: [],
@@ -253,7 +256,8 @@ export default {
       const obj = { ln: this.langSelect, name: this.mainSelect }
       await this.$store.dispatch('GET_LIST', obj)
       this.itemTable = this.getListData
-      console.log(this.getListData)
+      // this.itemTable.map(x => (x.links = x.links.join(', ')))
+      console.log(this.itemTable)
       this.showMainSelect = false
       this.showLangSelect = false
       this.showChangeSelectsBtn = true
@@ -350,6 +354,7 @@ export default {
         await this.$store.dispatch('GET_LIST', obj)
         await this.$store.dispatch('POST_LIST', data)
         this.itemTable = [...this.getListData]
+        // this.itemTable.map(x => (x.links = x.links.join(', ')))
       }
       this.close()
     }

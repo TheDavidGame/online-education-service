@@ -76,7 +76,7 @@
                     color="blue darken-1"
                     text
                     @click="deleteItemConfirm"
-                    >{{ $t('moder.save') }}</v-btn
+                    >{{ $t('moder.delete') }}</v-btn
                   >
                   <v-spacer></v-spacer>
                 </v-card-actions>
@@ -182,7 +182,7 @@ export default {
 
     async deleteItemConfirm() {
       await this.$store.dispatch('DELETE_MODERS', this.editedItem.userId)
-
+      this.itemTable = [...this.getListModers]
       this.itemTable.splice(this.editedIndex, 1)
       this.closeDelete()
     },
@@ -223,6 +223,7 @@ export default {
           uid: this.editedItem.userId,
           level: this.editedItem.level
         }
+        await this.$store.dispatch('GET_MODERS')
         await this.$store.dispatch('POST_MODERS', data)
         this.itemTable = [...this.getListModers]
       }
