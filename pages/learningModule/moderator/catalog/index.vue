@@ -4,7 +4,9 @@
       <v-spacer></v-spacer>
       <v-col cols="12" md="9">
         <div class="mr-12 pt-8">
-          <v-btn class="ma-15" @click="openAddProduct">Добавить товар</v-btn>
+          <v-btn class="ma-15" @click="openAddProduct">{{
+            $t('moder.addProduct')
+          }}</v-btn>
         </div>
       </v-col>
       <v-col
@@ -23,13 +25,16 @@
             <v-card-title
               >{{ product.en.title }}
               <span class="mx-5"
-                >Скидка: <span>{{ product.discount }}</span></span
+                >{{ $t('moder.discount') }}
+                <span>{{ product.discount }}</span></span
               ></v-card-title
             >
           </div>
 
           <div v-if="showEnInfo">
-            <v-card-subtitle class="pb-0"> Цена </v-card-subtitle>
+            <v-card-subtitle class="pb-0">
+              {{ $t('moder.price') }}
+            </v-card-subtitle>
 
             <v-card-text class="text--primary">
               <div>
@@ -38,13 +43,17 @@
               </div>
             </v-card-text>
             <v-divider></v-divider>
-            <v-card-subtitle class="pb-0"> Описание </v-card-subtitle>
+            <v-card-subtitle class="pb-0">
+              {{ $t('moder.description') }}
+            </v-card-subtitle>
 
             <v-card-text class="text--primary">
               <div>{{ product.en.description }}</div>
             </v-card-text>
             <v-divider></v-divider>
-            <v-card-subtitle class="pb-0"> Время подписки </v-card-subtitle>
+            <v-card-subtitle class="pb-0">
+              {{ $t('moder.timeSub') }}
+            </v-card-subtitle>
 
             <v-card-text class="text--primary">
               <div>{{ product.en.time }}</div>
@@ -52,7 +61,9 @@
           </div>
 
           <div v-if="showRuInfo">
-            <v-card-subtitle class="pb-0"> Цена </v-card-subtitle>
+            <v-card-subtitle class="pb-0">
+              {{ $t('moder.price') }}
+            </v-card-subtitle>
 
             <v-card-text class="text--primary">
               <div>
@@ -61,13 +72,17 @@
               </div>
             </v-card-text>
             <v-divider></v-divider>
-            <v-card-subtitle class="pb-0"> Описание </v-card-subtitle>
+            <v-card-subtitle class="pb-0">
+              {{ $t('moder.description') }}
+            </v-card-subtitle>
 
             <v-card-text class="text--primary">
               <div>{{ product.ru.description }}</div>
             </v-card-text>
             <v-divider></v-divider>
-            <v-card-subtitle class="pb-0"> Время подписки </v-card-subtitle>
+            <v-card-subtitle class="pb-0">
+              {{ $t('moder.timeSub') }}
+            </v-card-subtitle>
 
             <v-card-text class="text--primary">
               <div>{{ product.ru.time }}</div>
@@ -75,7 +90,9 @@
           </div>
 
           <div v-if="showHeInfo">
-            <v-card-subtitle class="pb-0"> Цена </v-card-subtitle>
+            <v-card-subtitle class="pb-0">
+              {{ $t('moder.price') }}
+            </v-card-subtitle>
 
             <v-card-text class="text--primary">
               <div>
@@ -84,13 +101,17 @@
               </div>
             </v-card-text>
             <v-divider></v-divider>
-            <v-card-subtitle class="pb-0"> Описание </v-card-subtitle>
+            <v-card-subtitle class="pb-0">
+              {{ $t('moder.description') }}
+            </v-card-subtitle>
 
             <v-card-text class="text--primary">
               <div>{{ product.he.description }}</div>
             </v-card-text>
             <v-divider></v-divider>
-            <v-card-subtitle class="pb-0"> Время подписки </v-card-subtitle>
+            <v-card-subtitle class="pb-0">
+              {{ $t('moder.timeSub') }}
+            </v-card-subtitle>
 
             <v-card-text class="text--primary">
               <div>{{ product.he.time }}</div>
@@ -100,28 +121,28 @@
             <v-row>
               <v-col cols="12" md="7">
                 <v-btn color="orange" text @click="changeShowRuInfo">
-                  Показать информацию на русском
+                  {{ $t('moder.showInfoRu') }}
                 </v-btn>
               </v-col>
               <v-col cols="12" md="7">
                 <v-btn color="orange" text @click="changeShowEnInfo">
-                  Показать информацию на английском
+                  {{ $t('moder.showInfoEn') }}
                 </v-btn>
               </v-col>
               <v-col cols="12" md="10">
                 <v-btn color="orange" text @click="changeShowHeInfo">
-                  Показать информацию на иврите
+                  {{ $t('moder.showInfoHe') }}
                 </v-btn>
               </v-col>
               <v-col cols="12" md="3">
-                <v-btn color="red" text @click="deleteProduct(product, i)"
-                  >Удалить</v-btn
-                >
+                <v-btn color="red" text @click="deleteProduct(product, i)">{{
+                  $t('moder.delete')
+                }}</v-btn>
               </v-col>
               <v-col cols="12" md="3">
-                <v-btn text @click="editProducts(product, i)"
-                  >Редактировать товары</v-btn
-                >
+                <v-btn text @click="editProducts(product, i)">{{
+                  $t('moder.editProducts')
+                }}</v-btn>
               </v-col>
             </v-row>
           </v-card-actions>
@@ -131,7 +152,7 @@
       <v-dialog v-model="dialogAddProduct" max-width="80%">
         <v-card height="80%">
           <v-card-title>
-            <span class="text-h5">Добавить товар</span>
+            <span class="text-h5">{{ $t('moder.addProduct') }}</span>
           </v-card-title>
 
           <v-card-text>
@@ -141,12 +162,12 @@
                   <v-select
                     v-model="discountData"
                     :items="itemDiscount"
-                    label="Будет скидка?"
+                    :label="$t('moder.discountItem')"
                     @change="changeShowDiscountNumber"
                   ></v-select>
                 </v-col>
                 <v-col v-if="showDiscountNumber" cols="12" md="6">
-                  <div>Скидка</div>
+                  <div>{{ $t('moder.discount') }}</div>
                   <v-slider
                     v-model="discountNumber"
                     class="align-center"
@@ -168,91 +189,91 @@
                 </v-col>
                 <v-col cols="12" md="12">
                   <v-divider></v-divider>
-                  <span>Информация на русском</span>
+                  <span>{{ $t('moder.infoRu') }}</span>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="infoRu.title"
-                    label="Название"
+                    :label="$t('moder.name')"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="infoRu.description"
-                    label="Что дает подписка(через запятую)"
+                    :label="$t('moder.subscriptionItem')"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="infoRu.price"
-                    label="Цена"
+                    :label="$t('moder.price')"
                     :rules="numRules"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="infoRu.time"
-                    label="Время подписки"
+                    :label="$t('moder.timeSub')"
                   ></v-text-field>
                 </v-col>
 
                 <v-col cols="12" md="12">
                   <v-divider></v-divider>
-                  <span>Информация на английском</span>
+                  <span>{{ $t('moder.infoEn') }}</span>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="infoEn.title"
-                    label="Название"
+                    :label="$t('moder.name')"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="infoEn.description"
-                    label="Что дает подписка(через запятую)"
+                    :label="$t('moder.subscriptionItem')"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="infoEn.price"
-                    label="Цена"
+                    :label="$t('moder.price')"
                     :rules="numRules"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="infoEn.time"
-                    label="Время подписки"
+                    :label="$t('moder.timeSub')"
                   ></v-text-field>
                 </v-col>
 
                 <v-col cols="12" md="12">
                   <v-divider></v-divider>
-                  <span>Информация на иврите</span>
+                  <span>{{ $t('moder.infoHe') }}</span>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="infoHe.title"
-                    label="Название"
+                    :label="$t('moder.name')"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="infoHe.description"
-                    label="Что дает подписка(через запятую)"
+                    :label="$t('moder.subscriptionItem')"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="infoHe.price"
-                    label="Цена"
+                    :label="$t('moder.price')"
                     :rules="numRules"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="infoHe.time"
-                    label="Время подписки"
+                    :label="$t('moder.timeSub')"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -261,8 +282,12 @@
 
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="close"> Отменить </v-btn>
-            <v-btn color="blue darken-1" text @click="save"> Создать </v-btn>
+            <v-btn color="blue darken-1" text @click="close">
+              {{ $t('moder.cancel') }}
+            </v-btn>
+            <v-btn color="blue darken-1" text @click="save">
+              {{ $t('moder.create') }}
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -270,7 +295,7 @@
       <v-dialog v-model="dialogEditProduct" max-width="80%">
         <v-card height="80%">
           <v-card-title>
-            <span class="text-h5">Добавить товар</span>
+            <span class="text-h5">{{ $t('moder.addProduct') }}</span>
           </v-card-title>
 
           <v-card-text>
@@ -280,12 +305,12 @@
                   <v-select
                     v-model="discountDataEdit"
                     :items="itemDiscount"
-                    label="Будет скидка?"
+                    :label="$t('moder.discountItem')"
                     @change="changeShowDiscountNumberEdit"
                   ></v-select>
                 </v-col>
                 <v-col v-if="dialogEditData.discountBool" cols="12" md="6">
-                  <div>Скидка</div>
+                  <div>{{ $t('moder.discount') }}</div>
                   <v-slider
                     v-model="dialogEditData.discount"
                     class="align-center"
@@ -307,91 +332,91 @@
                 </v-col>
                 <v-col cols="12" md="12">
                   <v-divider></v-divider>
-                  <span>Информация на русском</span>
+                  <span>{{ $t('moder.InfoRu') }}</span>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="dialogEditData.ru.title"
-                    label="Название"
+                    :label="$t('moder.name')"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="dialogEditData.ru.description"
-                    label="Что дает подписка(через запятую)"
+                    :label="$t('moder.subscriptionItem')"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="dialogEditData.ru.price"
-                    label="Цена"
+                    :label="$t('moder.price')"
                     :rules="numRules"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="dialogEditData.ru.time"
-                    label="Время подписки"
+                    :label="$t('moder.timeSub')"
                   ></v-text-field>
                 </v-col>
 
                 <v-col cols="12" md="12">
                   <v-divider></v-divider>
-                  <span>Информация на английском</span>
+                  <span>{{ $t('moder.InfoEn') }}</span>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="dialogEditData.en.title"
-                    label="Название"
+                    :label="$t('moder.name')"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="dialogEditData.en.description"
-                    label="Что дает подписка(через запятую)"
+                    :label="$t('moder.subscriptionItem')"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="dialogEditData.en.price"
-                    label="Цена"
+                    :label="$t('moder.price')"
                     :rules="numRules"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="dialogEditData.en.time"
-                    label="Время подписки"
+                    :label="$t('moder.timeSub')"
                   ></v-text-field>
                 </v-col>
 
                 <v-col cols="12" md="12">
                   <v-divider></v-divider>
-                  <span>Информация на иврите</span>
+                  <span>{{ $t('moder.InfoHe') }}</span>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="dialogEditData.he.title"
-                    label="Название"
+                    :label="$t('moder.name')"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="dialogEditData.he.description"
-                    label="Что дает подписка(через запятую)"
+                    :label="$t('moder.subscriptionItem')"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="dialogEditData.he.price"
-                    label="Цена"
+                    :label="$t('moder.price')"
                     :rules="numRules"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="dialogEditData.he.time"
-                    label="Время подписки"
+                    :label="$t('moder.timeSub')"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -401,10 +426,10 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text @click="closeEdit">
-              Отменить
+              {{ $t('moder.cancel') }}
             </v-btn>
             <v-btn color="blue darken-1" text @click="saveEdit">
-              Сохранить
+              {{ $t('moder.save') }}
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -434,7 +459,7 @@ export default {
       showHeInfo: false,
       showEnInfo: false,
       dialogAddProduct: false,
-      itemDiscount: ['Да', 'Нет'],
+      itemDiscount: [this.$t('moder.yes'), this.$t('moder.no')],
       discountData: '',
       showDiscountNumber: false,
       discountNumber: 0,
@@ -527,14 +552,14 @@ export default {
       this.showEnInfo = false
     },
     changeShowDiscountNumber() {
-      if (this.discountData === 'Да') {
+      if (this.discountData === this.$t('moder.yes')) {
         this.showDiscountNumber = true
       } else {
         this.showDiscountNumber = false
       }
     },
     changeShowDiscountNumberEdit() {
-      if (this.discountDataEdit === 'Да') {
+      if (this.discountDataEdit === this.$t('moder.yes')) {
         this.dialogEditData.discountBool = true
       } else {
         this.dialogEditData.discountBool = false
@@ -573,9 +598,9 @@ export default {
       this.indexEdit = i
       console.log('product', this.dialogEditData)
       if (this.dialogEditData.discountBool === true) {
-        this.discountDataEdit = 'Да'
+        this.discountDataEdit = this.$t('moder.yes')
       } else {
-        this.discountDataEdit = 'Нет'
+        this.discountDataEdit = this.$t('moder.no')
       }
     },
     async deleteProduct(data, index) {

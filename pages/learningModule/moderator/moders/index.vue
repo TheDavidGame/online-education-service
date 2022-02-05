@@ -15,7 +15,7 @@
                   v-on="on"
                   @click="addItem"
                 >
-                  Добавить поле
+                  {{ $t('moder.addField') }}
                 </v-btn>
               </template>
               <!-- добавить или изменить поле -->
@@ -30,14 +30,14 @@
                       <v-col cols="12" md="6">
                         <v-text-field
                           v-model="editedItem.fullName"
-                          label="Имя модератора"
+                          :label="$t('moder.nameModer')"
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12" md="6">
                         <v-select
                           v-model="editedItem.level"
                           :items="itemLevel"
-                          label="Уровень модератора"
+                          :label="$t('moder.levelModer')"
                         ></v-select>
                       </v-col>
                       <v-col cols="12" md="6">
@@ -53,10 +53,10 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="blue darken-1" text @click="close">
-                    Отменить
+                    {{ $t('moder.cancel') }}
                   </v-btn>
                   <v-btn color="blue darken-1" text @click="save">
-                    Сохранить
+                    {{ $t('moder.save') }}
                   </v-btn>
                 </v-card-actions>
               </v-card>
@@ -64,16 +64,19 @@
             <!-- подтверджение удаления -->
             <v-dialog v-model="dialogDelete" max-width="500px">
               <v-card>
-                <v-card-title class="text-h5"
-                  >Вы точно хотите удалить?</v-card-title
+                <v-card-title class="text-h5">
+                  {{ $t('moder.confirmDelete') }}</v-card-title
                 >
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text @click="closeDelete"
-                    >Отменить</v-btn
-                  >
-                  <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                    >Удалить</v-btn
+                  <v-btn color="blue darken-1" text @click="closeDelete">{{
+                    $t('moder.cancel')
+                  }}</v-btn>
+                  <v-btn
+                    color="blue darken-1"
+                    text
+                    @click="deleteItemConfirm"
+                    >{{ $t('moder.save') }}</v-btn
                   >
                   <v-spacer></v-spacer>
                 </v-card-actions>
@@ -111,14 +114,14 @@ export default {
       dialogDelete: false,
       headers: [
         {
-          text: 'Имя',
+          text: this.$t('moder.nameModer'),
           align: 'start',
           sortable: false,
           value: 'fullName'
         },
-        { text: 'Уровень', value: 'level' },
+        { text: this.$t('moder.levelModer'), value: 'level' },
         { text: 'userId', value: 'userId' },
-        { text: 'Измененить', value: 'actions', sortable: false }
+        { text: this.$t('moder.edit'), value: 'actions', sortable: false }
       ],
       itemTable: [],
       itemLevel: ['1', '2'],
@@ -139,7 +142,9 @@ export default {
   computed: {
     ...mapGetters(['getListModers']),
     formTitle() {
-      return this.editedIndex === -1 ? 'Добавить поле' : 'Редактировать поле'
+      return this.editedIndex === -1
+        ? this.$t('moder.addField')
+        : this.$t('moder.editField')
     }
   },
   watch: {

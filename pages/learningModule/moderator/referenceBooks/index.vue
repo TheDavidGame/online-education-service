@@ -8,7 +8,7 @@
           :items="mainItem"
           item-value="key"
           item-text="name"
-          label="Раздел"
+          :label="$t('moder.chapter')"
           @change="changeShowLangSelect"
         ></v-select>
       </v-col>
@@ -19,13 +19,13 @@
           :items="langItem"
           item-value="key"
           item-text="name"
-          label="Язык"
+          :label="$t('moder.lang')"
           @change="changeShowTable"
         ></v-select>
       </v-col>
       <v-col v-if="showChangeSelectsBtn">
         <v-btn color="blue darken-1" text @click="changeMainAndLang">
-          Поменять раздел и язык
+          {{ $t('moder.changeLangAndChapter') }}
         </v-btn>
       </v-col>
     </v-row>
@@ -48,7 +48,7 @@
                 v-on="on"
                 @click="addItem"
               >
-                Добавить поле
+                {{ $t('moder.addField') }}
               </v-btn>
             </template>
             <!-- добавить или изменить поле -->
@@ -63,7 +63,7 @@
                     <v-col cols="12" md="6">
                       <v-text-field
                         v-model="editedItem.name"
-                        label="Название"
+                        :label="$t('moder.name')"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
@@ -74,7 +74,7 @@
                         rows="2"
                         row-height="10"
                         clear-icon="mdi-close-circle"
-                        label="Описание"
+                        :label="$t('moder.description')"
                       ></v-textarea>
                     </v-col>
                     <v-col cols="12" md="6">
@@ -84,7 +84,7 @@
                         :items="itemLinks"
                         attach
                         chips
-                        label="Связи"
+                        :label="$t('moder.links')"
                         multiple
                       ></v-select>
                     </v-col>
@@ -95,10 +95,10 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="close">
-                  Отменить
+                  {{ $t('moder.cancel') }}
                 </v-btn>
                 <v-btn color="blue darken-1" text @click="save">
-                  Сохранить
+                  {{ $t('moder.save') }}
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -106,17 +106,17 @@
           <!-- подтверджение удаления -->
           <v-dialog v-model="dialogDelete" max-width="500px">
             <v-card>
-              <v-card-title class="text-h5"
-                >Вы точно хотите удалить?</v-card-title
-              >
+              <v-card-title class="text-h5">{{
+                $t('moder.confirmDelete')
+              }}</v-card-title>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDelete"
-                  >Отменить</v-btn
-                >
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                  >Удалить</v-btn
-                >
+                <v-btn color="blue darken-1" text @click="closeDelete">{{
+                  $t('moder.cancel')
+                }}</v-btn>
+                <v-btn color="blue darken-1" text @click="deleteItemConfirm">{{
+                  $t('moder.delete')
+                }}</v-btn>
                 <v-spacer></v-spacer>
               </v-card-actions>
             </v-card>
@@ -142,27 +142,27 @@ export default {
       mainItem: [
         {
           key: 'category',
-          name: 'Категории'
+          name: this.$t('moder.category')
         },
         {
           key: 'subject',
-          name: 'Предмет'
+          name: this.$t('moder.subject')
         },
         {
           key: 'themes',
-          name: 'Темы'
+          name: this.$t('moder.themes')
         },
         {
           key: 'subthemes',
-          name: 'Подтемы'
+          name: this.$t('moder.subthemes')
         },
         {
           key: 'university',
-          name: 'Университет'
+          name: this.$t('moder.university')
         },
         {
           key: 'faculties',
-          name: 'Факультет'
+          name: this.$t('moder.faculties')
         }
       ],
       showMainSelect: true,
@@ -175,29 +175,29 @@ export default {
       langItem: [
         {
           key: 'ru',
-          name: 'Русский'
+          name: this.$t('moder.langRu')
         },
         {
           key: 'en',
-          name: 'Английский'
+          name: this.$t('moder.langEn')
         },
         {
           key: 'he',
-          name: 'Ифрит'
+          name: this.$t('moder.langHe')
         }
       ],
       dialog: false,
       dialogDelete: false,
       headers: [
         {
-          text: 'Название',
+          text: this.$t('moder.name'),
           align: 'start',
           sortable: false,
           value: 'name'
         },
-        { text: 'Описание', value: 'description' },
-        { text: 'Связи', value: 'links' },
-        { text: 'Измененить', value: 'actions', sortable: false }
+        { text: this.$t('moder.description'), value: 'description' },
+        { text: this.$t('moder.links'), value: 'links' },
+        { text: this.$t('moder.edit'), value: 'actions', sortable: false }
       ],
       itemTable: [],
       editedIndex: -1,
@@ -221,7 +221,9 @@ export default {
   computed: {
     ...mapGetters(['getListData']),
     formTitle() {
-      return this.editedIndex === -1 ? 'Добавить поле' : 'Редактировать поле'
+      return this.editedIndex === -1
+        ? this.$t('moder.addField')
+        : this.$t('moder.editField')
     }
   },
   watch: {
