@@ -10,7 +10,7 @@
       >
         {{ link.name }}
       </v-btn>
-      <v-btn v-if="getValideModer" x-large color="primary" :to="moder.routing">
+      <v-btn v-if="getValideModer" x-large color="primary" @click="nextModer()">
         {{ moder.name }}
       </v-btn>
     </div>
@@ -35,7 +35,7 @@ export default {
       tab: null,
       isLoading: true,
       moder: {
-        name: 'Кабинет администратора',
+        name: this.$t('moder.Cabinetmoder'),
         routing: '/ru/learningModule/moderator',
         key: 'moderator'
       }
@@ -55,6 +55,11 @@ export default {
   },
 
   methods: {
+    nextModer() {
+      this.$router.push({
+        name: `learningModule-moderator___${this.$i18n.locale}`
+      })
+    },
     async getTeacher() {
       await this.$store.dispatch('GET_FORM_TEACHER')
     },

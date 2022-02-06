@@ -2,9 +2,9 @@
   <v-container>
     <v-row v-if="isLoading">
       <v-spacer></v-spacer>
-      <v-col cols="12" md="9">
-        <div class="mr-12 pt-8">
-          <v-btn class="ma-15" @click="openAddProduct">{{
+      <v-col cols="12" md="12">
+        <div class="mr-12 pt-8 float-right">
+          <v-btn color="primary" width="250" @click="openAddProduct">{{
             $t('moder.addProduct')
           }}</v-btn>
         </div>
@@ -18,12 +18,44 @@
       >
         <v-card class="mx-auto" max-width="400">
           <div
-            style="background-color: #5a88b0"
+            v-if="currentRouteName.substr(-2) === 'ru'"
+            style="background-color: #00825c"
             class="white--text align-end"
             height="200px"
           >
+            <!-- сделать на 3 языках -->
+            <v-card-title
+              >{{ product.ru.title }}
+              <span class="mx-5"
+                >{{ $t('moder.discount') }}
+                <span>{{ product.discount }}</span></span
+              ></v-card-title
+            >
+          </div>
+          <div
+            v-if="currentRouteName.substr(-2) === 'en'"
+            style="background-color: #00825c"
+            class="white--text align-end"
+            height="200px"
+          >
+            <!-- сделать на 3 языках -->
             <v-card-title
               >{{ product.en.title }}
+              <span class="mx-5"
+                >{{ $t('moder.discount') }}
+                <span>{{ product.discount }}</span></span
+              ></v-card-title
+            >
+          </div>
+          <div
+            v-if="currentRouteName.substr(-2) === 'he'"
+            style="background-color: #00825c"
+            class="white--text align-end"
+            height="200px"
+          >
+            <!-- сделать на 3 языках -->
+            <v-card-title
+              >{{ product.he.title }}
               <span class="mx-5"
                 >{{ $t('moder.discount') }}
                 <span>{{ product.discount }}</span></span
@@ -332,7 +364,7 @@
                 </v-col>
                 <v-col cols="12" md="12">
                   <v-divider></v-divider>
-                  <span>{{ $t('moder.InfoRu') }}</span>
+                  <span>{{ $t('moder.infoRu') }}</span>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
@@ -362,7 +394,7 @@
 
                 <v-col cols="12" md="12">
                   <v-divider></v-divider>
-                  <span>{{ $t('moder.InfoEn') }}</span>
+                  <span>{{ $t('moder.infoEn') }}</span>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
@@ -392,7 +424,7 @@
 
                 <v-col cols="12" md="12">
                   <v-divider></v-divider>
-                  <span>{{ $t('moder.InfoHe') }}</span>
+                  <span>{{ $t('moder.infoHe') }}</span>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
@@ -513,6 +545,9 @@ export default {
         v => !!v || this.$t('teacherProfile.fieldRules'),
         v => /^\d+$/.test(v) || this.$t('teacherProfile.rulesPattern')
       ]
+    },
+    currentRouteName() {
+      return this.$route.name
     }
   },
   watch: {},

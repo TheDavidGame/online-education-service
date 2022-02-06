@@ -1,6 +1,6 @@
 <template>
   <v-container class="mt-5">
-    <v-row>
+    <v-row v-if="isLoading">
       <v-col
         v-for="link in $t('moder_categories')"
         :key="link.routing"
@@ -24,21 +24,18 @@
         </nuxt-link>
       </v-col>
       <v-col v-if="getValideModer.level > 1" cols="12" md="4">
-        <nuxt-link :to="moderSelect.routing">
+        <nuxt-link v-if="$i18n.locale === 'ru'" :to="moderSelect.routing">
           <v-banner color="#0d4456" rounded shaped>
             <v-icon large color="white"> mdi-cog </v-icon>
-            <span class="white--text">{{ moderSelect.name }}</span>
+            <span class="white--text">{{ $t('moder.moders') }}</span>
           </v-banner>
         </nuxt-link>
-        <!-- <v-btn
-          height="80"
-          width="200"
-          x-large
-          color="primary"
-          :to="moderSelect.routing"
-          class="mx-auto mt-10"
-          >{{ moderSelect.name }}
-        </v-btn> -->
+        <nuxt-link v-else :to="moderSelect.routingHe">
+          <v-banner color="#0d4456" rounded shaped>
+            <v-icon large color="white"> mdi-cog </v-icon>
+            <span class="white--text">{{ $t('moder.moders') }}</span>
+          </v-banner>
+        </nuxt-link>
       </v-col>
     </v-row>
   </v-container>
@@ -54,17 +51,31 @@ export default {
       moderSelect: {
         name: 'Модераторы',
         routing: '/ru/learningModule/moderator/moders',
+        routingHe: '/learningModule/moderator/moders',
         key: 'moders'
-      }
+      },
+      isLoading: false
     }
   },
   computed: {
     ...mapGetters(['getValideModer'])
   },
   watch: {},
-  mounted() {},
+  async mounted() {
+    await this.validateModer()
+    this.isLoading = true
+  },
   created() {},
-  methods: {}
+  methods: {
+    nextModer() {
+      this.$router.push({
+        name: `learningModule-moderator-moders___${this.$i18n.locale}`
+      })
+    },
+    async validateModer() {
+      await this.$store.dispatch('VALIDATE_MODER')
+    }
+  }
 }
 </script>
 <style scoped></style>

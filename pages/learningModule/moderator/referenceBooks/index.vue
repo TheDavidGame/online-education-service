@@ -219,7 +219,7 @@ export default {
         subject: 'category',
         themes: 'subject',
         subthemes: 'themes',
-        university: 'subthemes',
+        university: '',
         faculties: 'university'
       }
     }
@@ -265,13 +265,17 @@ export default {
     },
     async addItem() {
       if (this.mainSelect !== 'category') {
-        this.showItemLinks = true
-        const obj = {
-          ln: this.langSelect,
-          name: this.comparisonArray[this.mainSelect]
+        if (this.mainSelect !== 'university') {
+          this.showItemLinks = true
+          const obj = {
+            ln: this.langSelect,
+            name: this.comparisonArray[this.mainSelect]
+          }
+          await this.$store.dispatch('GET_LIST', obj)
+          this.itemLinks = this.getListData.map(x => x.name)
+        } else {
+          this.showItemLinks = false
         }
-        await this.$store.dispatch('GET_LIST', obj)
-        this.itemLinks = this.getListData.map(x => x.name)
       } else {
         this.showItemLinks = false
       }
@@ -281,13 +285,17 @@ export default {
       this.editedIndex = this.itemTable.indexOf(item)
       this.editedItem = Object.assign({}, item)
       if (this.mainSelect !== 'category') {
-        this.showItemLinks = true
-        const obj = {
-          ln: this.langSelect,
-          name: this.comparisonArray[this.mainSelect]
+        if (this.mainSelect !== 'university') {
+          this.showItemLinks = true
+          const obj = {
+            ln: this.langSelect,
+            name: this.comparisonArray[this.mainSelect]
+          }
+          await this.$store.dispatch('GET_LIST', obj)
+          this.itemLinks = this.getListData.map(x => x.name)
+        } else {
+          this.showItemLinks = false
         }
-        await this.$store.dispatch('GET_LIST', obj)
-        this.itemLinks = this.getListData.map(x => x.name)
       } else {
         this.showItemLinks = false
       }

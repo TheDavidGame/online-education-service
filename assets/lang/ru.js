@@ -73,14 +73,14 @@ export default {
   ],
   moder_categories: [
     {
-      name: 'Каталог товаров',
-      routing: '/ru/learningModule/moderator/catalog',
-      key: 'catalog'
-    },
-    {
       name: 'Справочники',
       routing: '/ru/learningModule/moderator/referenceBooks',
       key: 'referenceBooks'
+    },
+    {
+      name: 'Каталог товаров',
+      routing: '/ru/learningModule/moderator/catalog',
+      key: 'catalog'
     }
   ],
   main_categories: [
