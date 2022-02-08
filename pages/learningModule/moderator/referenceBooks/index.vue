@@ -34,6 +34,9 @@
       :headers="headers"
       :items="itemTable"
       class="elevation-1"
+      :footer-props="{
+        'items-per-page-options': [10, 50, 100]
+      }"
     >
       <template v-slot:top>
         <v-toolbar flat>

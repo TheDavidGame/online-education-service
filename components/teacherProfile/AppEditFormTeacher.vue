@@ -477,7 +477,7 @@ export default {
       cityLessonItems: [],
       countrySecond: '',
       cities: [],
-      CurrencyItem: ['USD', 'RUB', 'EUR'],
+      CurrencyItem: ['$', '₽', '₴', '₪'],
       educationItems: [
         this.$t('teacherProfile.educationitemsHigher'),
         this.$t('teacherProfile.educationitemsInitialGeneral'),
@@ -609,10 +609,12 @@ export default {
         this.countryNames = countriesRu.map(x => {
           return x[lan]
         })
+        this.countryNames.sort()
       } else if (this.currentRouteName.substr(-2) === 'he') {
         this.countryNames = countriesHe.map(x => {
           return x[lan]
         })
+        this.countryNames.sort()
       }
     },
     removeCity(index) {

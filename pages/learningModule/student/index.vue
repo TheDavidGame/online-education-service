@@ -187,13 +187,12 @@
             <v-col cols="6" md="8" class="pa-5 my-n10 ms-5">
               <v-textarea
                 v-model="formTeacher.contactInformation"
-                :rules="[v => !!v || $t('learningModule.rulesField')]"
                 clearable
                 auto-grow
+                rows="2"
                 clear-icon="mdi-close-circle"
                 :label="$t('learningModule.contactInformation')"
                 value=""
-                required
               ></v-textarea>
             </v-col>
           </v-row>
@@ -212,15 +211,14 @@
             </v-col>
           </v-row> -->
           <v-row>
-            <v-col cols="6" md="8" class="pa-5 my-n4 ms-5">
+            <v-col cols="6" md="8" class="pa-5 mt-5 ms-5">
               <v-textarea
                 v-model="formTeacher.aboutMe"
-                :rules="[v => !!v || $t('learningModule.rulesField')]"
                 clearable
                 auto-grow
+                rows="2"
                 clear-icon="mdi-close-circle"
                 :label="$t('learningModule.aboutMe')"
-                required
               ></v-textarea>
             </v-col>
           </v-row>
@@ -439,10 +437,12 @@ export default {
         this.countryNames = countriesRu.map(x => {
           return x[lan]
         })
+        this.countryNames.sort()
       } else if (this.currentRouteName.substr(-2) === 'he') {
         this.countryNames = countriesHe.map(x => {
           return x[lan]
         })
+        this.countryNames.sort()
       }
     },
     onInput(selected) {

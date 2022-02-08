@@ -1,5 +1,5 @@
 export default {
-  addField: 'Добавить поле',
+  addField: 'Добавить запись',
   nameModer: 'Имя модератора',
   levelModer: 'Уровень модератора',
   cancel: 'Отменить',

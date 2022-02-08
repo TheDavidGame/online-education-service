@@ -151,7 +151,15 @@
                   </v-col>
                 </v-row>
               </div>
-
+              <!-- 
+              <v-row>
+                <v-col cols="6" md="6" class="ma-2"> </v-col>
+                <v-col cols="4" md="4">
+                  <v-btn class="primary" @click="addCity">{{
+                    $t('learningModule.addCity')
+                  }}</v-btn>
+                </v-col>
+              </v-row> -->
               <div cols="6" md="6" class="ma-2">
                 <v-btn class="primary" @click="addCity">{{
                   $t('learningModule.addCity')
@@ -193,27 +201,25 @@
             <v-col cols="6" md="8" class="pa-5 my-n10 ms-5">
               <v-textarea
                 v-model="formTeacher.contactInformation"
-                :rules="[v => !!v || $t('learningModule.rulesField')]"
                 clearable
                 auto-grow
                 clear-icon="mdi-close-circle"
                 :label="$t('learningModule.contactInformation')"
                 value=""
-                required
+                rows="2"
               ></v-textarea>
             </v-col>
           </v-row>
 
           <v-row>
-            <v-col cols="6" md="8" class="pa-5 my-n4 ms-5">
+            <v-col cols="6" md="8" class="pa-5 mt-2 ms-5">
               <v-textarea
                 v-model="formTeacher.placeOfWork"
                 clearable
                 auto-grow
                 clear-icon="mdi-close-circle"
-                :rules="[v => !!v || $t('learningModule.rulesField')]"
                 :label="$t('learningModule.placeOfWork')"
-                required
+                rows="2"
               ></v-textarea>
             </v-col>
           </v-row>
@@ -221,12 +227,11 @@
             <v-col cols="6" md="8" class="pa-5 my-n4 ms-5">
               <v-textarea
                 v-model="formTeacher.aboutMe"
-                :rules="[v => !!v || $t('learningModule.rulesField')]"
                 clearable
                 auto-grow
                 clear-icon="mdi-close-circle"
                 :label="$t('learningModule.aboutMe')"
-                required
+                rows="2"
               ></v-textarea>
             </v-col>
           </v-row>
@@ -234,10 +239,10 @@
             <v-col cols="6" md="8" class="pa-5 my-n4 ms-5">
               <v-textarea
                 v-model="formTeacher.descriptionLesson"
-                :rules="[v => !!v || $t('learningModule.rulesField')]"
                 clearable
                 auto-grow
                 clear-icon="mdi-close-circle"
+                rows="2"
                 :label="$t('learningModule.descriptionLesson')"
                 required
               ></v-textarea>
@@ -431,17 +436,15 @@ export default {
       ],
 
       selectCurrency: null,
-      CurrencyItem: ['USD', 'RUB', 'EUR'],
+      CurrencyItem: ['$', '₽', '₴', '₪'],
       selected: [],
       educationItems: [
         this.$t('learningModule.educationitemsHigher'),
-        this.$t('learningModule.educationitemsInitialGeneral'),
-
-        this.$t('learningModule.educationitemsLowerSecondary'),
+        this.$t('learningModule.educationitemsSecondaryVocational'),
 
         this.$t('learningModule.educationitemsCompleteSecondary'),
-
-        this.$t('learningModule.educationitemsSecondaryVocational')
+        this.$t('learningModule.educationitemsLowerSecondary'),
+        this.$t('learningModule.educationitemsInitialGeneral')
       ],
       subRemotely: this.$t('learningModule.subRemotely'),
       subHomeTeacher: this.$t('learningModule.subHomeTeacher'),
@@ -526,10 +529,12 @@ export default {
         this.countryNames = countriesRu.map(x => {
           return x[lan]
         })
+        this.countryNames.sort()
       } else if (this.currentRouteName.substr(-2) === 'he') {
         this.countryNames = countriesHe.map(x => {
           return x[lan]
         })
+        this.countryNames.sort()
       }
     },
     onInput(selected) {

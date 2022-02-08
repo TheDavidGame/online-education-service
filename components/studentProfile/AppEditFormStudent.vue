@@ -495,10 +495,12 @@ export default {
         this.countryNames = countriesRu.map(x => {
           return x[lan]
         })
+        this.countryNames.sort()
       } else if (this.currentRouteName.substr(-2) === 'he') {
         this.countryNames = countriesHe.map(x => {
           return x[lan]
         })
+        this.countryNames.sort()
       }
     },
     removeCity(index) {

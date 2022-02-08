@@ -1,5 +1,5 @@
 export default {
-  addField: 'הוספת שדה',
+  addField: 'הוספת רשומה',
   nameModer: 'שם המנחה',
   levelModer: 'רמת המנחה',
   cancel: 'ביטול',
