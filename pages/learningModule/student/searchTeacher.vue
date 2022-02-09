@@ -36,6 +36,7 @@
             clearable
             background-color="white"
             height="56px"
+            solo
             :label="$t('studentProfile.location')"
           ></v-text-field>
         </div>
@@ -55,28 +56,6 @@ export default {
   data() {
     return {
       dataFilter: {},
-      // ruItem: [
-      //   this.$t('studentProfile.math'),
-      //   this.$t('studentProfile.language'),
-      //   this.$t('studentProfile.physics'),
-      //   this.$t('studentProfile.geography')
-      // ],
-      // heItem: [
-      //   'תמטיקה תיכון 3 יח',
-      //   'מתמטיקה תיכון 4 יח',
-      //   'מתמטיקה תיכון 5 יחידות',
-      //   'אלגברה',
-      //   'חדוא 1',
-      //   'חדוא 2',
-      //   'חדוא 3',
-      //   'אינפי 1',
-      //   'אינפי 2',
-      //   'אינפי 3',
-      //   'תורת הקבוצות',
-      //   'קומבינטוריקה',
-      //   'הסתברות'
-      // ],
-      // itemSub: [],
       itemTeacher: [
         this.$t('studentProfile.moscow'),
         this.$t('studentProfile.volgograd')
@@ -173,7 +152,7 @@ header:after {
 .fields {
   position: relative;
   top: 150px;
-  width: 50%;
+  width: 80%;
 }
 
 .inner {

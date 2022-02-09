@@ -42,10 +42,10 @@
             <p class="text-overline mb-4">{{ $t('studentProfile.subName') }}</p>
             <div v-for="(subjects, m) in dataCard.subjects" :key="m">
               <v-row>
-                <v-col cols="5">
+                <v-col cols="12" md="6">
                   <p>- {{ subjects.name }}</p>
                 </v-col>
-                <v-col cols="6" class="ml-10">
+                <v-col cols="12" md="6">
                   <p>
                     {{ $t('studentProfile.subPrice') }} {{ subjects.price }}
                     {{ subjects.currency }}
@@ -60,14 +60,14 @@
           >
         </v-list-item-content>
 
-        <v-list-item-avatar v-if="dataCard.photo[0]" size="85">
+        <v-list-item-avatar v-if="dataCard.photo[0]" size="65">
           <v-img class="card-img" :src="profileImg"></v-img
         ></v-list-item-avatar>
 
         <v-list-item-avatar
           v-else
           tile
-          size="85"
+          size="65"
           color="grey"
         ></v-list-item-avatar>
       </v-list-item>
@@ -115,10 +115,10 @@
             <p class="text-overline mb-4">{{ $t('studentProfile.subName') }}</p>
             <div v-for="(subjects, m) in dataCard.subjects" :key="m">
               <v-row>
-                <v-col cols="5">
+                <v-col cols="12" md="6">
                   <p>- {{ subjects.name }}</p>
                 </v-col>
-                <v-col cols="6" class="ml-10">
+                <v-col cols="12" md="6">
                   <p>
                     {{ $t('studentProfile.subPrice') }} {{ subjects.price }}
                     {{ subjects.currency }}
@@ -133,14 +133,14 @@
           </v-list-item-subtitle>
         </v-list-item-content>
 
-        <v-list-item-avatar v-if="dataCard.photo[0]" size="85">
+        <v-list-item-avatar v-if="dataCard.photo[0]" size="65">
           <v-img class="card-img" :src="profileImg"></v-img
         ></v-list-item-avatar>
 
         <v-list-item-avatar
           v-else
           tile
-          size="85"
+          size="65"
           color="grey"
         ></v-list-item-avatar>
       </v-list-item>
@@ -174,7 +174,7 @@ export default {
   },
   computed: {
     profileImg() {
-      return `${process.env.LEARNING_API}/` + this.dataCard.photo[0]
+      return `${process.env.LEARNING_API}/apiLearning/` + this.dataCard.photo[0]
     }
   },
   mounted() {},

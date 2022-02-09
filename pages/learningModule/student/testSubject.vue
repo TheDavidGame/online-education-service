@@ -37,6 +37,7 @@
             background-color="white"
             height="56px"
             :label="$t('studentProfile.location')"
+            solo
           ></v-text-field>
         </div>
         <v-btn
@@ -181,7 +182,7 @@ header:after {
 .fields {
   position: relative;
   top: 150px;
-  width: 50%;
+  width: 80%;
 }
 
 .inner {

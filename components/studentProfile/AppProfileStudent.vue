@@ -143,7 +143,9 @@ export default {
   computed: {
     ...mapGetters(['isAuthenticated', 'userCredentials', 'loadingForm']),
     profileImg() {
-      return `${process.env.LEARNING_API}/` + this.dataStudent.photo[0]
+      return (
+        `${process.env.LEARNING_API}/apiLearning/` + this.dataStudent.photo[0]
+      )
     }
   },
   mounted() {

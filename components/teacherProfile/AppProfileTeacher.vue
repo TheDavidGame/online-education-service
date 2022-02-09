@@ -148,7 +148,9 @@ export default {
       'profileTeacherGet'
     ]),
     profileImg() {
-      return `${process.env.LEARNING_API}/` + this.dataTeacher.photo[0]
+      return (
+        `${process.env.LEARNING_API}/apiLearning/` + this.dataTeacher.photo[0]
+      )
     }
   },
   mounted() {

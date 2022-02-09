@@ -13,59 +13,77 @@
             </v-avatar>
           </v-col>
 
-          <v-col cols="12" md="4" sm="4" xs="4">
+          <v-col cols="12" md="4">
             <v-row class="py-7 justify-center">
-              <v-col cols="7">
+              <v-col cols="12" md="12">
+                <v-spacer></v-spacer>
+                <span
+                  class="grey--text text--lighten-2 text-caption"
+                  style="margin-left: 200px"
+                >
+                  ({{ dataTeacher.rating.toFixed(1) }})
+                </span>
                 <v-rating
                   v-model="dataTeacher.rating"
                   readonly
-                  class="mr-n5"
                   background-color="white lighten-3"
                   color="white"
                 ></v-rating>
               </v-col>
-              <v-col cols="5">
-                <span class="grey--text text--lighten-2 text-caption">
-                  ({{ dataTeacher.rating.toFixed(1) }})
-                </span>
+              <v-col
+                v-if="dataTeacher.subscription.status"
+                cols="12"
+                md="12"
+                class="ml-5"
+              >
+                <v-row>
+                  <v-col cols="12" md="7">
+                    <div>
+                      {{ $t('teacherProfile.phoneTeacher') }}
+                    </div>
+                  </v-col>
+                  <v-col cols="12" md="5">
+                    <div v-if="!showPhone">
+                      <v-btn x-small @click="showPhone = true">{{
+                        $t('teacherProfile.showPhone')
+                      }}</v-btn>
+                    </div>
+                    <div v-if="showPhone">
+                      <div>
+                        {{ dataTeacher.phone }}
+                      </div>
+                    </div>
+                  </v-col>
+                </v-row>
               </v-col>
-              <v-col v-if="dataTeacher.subscription.status" cols="12" md="11">
-                <div>{{ $t('teacherProfile.phoneTeacher') }}</div>
-
-                <div v-if="showPhone" cols="5">
-                  <div>{{ dataTeacher.phone }}</div>
-                </div>
-                <div v-if="!showPhone" cols="4">
-                  <v-btn x-small @click="showPhone = true">{{
-                    $t('teacherProfile.showPhone')
-                  }}</v-btn>
-                </div>
+              <v-col cols="11" md="12">
+                {{ $t('teacherProfile.location') }}:
+                {{ dataTeacher.cityOfResidence.city }}
               </v-col>
-              <v-col cols="11">
-                <div>
-                  {{ $t('teacherProfile.location') }}:
-                  {{ dataTeacher.cityOfResidence.city }}
-                </div>
-              </v-col>
-              <v-col cols="11">
-                <div>
-                  {{ $t('teacherProfile.gender') }}:
-                  {{ dataTeacher.sex }}
-                </div>
+              <v-col cols="11" md="12">
+                {{ $t('teacherProfile.gender') }}:
+                {{ dataTeacher.sex }}
               </v-col>
             </v-row>
           </v-col>
         </v-row>
-        <v-card-title class="ml-6"
-          >{{ dataTeacher.fullName }}
-          <div class="mx-3">
-            {{ $t('teacherProfile.age') }} {{ dataTeacher.age }}
-            <span>{{ ageChange(dataTeacher.age) }}</span>
-          </div>
-
-          <v-btn small @click="nextPageChat">{{
-            $t('teacherProfile.writeTeacher')
-          }}</v-btn>
+        <v-card-title>
+          <v-row class="mx-10">
+            <v-col cols="12" md="2" class="mr-n10">
+              {{ dataTeacher.fullName }}
+            </v-col>
+            <v-col cols="12" md="2">
+              <div>
+                {{ $t('teacherProfile.age') }} {{ dataTeacher.age }}
+                <span>{{ ageChange(dataTeacher.age) }}</span>
+              </div>
+            </v-col>
+            <v-col cols="12" md="12">
+              <v-btn small @click="nextPageChat">{{
+                $t('teacherProfile.writeTeacher')
+              }}</v-btn>
+            </v-col>
+          </v-row>
         </v-card-title>
       </v-img>
 
@@ -84,19 +102,19 @@
               "
             >
               <v-row style="text-align: left">
-                <v-col cols="6">
+                <v-col cols="12" md="6">
                   {{ $t('teacherProfile.descriptionLesson') }}:
                   {{ dataTeacher.descriptionLesson }}
                 </v-col>
-                <v-col cols="6">
+                <v-col cols="12" md="6">
                   {{ $t('teacherProfile.contactInformation') }}:
                   {{ dataTeacher.contactInformation }}
                 </v-col>
-                <v-col cols="6">
+                <v-col cols="12" md="6">
                   {{ $t('teacherProfile.education') }}:
                   {{ dataTeacher.education }}
                 </v-col>
-                <v-col cols="6">
+                <v-col cols="12" md="6">
                   {{ $t('teacherProfile.about') }}: {{ dataTeacher.aboutMe }}
                 </v-col>
               </v-row>
@@ -212,7 +230,9 @@ export default {
     ...mapGetters(['getTeacherIdData']),
 
     profileImg() {
-      return `${process.env.LEARNING_API}/` + this.dataTeacher.photo[0]
+      return (
+        `${process.env.LEARNING_API}/apiLearning/` + this.dataTeacher.photo[0]
+      )
     }
   },
   async mounted() {
