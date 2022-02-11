@@ -127,64 +127,68 @@
             v-for="(sub, i) in dataTeacher.subjects"
             :key="i"
             cols="12"
-            md="4"
-            sm="4"
-            class="pr-14"
+            md="6"
           >
             <v-card
-              height="auto"
-              width="auto"
-              style="background: #a9c9ff; text-align: left; padding: 1em"
+              class="mx-auto"
+              style="
+                background: #a9c9ff;
+                text-align: left;
+                padding: 1em;
+                min-width: 300px;
+                min-height: 300px;
+              "
+              readonly
             >
-              <p>{{ $t('teacherProfile.subName') }}</p>
-              <p class="text-h6 mb-1">
-                {{ sub.name }}
-              </p>
-              <!-- <v-text-field
-                v-model="sub.name"
-                clearable
-                clear-icon="mdi-close-circle"
-                label="Название предмета"
-                disabled
-              ></v-text-field> -->
+              <v-row>
+                <v-col cols="12" md="6" xs="4">
+                  <p>{{ $t('teacherProfile.subName') }}</p>
+                  <p class="text-h6 mb-1" style="overflow: auto">
+                    {{ sub.name }}
+                  </p>
+                </v-col>
+                <v-col cols="12" md="6">
+                  <p>{{ $t('teacherProfile.subprice') }}</p>
+                  <p class="text-h6 mb-1">{{ sub.price }} {{ sub.currency }}</p>
+                </v-col>
+                <!-- <v-col cols="12" md="6">
+                  <p>{{ $t('teacherProfile.subCurrency') }}</p>
+                  <p class="text-h6 mb-1">
+                    {{ sub.currency }}
+                  </p>
+                </v-col> -->
+                <v-col cols="12" md="6">
+                  <v-checkbox
+                    v-if="sub.lessonLocation[0]"
+                    v-model="sub.lessonLocation"
+                    :label="$t('teacherProfile.subRemotely')"
+                    :value="$t('teacherProfile.subRemotely')"
+                    readonly
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-if="sub.lessonLocation[1]"
+                    v-model="sub.lessonLocation"
+                    :label="$t('teacherProfile.subHomeTeacher')"
+                    :value="$t('teacherProfile.subHomeTeacher')"
+                    readonly
+                  ></v-checkbox>
 
-              <v-checkbox
-                v-if="sub.lessonLocation[0]"
-                v-model="sub.lessonLocation"
-                :label="$t('teacherProfile.subRemotely')"
-                :value="$t('teacherProfile.subRemotely')"
-                readonly
-              ></v-checkbox>
-              <v-checkbox
-                v-if="sub.lessonLocation[1]"
-                v-model="sub.lessonLocation"
-                :label="$t('teacherProfile.subHomeTeacher')"
-                :value="$t('teacherProfile.subHomeTeacher')"
-                readonly
-              ></v-checkbox>
-
-              <v-checkbox
-                v-if="sub.lessonLocation[2]"
-                v-model="sub.lessonLocation"
-                :label="$t('teacherProfile.subHomeStudent')"
-                :value="$t('teacherProfile.subHomeStudent')"
-                readonly
-              ></v-checkbox>
-              <v-checkbox
-                v-if="sub.lessonLocation[3]"
-                v-model="sub.lessonLocation"
-                :label="$t('teacherProfile.subHomeTeacherOrStudent')"
-                :value="$t('teacherProfile.subHomeTeacherOrStudent')"
-                readonly
-              ></v-checkbox>
-              <p>Цена</p>
-              <p class="text-h6 mb-1">
-                {{ sub.price }}
-              </p>
-              <p>{{ $t('teacherProfile.subCurrency') }}</p>
-              <p class="text-h6 mb-1">
-                {{ sub.currency }}
-              </p>
+                  <v-checkbox
+                    v-if="sub.lessonLocation[2]"
+                    v-model="sub.lessonLocation"
+                    :label="$t('teacherProfile.subHomeStudent')"
+                    :value="$t('teacherProfile.subHomeStudent')"
+                    readonly
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-if="sub.lessonLocation[3]"
+                    v-model="sub.lessonLocation"
+                    :label="$t('teacherProfile.subHomeTeacherOrStudent')"
+                    :value="$t('teacherProfile.subHomeTeacherOrStudent')"
+                    readonly
+                  ></v-checkbox>
+                </v-col>
+              </v-row>
             </v-card>
           </v-col>
         </v-row>

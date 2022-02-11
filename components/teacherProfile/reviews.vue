@@ -134,7 +134,7 @@ export default {
 
   methods: {
     profileImg(path) {
-      return `${process.env.LEARNING_API}/${path}`
+      return `${process.env.LEARNING_API}/apiLearning/` + path
     },
     async sendReviews() {
       this.dataFeedback.teacherId = this.uId
