@@ -46,7 +46,6 @@ export default {
     { title: 'בארטינג', icon: 'mdi-bitcoin', link: '/barting' },
     // { title: 'לוח מודעות', icon: 'mdi-clipboard-text', link: '/board' },
     { title: 'לימודים', icon: 'mdi-book', link: '/learningModule' },
-    { title: 'מנויים', icon: 'mdi-bank', link: '/catalogs/catalogs' },
     { title: 'הודעות', icon: 'mdi-chat', link: '/messager/dialogs' }
   ],
   learningModule_categories: [

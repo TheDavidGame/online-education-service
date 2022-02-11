@@ -190,6 +190,7 @@ export default {
   methods: {
     async loginHandlerSubmit() {
       await this.$store.dispatch('SIGN_IN', this.loginUser)
+      await this.$store.dispatch('GET_FORM_TEACHER')
     },
     recoverHandlerSubmit() {
       if (this.$refs.form_rec.validate()) {

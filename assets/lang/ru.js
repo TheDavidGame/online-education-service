@@ -44,18 +44,38 @@ export default {
       title: 'Публикации',
       icon: 'mdi-newspaper-variant-multiple-outline',
       link: '/ru',
-      home: true
+      home: true,
+      key: 'newspaper'
     },
-    { title: 'Профиль', icon: 'mdi-account-outline', link: '/ru/profile' },
-    { title: 'Бартинг', icon: 'mdi-bitcoin', link: '/ru/barting' },
+    {
+      title: 'Профиль',
+      icon: 'mdi-account-outline',
+      link: '/ru/profile',
+      key: 'profile'
+    },
+    {
+      title: 'Бартинг',
+      icon: 'mdi-bitcoin',
+      link: '/ru/barting',
+      key: 'barting'
+    },
     // {
     //   title: 'Доска объявлений',
     //   icon: 'mdi-clipboard-text',
     //   link: '/ru/board'
     // },
-    { title: 'Учебный модуль', icon: 'mdi-book', link: '/ru/learningModule' },
-    { title: 'Подписки', icon: 'mdi-bank', link: '/ru/catalogs/catalogs' },
-    { title: 'Сообщения', icon: 'mdi-chat', link: '/ru/messager/dialogs' }
+    {
+      title: 'Учебный модуль',
+      icon: 'mdi-book',
+      link: '/ru/learningModule',
+      key: 'learningModule'
+    },
+    {
+      title: 'Сообщения',
+      icon: 'mdi-chat',
+      link: '/ru/messager/dialogs',
+      key: 'chat'
+    }
   ],
   learningModule_categories: [
     {
